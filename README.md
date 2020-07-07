@@ -12,10 +12,12 @@
 * 2: Descargar [STS 4 (Spring Tool Suite)](https://spring.io/tools) según su sistema operativo.
 * 3: Descargar [Apache Tomcat 8.](https://tomcat.apache.org/download-80.cgi)
 	* Configurar el Apache Tomcat 8 en Spring Tool Suite 4 usando el [siguiente tutorial.](http://codigoxules.org/anadiendo-apache-tomcat-spring-tool-suite/)
-* 4: Descargar [MySQL Workbench 8](https://dev.mysql.com/downloads/workbench/) según su sistema operativo.
+* 4: Descargar [Maven 3.6.3.](https://maven.apache.org/download.cgi)
+	* Configurar Maven en Spring Tool Suite 4 usando el [siguiente tutorial.](http://javadesde0.com/instalando-maven-para-spring/)
+* 5: Descargar [MySQL Workbench 8](https://dev.mysql.com/downloads/workbench/) según su sistema operativo.
 	* Crear la base de datos, tablas y relaciones utilizando el siguiente [archivo DDL.](https://github.com/EzequielQR/TFG/blob/master/ddl.sql)
-* 5: Ejecutar el proyecto con STS (Spring Tool Suite) haciendo click derecho en: *proyecto>Run as>Run on Server* y esperar hasta que se ejecute.	
-* 6: Ingresar al sistema usando el siguiente nombre de usuario: admin y contraseña: Admin1234
+* 6: Ejecutar el proyecto con STS (Spring Tool Suite) haciendo click derecho en: *proyecto>Run as>Run on Server* y esperar hasta que se ejecute.	
+* 7: Ingresar al sistema usando el siguiente nombre de usuario: admin y contraseña: Admin1234
 
 ---
 #### Autor
