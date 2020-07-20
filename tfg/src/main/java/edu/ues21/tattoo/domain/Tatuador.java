@@ -3,6 +3,7 @@ package edu.ues21.tattoo.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,6 +21,8 @@ public class Tatuador extends Persona implements Serializable{
 	private Usuario usuario;
 	@OneToMany(mappedBy="tatuador", targetEntity=Turno.class)
 	private List<Turno> turnos;
+	@Column(name="pseudonimo")
+	private String pseudonimo;
 	
 	public Tatuador() {
 		super();
@@ -35,6 +38,12 @@ public class Tatuador extends Persona implements Serializable{
 	}
 	public void setTurnos(List<Turno> turnos) {
 		this.turnos = turnos;
+	}
+	public String getPseudonimo() {
+		return pseudonimo;
+	}
+	public void setPseudonimo(String pseudonimo) {
+		this.pseudonimo = pseudonimo;
 	}
 	
 }

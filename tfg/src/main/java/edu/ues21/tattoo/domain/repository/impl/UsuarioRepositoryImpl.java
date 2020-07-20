@@ -2,11 +2,13 @@ package edu.ues21.tattoo.domain.repository.impl;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import edu.ues21.tattoo.domain.Usuario;
 import edu.ues21.tattoo.domain.repository.UsuarioRepository;
 import edu.ues21.tattoo.util.HibernateUtil;
 
+@Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository{
 
 	@Override
@@ -43,19 +45,6 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 		query.setString("pk", username);
 		query.executeUpdate();
 		session.getTransaction().commit();
-	}
-
-	@Override
-	public Usuario check(String username, String hashedPassword) {
-		// TODO Auto-generated method stub
-		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery
-				("from Usuario where nombre = :nombre and contraseniaHash = :password");
-		query.setString("nombre", username);
-		query.setString("password", hashedPassword);
-		Usuario usuario = (Usuario) query.uniqueResult();
-		session.getTransaction().commit();
-		return usuario;
 	}
 
 }

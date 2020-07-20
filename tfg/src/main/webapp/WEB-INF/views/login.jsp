@@ -81,7 +81,7 @@
 				<div class="col-md-3 col-lg-3">
 					<div class="input-group">
 				        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input id="inputUser" type="email" class="form-control" placeholder="Usuario">
+						<input id="inputUser" type="text" class="form-control" placeholder="Usuario" name="username">
 					</div>
 				</div>
 			</div>	
@@ -90,7 +90,7 @@
 				<div class="col-md-3 col-lg-3">
 					<div class="input-group">
      				    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-						<input id="inputPassword" type="password" class="form-control" placeholder="Contraseña">
+						<input id="inputPassword" type="password" class="form-control" placeholder="Contraseña" name="rawPassword">
 					</div>
 				</div>
 			</div>

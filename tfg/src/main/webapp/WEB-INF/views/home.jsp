@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>9420 - Control Comercial</title>
+	<!-- 
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -18,7 +23,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-left" href="#"><img src="img-snowflake48x48.png"></a>
+				<a class="navbar-left" href="#"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
 				<ul class="nav navbar-nav">
@@ -50,7 +55,7 @@
 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Ezequiel Quispe Reyes</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> ${nombre}</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
 				</ul>
 			</div>
@@ -67,11 +72,11 @@
 				<div class = "panel panel-primary">
 				   
 				   <div class ="panel-heading">
-				   		<h3 style="text-align:center">Dra</h2>
+				   		<h3 style="text-align:center;">Dra</h2>
 				   </div>
 
 				   <div class = "panel-body">
-				   		<p>Turnos confirmados:</p>
+				   		<p style="text-align:center;">Turnos confirmados:</p>
 
 					    <ul class = "list-group list-group-flush">
 					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;09:30-11:30 -&nbsp;<b>Reyes, Ezequiel: </b>Japonés en pierna.</li>
@@ -91,7 +96,7 @@
 				   </div>
 				   
 				   <div class = "panel-body">
-				   		<p>Turnos confirmados:</p>
+				   		<p style="text-align:center;">Turnos confirmados:</p>
 
 					    <ul class = "list-group list-group-flush">
 					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;10:30-12:00 -&nbsp;<b>Bolatti, Mario: </b>Trash Polka en muslo.</li>
@@ -111,7 +116,7 @@
 				   </div>
 				   
 				   <div class = "panel-body">
-				      	<p>Turnos confirmados:</p>
+				      	<p style="text-align:center;">Turnos confirmados:</p>
 
 					    <ul class = "list-group list-group-flush">
 					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;11:00-13:30 -&nbsp;<b>Vázquez, Franco: </b>Blackwork en pierna.</li>

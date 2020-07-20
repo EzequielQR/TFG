@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import edu.ues21.tattoo.domain.FichaClinicaDetalleEts;
 import edu.ues21.tattoo.domain.repository.FichaClinicaDetalleEtsRepository;
 import edu.ues21.tattoo.util.HibernateUtil;
 
+@Repository
 public class FichaClinicaDetalleEtsRepositoryImpl implements FichaClinicaDetalleEtsRepository{
 
 	@Override

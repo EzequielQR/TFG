@@ -1,7 +1,7 @@
 package edu.ues21.tattoo.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Usuario implements Serializable{
 	@Column(name="contrasenia_hash")
 	private String contraseniaHash;
 	@Column(name="ultimo_cambio")
-	private LocalDateTime ultimoCambio;
+	private Date ultimoCambio;
 	@Column(name="activo")
 	private boolean activo;
 	
@@ -44,11 +44,11 @@ public class Usuario implements Serializable{
 		this.contraseniaHash = contraseniaHash;
 	}
 
-	public LocalDateTime getUltimoCambio() {
+	public Date getUltimoCambio() {
 		return ultimoCambio;
 	}
 
-	public void setUltimoCambio(LocalDateTime ultimoCambio) {
+	public void setUltimoCambio(Date ultimoCambio) {
 		this.ultimoCambio = ultimoCambio;
 	}
 

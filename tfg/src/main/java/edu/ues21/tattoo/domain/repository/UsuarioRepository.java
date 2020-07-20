@@ -7,5 +7,4 @@ public interface UsuarioRepository {
 	Usuario getById(String username);
 	void update(Usuario usuario);
 	void disable(String username);
-	Usuario check(String username, String hashedPassword);
 }
