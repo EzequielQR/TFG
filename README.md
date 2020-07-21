@@ -16,7 +16,8 @@
 	* Configurar Maven en Spring Tool Suite 4 usando el [siguiente tutorial.](http://javadesde0.com/instalando-maven-para-spring/)
 	* Verificar que se ha instalado correctamente ejecutando el comando `mvn -version` desde el CMD (Command Prompt).
 * 5: Descargar [MySQL Workbench 8](https://dev.mysql.com/downloads/workbench/) según su sistema operativo.
-	* Crear la base de datos, tablas y relaciones utilizando el siguiente [archivo DDL.](https://github.com/EzequielQR/TFG/blob/master/ddl.sql)
+	* Crear la base de datos, tablas y relaciones utilizando el siguiente [archivo DDL.](https://github.com/EzequielQR/TFG/blob/master/DDL.sql)
+	* Insertar datos en las tablas, utilizando el siguiente [archivo DML.](https://github.com/EzequielQR/TFG/blob/master/DML.sql)
 * 6: Ejecutar el proyecto con STS (Spring Tool Suite) haciendo click derecho en: *proyecto>Run as>Run on Server* y esperar hasta que se ejecute.	
 * 7: Ingresar al sistema usando el siguiente nombre de usuario: admin y contraseña: Admin1234
 
