@@ -3,6 +3,7 @@ package edu.ues21.tattoo.domain.repository.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -66,5 +67,4 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}
-
 }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,12 +48,6 @@
 								<li><a href="#">Gestión</a></li>
 							</ul>
 					</li>
-					<!--
-					<li>
-						<a href="#">Estadísticas</a>
-					</li>
-					-->
-
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> ${nombre}</a></li>
@@ -79,56 +74,23 @@
 					   <div class = "panel-body">
 					   		<p style="text-align:center;">Turnos confirmados:</p>
 	
-						    <ul class = "list-group list-group-flush">
-						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;S</li>
-						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;12:30-14:30 -&nbsp;<b>Sanchez, Nicolas: </b>Realismo en espalda.</li>
-						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;15:30-19:00 -&nbsp;<b>Campos, Marcos: </b>Realismo en pierna.</li>
-						  	</ul>
+							<c:forEach items="${item.turnos}" var="turnos">
+							    <ul class = "list-group list-group-flush">
+							   		<li class="list-group-item">
+							   			<i class="glyphicon glyphicon-calendar"></i>
+							   			&nbsp;<fmt:formatDate type="time" value="${turnos.fechaInicio}"
+							   			timeStyle="short"/>
+							   			<b>-&nbsp;${turnos.cliente.persona.apellido},&nbsp;${turnos.cliente.persona.nombre}:</b>
+							   			${turnos.descripcion}
+							   		</li>
+							  	</ul>
+						  	</c:forEach>
 					   </div>
 					   
 					</div>
 				</div>
 			</c:forEach>
 			
-			<div class="col-md-4 col-lg-4">
-				<div class = "panel panel-primary">
-				   
-				   <div class ="panel-heading">
-				   		<h3 style="text-align:center">Marchi Renzo</h3>
-				   </div>
-				   
-				   <div class = "panel-body">
-				   		<p style="text-align:center;">Turnos confirmados:</p>
-
-					    <ul class = "list-group list-group-flush">
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;10:30-12:00 -&nbsp;<b>Bolatti, Mario: </b>Trash Polka en muslo.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;18:30-20:30 -&nbsp;<b>Perez, Adriana: </b>Lettering en antebrazo.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;21:00-21:30 -&nbsp;<b>Ramonda, Charles: </b>New School en rodilla.</li>
-					   	</ul>
-				   </div>
-				 
-				</div>
-			</div>
-
-			<div class="col-md-4 col-lg-4">
-				<div class = "panel panel-primary">
-				   
-				   <div class ="panel-heading">
-				   		<h3 style="text-align:center">NQK</h3>
-				   </div>
-				   
-				   <div class = "panel-body">
-				      	<p style="text-align:center;">Turnos confirmados:</p>
-
-					    <ul class = "list-group list-group-flush">
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;11:00-13:30 -&nbsp;<b>Vázquez, Franco: </b>Blackwork en pierna.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;15:30-18:30 -&nbsp;<b>Suarez, Matías: </b>Old School en pierna.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;19:00-21:00 -&nbsp;<b>Herrera, Guido: </b>Neotradicional en pierna.</li>
-					   	</ul>
-				   </div>
-				   
-				</div>
-			</div>
 		</section>
 	</div>
 

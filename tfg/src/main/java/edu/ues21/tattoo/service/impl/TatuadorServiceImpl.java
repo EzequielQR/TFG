@@ -1,5 +1,7 @@
 package edu.ues21.tattoo.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,30 @@ public class TatuadorServiceImpl implements TatuadorService{
 	}
 
 	@Override
+	public List<Tatuador> getTattooistWithActualAppointments() {
+		// TODO Auto-generated method stub
+		List<Tatuador> listTattooist = tatuadorRepository.getAll();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		
+		//TODO: Inspeccionar que ocurre cuando no existen tatuadores
+		for(int index = 0; index < listTattooist.size(); index++) {
+			//TODO: Inspeccionar que ocurre cuando un tatuador no tiene turnos!!!!!!!!
+			
+			if(listTattooist.get(index).getTurnos() != null) {
+			
+				for(int subIndex = 0; subIndex < listTattooist.get(index).getTurnos().size(); subIndex++) {
+					if(fmt.format
+							(listTattooist.get(index).getTurnos().get(subIndex).getFechaInicio())
+							.equals(fmt.format(new Date())) == false) {
+						listTattooist.get(index).getTurnos().remove(subIndex);
+					}
+				}
+			}
+		}
+		return listTattooist;
+	}
+	
+	@Override
 	public Tatuador getById(int id) {
 		// TODO Auto-generated method stub
 		return tatuadorRepository.getById(id);
@@ -50,5 +76,4 @@ public class TatuadorServiceImpl implements TatuadorService{
 		// TODO Auto-generated method stub
 		tatuadorRepository.delete(id);
 	}
-	
 }

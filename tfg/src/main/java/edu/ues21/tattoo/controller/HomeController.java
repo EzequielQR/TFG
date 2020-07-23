@@ -18,7 +18,9 @@ public class HomeController {
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String welcome(Model model) {
 		model.addAttribute("nombre", UserUtil.getUsuario().getNombre());
-		model.addAttribute("list", tatuadorService.getAll());
+		
+		//No hacer un getAll. Hacer un getByFecha. Por ende, traer los turnos de la fecha de hoy.
+		model.addAttribute("list", tatuadorService.getTattooistWithActualAppointments());
 		
 		return "home";
 	}

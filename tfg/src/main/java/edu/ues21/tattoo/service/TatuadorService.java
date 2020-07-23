@@ -7,6 +7,7 @@ import edu.ues21.tattoo.domain.Tatuador;
 public interface TatuadorService {
 	int add(Tatuador tatuador);
 	List<Tatuador> getAll();
+	List<Tatuador> getTattooistWithActualAppointments();
 	Tatuador getById(int id);
 	void update(Tatuador tatuador);
 	void delete(Tatuador tatuador);
