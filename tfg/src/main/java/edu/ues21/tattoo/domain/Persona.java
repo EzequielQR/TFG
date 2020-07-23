@@ -6,16 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="personas")
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Persona implements Serializable{
+public class Persona implements Serializable{
 	
 	private static final long serialVersionUID = 8601740518104999903L;
 

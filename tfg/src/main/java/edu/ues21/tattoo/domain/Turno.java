@@ -1,7 +1,7 @@
 package edu.ues21.tattoo.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tatuadores")
+@Table(name="turnos")
 public class Turno implements Serializable{
 
 	private static final long serialVersionUID = -9096278711301517175L;
@@ -35,16 +35,16 @@ public class Turno implements Serializable{
 	@Column(name="descripcion")
 	private String descripcion;
 	@Column(name="fecha_inicio")
-	private LocalDateTime fechaInicio;
+	private Date fechaInicio;
 	@Column(name="fecha_fin")
-	private LocalDateTime fechaFin;
+	private Date fechaFin;
 	@OneToOne
 	@JoinColumn(name="categorias_id_prioridad")
 	private Categoria prioridad;
 	@OneToOne
 	@JoinColumn(name="categorias_id_estado")
 	private Categoria estado;
-	@OneToMany(mappedBy="turno", targetEntity=Producto.class)
+	@OneToMany(mappedBy="turno")
 	private List<Producto> listaProductosUtilizados;
 	@Column(name="seña")
 	private int senia;
@@ -93,19 +93,19 @@ public class Turno implements Serializable{
 		this.descripcion = descripcion;
 	}
 
-	public LocalDateTime getFechaInicio() {
+	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(LocalDateTime fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public LocalDateTime getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(LocalDateTime fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 

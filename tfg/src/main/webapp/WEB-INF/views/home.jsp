@@ -68,31 +68,33 @@
 			<h1 style="text-align:center">Turnos asignados para hoy:</h1>
 			<br>
 
-			<div class="col-md-4 col-lg-4">
-				<div class = "panel panel-primary">
-				   
-				   <div class ="panel-heading">
-				   		<h3 style="text-align:center;">Dra</h2>
-				   </div>
-
-				   <div class = "panel-body">
-				   		<p style="text-align:center;">Turnos confirmados:</p>
-
-					    <ul class = "list-group list-group-flush">
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;09:30-11:30 -&nbsp;<b>Reyes, Ezequiel: </b>Japonés en pierna.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;12:30-14:30 -&nbsp;<b>Sanchez, Nicolas: </b>Realismo en espalda.</li>
-					   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;15:30-19:00 -&nbsp;<b>Campos, Marcos: </b>Realismo en pierna.</li>
-					  	</ul>
-				   </div>
-				   
+			<c:forEach items="${list}" var="item">
+				<div class="col-md-4 col-lg-4">
+					<div class = "panel panel-primary">
+					   
+					   <div class ="panel-heading">
+					   		<h3 style="text-align:center;">${item.pseudonimo}</h3>
+					   </div>
+	
+					   <div class = "panel-body">
+					   		<p style="text-align:center;">Turnos confirmados:</p>
+	
+						    <ul class = "list-group list-group-flush">
+						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;S</li>
+						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;12:30-14:30 -&nbsp;<b>Sanchez, Nicolas: </b>Realismo en espalda.</li>
+						   		<li class="list-group-item"><i class="glyphicon glyphicon-calendar"></i>&nbsp;15:30-19:00 -&nbsp;<b>Campos, Marcos: </b>Realismo en pierna.</li>
+						  	</ul>
+					   </div>
+					   
+					</div>
 				</div>
-			</div>
-
+			</c:forEach>
+			
 			<div class="col-md-4 col-lg-4">
 				<div class = "panel panel-primary">
 				   
 				   <div class ="panel-heading">
-				   		<h3 style="text-align:center">Marchi Renzo</h2>
+				   		<h3 style="text-align:center">Marchi Renzo</h3>
 				   </div>
 				   
 				   <div class = "panel-body">
@@ -112,7 +114,7 @@
 				<div class = "panel panel-primary">
 				   
 				   <div class ="panel-heading">
-				   		<h3 style="text-align:center">NQK</h2>
+				   		<h3 style="text-align:center">NQK</h3>
 				   </div>
 				   
 				   <div class = "panel-body">

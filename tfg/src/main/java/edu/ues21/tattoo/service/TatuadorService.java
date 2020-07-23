@@ -1,0 +1,14 @@
+package edu.ues21.tattoo.service;
+
+import java.util.List;
+
+import edu.ues21.tattoo.domain.Tatuador;
+
+public interface TatuadorService {
+	int add(Tatuador tatuador);
+	List<Tatuador> getAll();
+	Tatuador getById(int id);
+	void update(Tatuador tatuador);
+	void delete(Tatuador tatuador);
+	void delete(int id);
+}
