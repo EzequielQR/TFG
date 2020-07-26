@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
 	<!--
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 	<style type="text/css">
 		body {
 		  /*SET RESPONSIVE BACKGROUND START*/ 
@@ -110,8 +111,7 @@
 			</div>
 		</div>
 	</nav>
-
-	<script src="bootstrap/js/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 </body>
 </html>

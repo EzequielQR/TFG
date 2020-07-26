@@ -1,13 +1,17 @@
 package edu.ues21.tattoo.domain.repository.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Example;
 import org.springframework.stereotype.Repository;
 
 import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.domain.repository.TatuadorRepository;
 import edu.ues21.tattoo.util.HibernateUtil;
 
@@ -32,7 +36,7 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		session.getTransaction().commit();
 		return list;
 	}
-
+	
 	@Override
 	public Tatuador getById(int id) {
 		// TODO Auto-generated method stub
@@ -41,7 +45,7 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		session.getTransaction().commit();
 		return tatuador;
 	}
-
+	
 	@Override
 	public void update(Tatuador tatuador) {
 		// TODO Auto-generated method stub

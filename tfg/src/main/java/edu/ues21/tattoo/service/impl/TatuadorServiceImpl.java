@@ -2,12 +2,14 @@ package edu.ues21.tattoo.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.domain.repository.TatuadorRepository;
 import edu.ues21.tattoo.service.TatuadorService;
 
@@ -35,18 +37,16 @@ public class TatuadorServiceImpl implements TatuadorService{
 		List<Tatuador> listTattooist = tatuadorRepository.getAll();
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		
-		//TODO: Inspeccionar que ocurre cuando no existen tatuadores
 		for(int index = 0; index < listTattooist.size(); index++) {
-			//TODO: Inspeccionar que ocurre cuando un tatuador no tiene turnos!!!!!!!!
 			
 			if(listTattooist.get(index).getTurnos() != null) {
-			
-				for(int subIndex = 0; subIndex < listTattooist.get(index).getTurnos().size(); subIndex++) {
-					if(fmt.format
-							(listTattooist.get(index).getTurnos().get(subIndex).getFechaInicio())
-							.equals(fmt.format(new Date())) == false) {
-						listTattooist.get(index).getTurnos().remove(subIndex);
-					}
+				  Iterator<Turno> itr = listTattooist.get(index).getTurnos().iterator();
+				  
+				  while(itr.hasNext()){
+					  Turno t = itr.next();
+					
+					  if(fmt.format(t.getFechaInicio()).equals(fmt.format(new Date())) == false) 
+						  itr.remove();
 				}
 			}
 		}
@@ -76,4 +76,5 @@ public class TatuadorServiceImpl implements TatuadorService{
 		// TODO Auto-generated method stub
 		tatuadorRepository.delete(id);
 	}
+
 }

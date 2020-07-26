@@ -8,10 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>9420 - Control Comercial</title>
-	<!-- 
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -78,7 +75,7 @@
 							    <ul class = "list-group list-group-flush">
 							   		<li class="list-group-item">
 							   			<i class="glyphicon glyphicon-calendar"></i>
-							   			&nbsp;<fmt:formatDate type="time" value="${turnos.fechaInicio}"
+							   			&nbsp;<fmt:formatDate type="both" value="${turnos.fechaInicio}"
 							   			timeStyle="short"/>
 							   			<b>-&nbsp;${turnos.cliente.persona.apellido},&nbsp;${turnos.cliente.persona.nombre}:</b>
 							   			${turnos.descripcion}
@@ -93,8 +90,7 @@
 			
 		</section>
 	</div>
-
-	<script src="bootstrap/js/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 </body>
 </html>

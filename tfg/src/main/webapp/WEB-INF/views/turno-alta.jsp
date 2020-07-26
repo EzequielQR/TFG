@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,8 +164,8 @@
 	</div>
 	<br>
 
-	<script src="bootstrap/js/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 	<script src="bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
 	<!-- SOLAMENTE FUNCIONA CON VERSIONES ANTERIORES A 2.7.0 -->
