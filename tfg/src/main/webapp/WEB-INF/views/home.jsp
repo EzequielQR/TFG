@@ -25,24 +25,25 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
 				<ul class="nav navbar-nav">
-
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<b class="caret"></b></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Gestión</a></li>
-							</ul>
-					</li>
-
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Clientes<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Gestión</a></li>
+								<li><a href="#">Crear Turno</a></li>
+								<li><a href="#">Visualizar Turno</a></li>
 							</ul>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<b class="caret"></b></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Gestión</a></li>
+								<li><a href="#">Crear Usuario</a></li>
+								<li><a href="#">Visualizar Usuarios</a></li>
+							</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Registrar Producto</a></li>
+								<li><a href="#">Visualizar Stock</a></li>
 							</ul>
 					</li>
 				</ul>
@@ -75,7 +76,7 @@
 							    <ul class = "list-group list-group-flush">
 							   		<li class="list-group-item">
 							   			<i class="glyphicon glyphicon-calendar"></i>
-							   			&nbsp;<fmt:formatDate type="both" value="${turnos.fechaInicio}"
+							   			&nbsp;<fmt:formatDate type="time" value="${turnos.fechaInicio}"
 							   			timeStyle="short"/>
 							   			<b>-&nbsp;${turnos.cliente.persona.apellido},&nbsp;${turnos.cliente.persona.nombre}:</b>
 							   			${turnos.descripcion}

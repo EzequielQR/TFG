@@ -11,14 +11,11 @@ public class UserUtil {
 
 	private static Usuario usuario;
 	
-	public static Usuario getUsuario() {
+	public static Usuario getUsuario(Usuario user) {
+		if(usuario == null) {
+			usuario = user;
+		}
 		return usuario;
-	}
-	/**
-	 * Llamar a este metodo cuando hace un login exitoso al sistema.
-	 */
-	public static void setUsuario(Usuario usuario) {
-		UserUtil.usuario = usuario;
 	}
 	/**
 	 * Llamar a este metodo cuando se deslogea del sistema.

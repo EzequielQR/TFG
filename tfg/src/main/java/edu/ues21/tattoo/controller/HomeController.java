@@ -17,8 +17,8 @@ public class HomeController {
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String welcome(Model model) {
-		model.addAttribute("nombre", UserUtil.getUsuario().getNombre());
-		
+		//TODO: FIXME Linea 21: NullPointerExcecption
+		model.addAttribute("nombre", UserUtil.getUsuario(null).getNombre());
 		model.addAttribute("list", tatuadorService.getTattooistWithActualAppointments());
 		
 		return "home";

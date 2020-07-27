@@ -27,7 +27,7 @@ public class LoginController {
 		Usuario user = usuarioService.check(usuario, rawPassword);
 		
 		if (user != null) {
-			UserUtil.setUsuario(user);
+			UserUtil.getUsuario(user);
 			return "redirect:/home";
 		} else {
 			return "redirect:/error";
