@@ -95,6 +95,42 @@
 				</div>
 				<br>
 				<div class="modal-body" id="modal_detail">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td><b>ID</b></td>
+								<td class="id_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Rol</b></td>
+								<td class="rol_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Apellido</b></td>
+								<td class="apellido_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Nombre</b></td>
+								<td class="nombre_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Tipo Documento</b></td>
+								<td class="tipo_doc_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Número Documento</b></td>
+								<td class="num_doc_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Domicilio</b></td>
+								<td class="domicilio_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Teléfono</b></td>
+								<td class="tel_modal"></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>	
@@ -118,7 +154,21 @@
 				//{key : value}
 				data: {person_id : person_id_obtained},
 				success: function(result){
-					$('#modal_detail').html(result);
+					//The JSON you are receiving is in string. You have to convert it into JSON object.
+					//Alert() only can display Strings.
+					//For debug proposes, use console.log(data);
+					
+					var obj1 = JSON.parse(result);
+					console.log(obj1);
+					
+					$('.id_modal').html(obj1.id);
+					$('.rol_modal').html(obj1.rol.nombre);
+					$('.apellido_modal').html(obj1.apellido);
+					$('.nombre_modal').html(obj1.nombre);
+					$('.tipo_doc_modal').html(obj1.tipoDocumento.nombre);
+					$('.num_doc_modal').html(obj1.numeroDocumento);
+					$('.domicilio_modal').html(obj1.domicilio);
+					$('.tel_modal').html(obj1.telefono);
 					//Trigger modal via Javascript:
 					$('#dataModal').modal("show");
 				}

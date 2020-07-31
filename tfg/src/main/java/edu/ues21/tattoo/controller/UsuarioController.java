@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.ues21.tattoo.domain.Persona;
 import edu.ues21.tattoo.service.PersonaService;
 
@@ -38,7 +41,15 @@ public class UsuarioController {
 	@RequestMapping(value="/ajaxcall", method = RequestMethod.GET)
 	public String populateModal(@RequestParam("person_id") int id) {
 		Persona p = personaService.getById(id);
+		ObjectMapper mapper = new ObjectMapper();
 		
-		return "ajaxcall";
+		try {
+			return mapper.writeValueAsString(p);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "error";
 	}
 }
