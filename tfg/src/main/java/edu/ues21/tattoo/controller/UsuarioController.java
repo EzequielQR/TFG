@@ -40,11 +40,13 @@ public class UsuarioController {
 	@ResponseBody
 	@RequestMapping(value="/ajaxcall", method = RequestMethod.GET)
 	public String populateModal(@RequestParam("person_id") int id) {
-		Persona p = personaService.getById(id);
+		Persona persona = personaService.getById(id);
 		ObjectMapper mapper = new ObjectMapper();
 		
+		java.util.List<Object> list = new java.util.ArrayList<Object>();
+		
 		try {
-			return mapper.writeValueAsString(p);
+			return mapper.writeValueAsString(persona);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
