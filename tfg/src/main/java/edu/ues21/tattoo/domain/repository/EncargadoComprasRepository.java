@@ -8,6 +8,7 @@ public interface EncargadoComprasRepository {
 	int add(EncargadoCompras encargadoCompras);
 	List<EncargadoCompras> getAll();
 	EncargadoCompras getById(int id);
+	EncargadoCompras getByPersonId(int id);
 	void update(EncargadoCompras encargadoCompras);
 	void delete(EncargadoCompras encargadoCompras);
 	void delete(int id);

@@ -12,7 +12,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ues21.tattoo.domain.Persona;
+import edu.ues21.tattoo.service.ClienteService;
+import edu.ues21.tattoo.service.EncargadoComprasService;
 import edu.ues21.tattoo.service.PersonaService;
+import edu.ues21.tattoo.service.RecepcionistaService;
+import edu.ues21.tattoo.service.TatuadorService;
+import edu.ues21.tattoo.service.UsuarioService;
 
 @Controller
 @RequestMapping(value = "/usuario")
@@ -20,6 +25,16 @@ public class UsuarioController {
 
 	@Autowired
 	private PersonaService personaService;
+	@Autowired
+	private TatuadorService tatuadorService;
+	@Autowired
+	private RecepcionistaService recepcionistaService;
+	@Autowired
+	private ClienteService clienteService;
+	@Autowired
+	private EncargadoComprasService encargadoComprasService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
@@ -41,11 +56,35 @@ public class UsuarioController {
 	@RequestMapping(value="/ajaxcall", method = RequestMethod.GET)
 	public String populateModal(@RequestParam("person_id") int id) {
 		Persona persona = personaService.getById(id);
-		ObjectMapper mapper = new ObjectMapper();
+		Object generic = new Object();
 		
-		java.util.List<Object> list = new java.util.ArrayList<Object>();
+		switch (persona.getRol().getNombre().toLowerCase()) {
+		case "tatuador":
+			generic = tatuadorService.getByPersonId(id);
+			break;
+			
+		case "cliente":
+			generic = clienteService.getByPersonId(id);
+			break;
+			
+		case "encargado de compras":
+			generic = encargadoComprasService.getByPersonId(id);
+			break;
+			
+		case "recepcionista":
+			generic = recepcionistaService.getByPersonId(id);
+			break;
+			
+		default:
+			System.err.println("Rol no soportado");
+			break;
+		}
 		
 		try {
+			ObjectMapper mapper = new ObjectMapper();
+			System.out.println(mapper.writeValueAsString(persona));
+			System.out.println(mapper.writeValueAsString(generic));
+			
 			return mapper.writeValueAsString(persona);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

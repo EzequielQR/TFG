@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import edu.ues21.tattoo.domain.Cliente;
 import edu.ues21.tattoo.domain.repository.ClienteRepository;
+import edu.ues21.tattoo.service.ClienteService;
 
 @Service
-public class ClienteServiceImpl implements ClienteRepository{
+public class ClienteServiceImpl implements ClienteService{
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -32,6 +33,12 @@ public class ClienteServiceImpl implements ClienteRepository{
 		return clienteRepository.getById(id);
 	}
 
+	@Override
+	public Cliente getByPersonId(int id) {
+		// TODO Auto-generated method stub
+		return clienteRepository.getByPersonId(id);
+	}
+	
 	@Override
 	public void update(Cliente cliente) {
 		// TODO Auto-generated method stub

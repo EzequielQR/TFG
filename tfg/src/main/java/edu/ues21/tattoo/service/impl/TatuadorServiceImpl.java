@@ -60,6 +60,12 @@ public class TatuadorServiceImpl implements TatuadorService{
 	}
 
 	@Override
+	public Tatuador getByPersonId(int id) {
+		// TODO Auto-generated method stub
+		return tatuadorRepository.getByPersonId(id);
+	}
+	
+	@Override
 	public void update(Tatuador tatuador) {
 		// TODO Auto-generated method stub
 		tatuadorRepository.update(tatuador);

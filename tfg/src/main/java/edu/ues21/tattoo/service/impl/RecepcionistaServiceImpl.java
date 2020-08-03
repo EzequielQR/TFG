@@ -34,6 +34,12 @@ public class RecepcionistaServiceImpl implements RecepcionistaService{
 	}
 
 	@Override
+	public Recepcionista getByPersonId(int id) {
+		// TODO Auto-generated method stub
+		return recepcionistaRepository.getByPersonId(id);
+	}
+	
+	@Override
 	public void update(Recepcionista recepcionista) {
 		// TODO Auto-generated method stub
 		recepcionistaRepository.update(recepcionista);

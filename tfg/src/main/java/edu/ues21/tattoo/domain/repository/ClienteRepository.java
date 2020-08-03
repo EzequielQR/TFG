@@ -8,6 +8,7 @@ public interface ClienteRepository {
 	int add(Cliente cliente);
 	List<Cliente> getAll();
 	Cliente getById(int id);
+	Cliente getByPersonId(int id);
 	void update(Cliente cliente);
 	void delete(Cliente cliente);
 	void delete(int id);

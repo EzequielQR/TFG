@@ -34,6 +34,12 @@ public class EncargadoComprasServiceImpl implements EncargadoComprasService{
 	}
 
 	@Override
+	public EncargadoCompras getByPersonId(int id) {
+		// TODO Auto-generated method stub
+		return encargadoComprasRepository.getByPersonId(id);
+	}
+	
+	@Override
 	public void update(EncargadoCompras encargadoCompras) {
 		// TODO Auto-generated method stub
 		encargadoComprasRepository.update(encargadoCompras);
