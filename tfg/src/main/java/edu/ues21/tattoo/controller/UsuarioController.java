@@ -17,7 +17,6 @@ import edu.ues21.tattoo.service.EncargadoComprasService;
 import edu.ues21.tattoo.service.PersonaService;
 import edu.ues21.tattoo.service.RecepcionistaService;
 import edu.ues21.tattoo.service.TatuadorService;
-import edu.ues21.tattoo.service.UsuarioService;
 
 @Controller
 @RequestMapping(value = "/usuario")
@@ -33,8 +32,6 @@ public class UsuarioController {
 	private ClienteService clienteService;
 	@Autowired
 	private EncargadoComprasService encargadoComprasService;
-	@Autowired
-	private UsuarioService usuarioService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
@@ -82,8 +79,9 @@ public class UsuarioController {
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			System.out.println(mapper.writeValueAsString(persona));
-			System.out.println(mapper.writeValueAsString(generic));
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(persona));
+			System.out.println("///////////////////////////////////////////////////////////////////");
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(generic));
 			
 			return mapper.writeValueAsString(persona);
 		} catch (JsonProcessingException e) {

@@ -42,11 +42,11 @@ public class EncargadoComprasRepositoryImpl implements EncargadoComprasRepositor
 	}
 
 	@Override
-	public EncargadoCompras getByPersonId(int id) {
+	public EncargadoCompras getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("from EncargadoCompras where persona = :id");
-		query.setInteger("id", id);
+		Query query = session.createQuery("from EncargadoCompras where persona.id = :id");
+		query.setInteger("id", idPerson);
 		EncargadoCompras encargadoCompras = (EncargadoCompras) query.uniqueResult();
 		session.getTransaction().commit();
 		return encargadoCompras;

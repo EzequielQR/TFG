@@ -34,9 +34,9 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public Cliente getByPersonId(int id) {
+	public Cliente getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
-		return clienteRepository.getByPersonId(id);
+		return clienteRepository.getByPersonId(idPerson);
 	}
 	
 	@Override

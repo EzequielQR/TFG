@@ -8,7 +8,7 @@ public interface ClienteService {
 	int add(Cliente cliente);
 	List<Cliente> getAll();
 	Cliente getById(int id);
-	Cliente getByPersonId(int id);
+	Cliente getByPersonId(int idPerson);
 	void update(Cliente cliente);
 	void delete(Cliente cliente);
 	void delete(int id);

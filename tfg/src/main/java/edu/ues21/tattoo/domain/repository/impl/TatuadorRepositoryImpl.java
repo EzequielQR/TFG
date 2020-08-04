@@ -42,11 +42,11 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 	}
 	
 	@Override
-	public Tatuador getByPersonId(int id) {
+	public Tatuador getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("from Tatuador where persona = :id");
-		query.setInteger("id", id);
+		Query query = session.createQuery("from Tatuador where persona.id = :id");
+		query.setInteger("id", idPerson);
 		Tatuador tatuador = (Tatuador) query.uniqueResult();
 		session.getTransaction().commit();
 		return tatuador;

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="turnos")
@@ -28,9 +36,11 @@ public class Turno implements Serializable{
 	private Persona iniciadoPor;
 	@ManyToOne
 	@JoinColumn(name="tatuadores_id")
+	@JsonBackReference
 	private Tatuador tatuador;
 	@ManyToOne
 	@JoinColumn(name="clientes_id")
+	@JsonBackReference
 	private Cliente cliente;
 	@Column(name="descripcion")
 	private String descripcion;
@@ -44,7 +54,9 @@ public class Turno implements Serializable{
 	@OneToOne
 	@JoinColumn(name="categorias_id_estado")
 	private Categoria estado;
-	@OneToMany(mappedBy="turno")
+	@OneToMany(mappedBy="turno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Producto.class)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonManagedReference
 	private List<Producto> listaProductosUtilizados;
 	@Column(name="seña")
 	private int senia;

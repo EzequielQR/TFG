@@ -8,7 +8,7 @@ public interface EncargadoComprasService {
 	int add(EncargadoCompras encargadoCompras);
 	List<EncargadoCompras> getAll();
 	EncargadoCompras getById(int id);
-	EncargadoCompras getByPersonId(int id);
+	EncargadoCompras getByPersonId(int idPerson);
 	void update(EncargadoCompras encargadoCompras);
 	void delete(EncargadoCompras encargadoCompras);
 	void delete(int id);

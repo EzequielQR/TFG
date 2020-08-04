@@ -60,9 +60,9 @@ public class TatuadorServiceImpl implements TatuadorService{
 	}
 
 	@Override
-	public Tatuador getByPersonId(int id) {
+	public Tatuador getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
-		return tatuadorRepository.getByPersonId(id);
+		return tatuadorRepository.getByPersonId(idPerson);
 	}
 	
 	@Override

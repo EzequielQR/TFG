@@ -42,11 +42,11 @@ public class RecepcionistaRepositoryImpl implements RecepcionistaRepository{
 	}
 	
 	@Override
-	public Recepcionista getByPersonId(int id) {
+	public Recepcionista getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("from Recepcionista where persona = :id");
-		query.setInteger("id", id);
+		Query query = session.createQuery("from Recepcionista where persona.id = :id");
+		query.setInteger("id", idPerson);
 		Recepcionista recepcionista = (Recepcionista) query.uniqueResult();
 		session.getTransaction().commit();
 		return recepcionista;

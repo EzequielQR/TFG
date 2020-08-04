@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="productos")
 public class Producto implements Serializable{
@@ -30,6 +32,7 @@ public class Producto implements Serializable{
 	private String caracteristica;
 	@ManyToOne
 	@JoinColumn(name="turnos_id")
+	@JsonBackReference
 	private Turno turno;
 	
 	public Producto() {

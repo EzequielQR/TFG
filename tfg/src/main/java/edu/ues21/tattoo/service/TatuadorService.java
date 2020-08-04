@@ -9,7 +9,7 @@ public interface TatuadorService {
 	List<Tatuador> getAll();
 	List<Tatuador> getTattooistWithActualAppointments();
 	Tatuador getById(int id);
-	Tatuador getByPersonId(int id);
+	Tatuador getByPersonId(int idPerson);
 	void update(Tatuador tatuador);
 	void delete(Tatuador tatuador);
 	void delete(int id);

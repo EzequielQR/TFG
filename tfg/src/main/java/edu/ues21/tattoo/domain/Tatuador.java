@@ -14,6 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="tatuadores")
 public class Tatuador implements Serializable{
@@ -27,6 +32,8 @@ public class Tatuador implements Serializable{
 	@JoinColumn(name="usuarios_nombre")
 	private Usuario usuario;
 	@OneToMany(mappedBy="tatuador", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=Turno.class)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonManagedReference
 	private List<Turno> turnos;
 	@Column(name="pseudonimo")
 	private String pseudonimo;

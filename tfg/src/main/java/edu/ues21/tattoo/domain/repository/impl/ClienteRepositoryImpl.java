@@ -42,11 +42,11 @@ public class ClienteRepositoryImpl implements ClienteRepository{
 	}
 
 	@Override
-	public Cliente getByPersonId(int id) {
+	public Cliente getByPersonId(int idPerson) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("from Cliente where persona = :id");
-		query.setInteger("id", id);
+		Query query = session.createQuery("from Cliente where persona.id = :id");
+		query.setInteger("id", idPerson);
 		Cliente cliente = (Cliente) query.uniqueResult();
 		session.getTransaction().commit();
 		return cliente;

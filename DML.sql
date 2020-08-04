@@ -32,9 +32,9 @@ INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `t
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('10', '93958889', 'Marcelo', 'Renzo', '351-3267541', 'San Lorenzo 756', '1', '8');
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('11', '98800536', 'Nahuel', 'Droguett', '351-6989044', 'Ituzaingo 484', '1', '8');
 
-INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'jmilei', '3');
+INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'jmilei', '8');
 
-INSERT INTO `tfg`.`recepcionistas` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'lserra', '4');
+INSERT INTO `tfg`.`recepcionistas` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'lserra', '9');
 
 INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`) VALUES ('1', 'gdroguett', '7', 'DRA');
 INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`) VALUES ('2', 'mrenzo', '10', 'Marchi Renzo');
