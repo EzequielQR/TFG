@@ -36,7 +36,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
 		model.addAttribute("personas", personaService.getAll());
-		return "visualizar-usuario";
+		return "usuario_visualizar";
 	}
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
@@ -79,11 +79,7 @@ public class UsuarioController {
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(persona));
-			System.out.println("///////////////////////////////////////////////////////////////////");
-			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(generic));
-			
-			return mapper.writeValueAsString(persona);
+			return mapper.writeValueAsString(generic);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -106,6 +106,14 @@
 								<td class="rol_modal"></td>
 							</tr>
 							<tr>
+								<td><b>Nombre de Usuario</b></td>
+								<td class="usuario_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Pseudónimo</b></td>
+								<td class="pseudonimo_modal"></td>
+							</tr>
+							<tr>
 								<td><b>Apellido</b></td>
 								<td class="apellido_modal"></td>
 							</tr>
@@ -162,13 +170,26 @@
 					console.log(obj1);
 					
 					$('.id_modal').html(obj1.id);
-					$('.rol_modal').html(obj1.rol.nombre);
-					$('.apellido_modal').html(obj1.apellido);
-					$('.nombre_modal').html(obj1.nombre);
-					$('.tipo_doc_modal').html(obj1.tipoDocumento.nombre);
-					$('.num_doc_modal').html(obj1.numeroDocumento);
-					$('.domicilio_modal').html(obj1.domicilio);
-					$('.tel_modal').html(obj1.telefono);
+					$('.rol_modal').html(obj1.persona.rol.nombre);
+
+					if(obj1.persona.rol.nombre.toUpperCase() === "CLIENTE"){
+						$('.usuario_modal').html("El rol actual no admite usuarios.");
+					} else {
+						$('.usuario_modal').html(obj1.usuario.nombre);
+					}
+					
+					if(obj1.persona.rol.nombre.toUpperCase() === "TATUADOR"){
+						$('.pseudonimo_modal').html(obj1.pseudonimo);
+					} else {
+						$('.pseudonimo_modal').html("El rol actual no admite pseudónimos.");
+					}
+					
+					$('.apellido_modal').html(obj1.persona.apellido);
+					$('.nombre_modal').html(obj1.persona.nombre);
+					$('.tipo_doc_modal').html(obj1.persona.tipoDocumento.nombre);
+					$('.num_doc_modal').html(obj1.persona.numeroDocumento);
+					$('.domicilio_modal').html(obj1.persona.domicilio);
+					$('.tel_modal').html(obj1.persona.telefono);
 					//Trigger modal via Javascript:
 					$('#dataModal').modal("show");
 				}
