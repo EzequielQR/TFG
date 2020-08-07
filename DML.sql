@@ -19,18 +19,18 @@ INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `ac
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('mrenzo', '$2a$10$lje9V1DWkD/xPYlXi.e9peztOD5OD92/Vr5p6e3qvvRRBwC2CwX7C', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ndroguett', '$2a$10$TDaO3EqhGz2T3d1TGAyjC./swcoTd2.WJYgnOyXOGV9wNc..PFjSq', '2020-07-20 11:13:15', '1');
 
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('1', '95933843', 'Ezequiel', 'Reyes', '388-3432000', 'Parana 487', '1', '9');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('2', '95933843', 'Charles', 'Ramonda', '351-5908312', 'Bv. Illia 444', '1', '9');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('3', '95933843', 'Leonard', 'di Prinzio', '351-6781290', 'Bv. San Juan 394', '1', '9');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('4', '95933843', 'Ferdinand', 'Frias', '351-3198533', 'Chile 144', '1', '9');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('5', '95933843', 'Callixtus', 'Maldonado', '351-4667891', 'Av. Velez Sarfield 333', '1', '9');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('6', '95933843', 'Paul', 'Godino', '351-6567700', 'Av. Pueyrredon 144', '1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('1', '95933843', 'Ezequiel', 'Reyes', '388-3432000', 'Parana 487', 'eezequielq@micorreo.com' ,'1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('2', '95933843', 'Charles', 'Ramonda', '351-5908312', 'Bv. Illia 444', 'cramonda@micorreo.com' ,'1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('3', '95933843', 'Leonard', 'di Prinzio', '351-6781290', 'Bv. San Juan 394', 'ldiprinzio@micorreo.com' ,'1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('4', '95933843', 'Ferdinand', 'Frias', '351-3198533', 'Chile 144', 'ffrias@micorreo.com' ,'1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('5', '95933843', 'Callixtus', 'Maldonado', '351-4667891', 'Av. Velez Sarfield 333', 'cmaldonado@micorreo.com' ,'1', '9');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('6', '95933843', 'Paul', 'Godino', '351-6567700', 'Av. Pueyrredon 144', 'pgodino@micorreo.com' ,'1', '9');
 
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('7', '93354553', 'Gaby', 'Droguett', '351-4108811', 'Rondeau 587', '1', '8');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('8', '98214560', 'Javier', 'Milei', '351-5961099', 'Obispo Salguero 300', '1', '10');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('9', '99488711', 'Lu', 'Serra', '351-6672201', 'Balcarce 222', '1', '11');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('10', '93958889', 'Marcelo', 'Renzo', '351-3267541', 'San Lorenzo 756', '1', '8');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('11', '98800536', 'Nahuel', 'Droguett', '351-6989044', 'Ituzaingo 484', '1', '8');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('7', '93354553', 'Gaby', 'Droguett', '351-4108811', 'Rondeau 587', 'gabydroguett@micorreo.com' ,'1', '8');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('8', '98214560', 'Javier', 'Milei', '351-5961099', 'Obispo Salguero 300', 'javimilei@micorreo.com' ,'1', '10');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('9', '99488711', 'Lu', 'Serra', '351-6672201', 'Balcarce 222', 'luserra@micorreo.com' ,'1', '11');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('10', '93958889', 'Marcelo', 'Renzo', '351-3267541', 'San Lorenzo 756', 'marrenzo@micorreo.com' ,'1', '8');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('11', '98800536', 'Nahuel', 'Droguett', '351-6989044', 'Ituzaingo 484', 'nahudroguett@micorreo.com' ,'1', '8');
 
 INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'jmilei', '8');
 
@@ -64,12 +64,12 @@ INSERT INTO `tfg`.`fichas_clinica_piel` (`id`, `psoriasis`, `eccema`, `queloide`
 INSERT INTO `tfg`.`fichas_clinica_ets` (`id`, `vih`, `sifilis`, `hepatitis_b`, `hpv`, `comentario`) VALUES ('6', '0', '0', '0', '0', 'No aplica');
 INSERT INTO `tfg`.`fichas_clinicas` (`id`, `grupo_sanguineo`, `factor_rh`, `alergias`, `problemas_cardiacos`, `comentarios`, `fichas_clinica_ets_id`, `fichas_clinica_piel_id`) VALUES ('6', 'AB', '+', 'Ninguno', 'Si', 'No aplica', '6', '6');
 
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('1', 'eezequielq@micorreo.com', '1', '1');
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('2', 'charles.ramonda@micorreo.com', '2', '2');
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('3', 'leonard.prinzio@micorreo.com', '3', '3');
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('4', 'fer_fr@micorreo.com', '4', '4');
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('5', 'cali_xto@micorreo.com', '5', '5');
-INSERT INTO `tfg`.`clientes` (`id`, `correo_electronico`, `fichas_clinicas_id`, `personas_id`) VALUES ('6', 'godino_bhaskara@micorreo.com', '6', '6');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('1', '1', '1');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('2', '2', '2');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('3', '3', '3');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('4', '4', '4');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('5', '5', '5');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('6', '6', '6');
 
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('1', 'Japonés en pierna.', current_timestamp(), '2000', '7', '6', '4', '1', '1');
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin` , `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('2', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 3 HOUR),'6000', '9', '7', '4', '1', '1');

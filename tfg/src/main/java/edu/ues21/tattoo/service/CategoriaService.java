@@ -1,10 +1,10 @@
-package edu.ues21.tattoo.domain.repository;
+package edu.ues21.tattoo.service;
 
 import java.util.List;
 
 import edu.ues21.tattoo.domain.Categoria;
 
-public interface CategoriaRepository {
+public interface CategoriaService {
 	int add(Categoria categoria);
 	List<Categoria> getAll();
 	Categoria getById(int id);

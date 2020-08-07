@@ -1,5 +1,6 @@
 package edu.ues21.tattoo.service.impl;
 
+import java.security.SecureRandom;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	public String add(String nombre, String apellido, String password) {
+	public String add(String nombre, String apellido) {
 		// TODO Auto-generated method stub
-		return usuarioRepository.add(createUsuario(nombre, apellido, password));
+		return usuarioRepository.add(createUsuario(nombre, apellido));
 	}
 
 	@Override
@@ -53,13 +54,30 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return null;
 	}
 	
-	private Usuario createUsuario(String nombre, String apellido, String rawPassword) {
+	private Usuario createUsuario(String nombre, String apellido) {
 		Usuario u = new Usuario();
 		u.setActivo(true);
 		u.setUltimoCambio(new Date());
 		u.setNombre(createName(nombre, apellido));
-		u.setContraseniaHash(generateBCryptHash(rawPassword));
+		u.setContraseniaHash(generateBCryptHash(generateRandomRawPassword()));
 		return u;
+	}
+	
+	private String generateRandomRawPassword() {
+	    final String MAYUSCULAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    final String MINUSCULAS = MAYUSCULAS.toLowerCase();
+	    final String NUMEROS = "0123456789";
+	    
+	    final String CARACTERES_ALFANUMERICOS = MAYUSCULAS + MINUSCULAS + NUMEROS;
+	    
+	    SecureRandom rnd = new SecureRandom();
+	    StringBuilder sb = new StringBuilder(6);
+	    
+	    for(int i = 0; i < 6; i++) {
+	    	sb.append(CARACTERES_ALFANUMERICOS.charAt(rnd.nextInt(CARACTERES_ALFANUMERICOS.length())));
+	    }
+		
+		return sb.toString();
 	}
 	
 	private String generateBCryptHash(String rawPassword) {
@@ -83,6 +101,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 	}
 	
+	// \\s -> Para matchear "single white space character"
 	private String generateName(String nombre, String apellido) {
 		String username = nombre.substring(0, 1).toLowerCase() +
 				apellido.toLowerCase().trim().replaceAll("\\s", "");

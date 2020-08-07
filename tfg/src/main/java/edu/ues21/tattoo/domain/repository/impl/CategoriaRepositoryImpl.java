@@ -40,6 +40,29 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 		session.getTransaction().commit();
 		return categoria;
 	}
+	
+	
+	@Override
+	public List<Categoria> getByTipo(int tipo) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Categoria where tipo = :tipo");
+		query.setInteger("tipo", tipo);
+		List<Categoria> list = query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	
+	@Override
+	public Categoria getByName(String name) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Categoria where nombre = :nombre");
+		query.setString("nombre", name);
+		Categoria categoria = (Categoria) query.uniqueResult();
+		session.getTransaction().commit();
+		return categoria;
+	}
 
 	@Override
 	public void update(Categoria categoria) {

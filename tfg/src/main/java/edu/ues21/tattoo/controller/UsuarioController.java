@@ -3,6 +3,7 @@ package edu.ues21.tattoo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,11 +13,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ues21.tattoo.domain.Persona;
+import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.EncargadoComprasService;
 import edu.ues21.tattoo.service.PersonaService;
 import edu.ues21.tattoo.service.RecepcionistaService;
 import edu.ues21.tattoo.service.TatuadorService;
+import edu.ues21.tattoo.service.UsuarioService;
 
 @Controller
 @RequestMapping(value = "/usuario")
@@ -32,6 +35,10 @@ public class UsuarioController {
 	private ClienteService clienteService;
 	@Autowired
 	private EncargadoComprasService encargadoComprasService;
+	@Autowired
+	private CategoriaService categoriaService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
@@ -41,11 +48,24 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String create(Model model) {
-		return "crearUsuario";
+		model.addAttribute("nuevaPersona", new Persona());
+		model.addAttribute("listaTipoDocumentos", categoriaService.getByTipo(1));
+		model.addAttribute("listaRoles", categoriaService.getByTipo(4));
+		return "usuario_crear";
 	}
 	
 	@RequestMapping(value="/crear", method = RequestMethod.POST)
-	public String processNewUser(Model model) {
+	public String create(@ModelAttribute("nuevaPersona") Persona nuevaPersona,
+						 @RequestParam("usuarioDocumento") String dni,
+						 @RequestParam("usuarioRol") String rol) {
+		nuevaPersona.setTipoDocumento(categoriaService.getByName(dni));
+		nuevaPersona.setRol(categoriaService.getByName(rol));
+		
+		if(!rol.equalsIgnoreCase("cliente")) {
+			String username = usuarioService.add(nuevaPersona.getNombre(), nuevaPersona.getApellido());
+			//TODO: Mandar email.
+		}
+		
 		return "redirect:/usuario/mostrar";
 	}
 	
