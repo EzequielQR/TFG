@@ -62,8 +62,7 @@ public class UsuarioController {
 		nuevaPersona.setRol(categoriaService.getByName(rol));
 		
 		if(!rol.equalsIgnoreCase("cliente")) {
-			String username = usuarioService.add(nuevaPersona.getNombre(), nuevaPersona.getApellido());
-			//TODO: Mandar email.
+			String username = usuarioService.add(nuevaPersona.getNombre(), nuevaPersona.getApellido(), nuevaPersona.getCorreoElectronico());
 		}
 		
 		return "redirect:/usuario/mostrar";

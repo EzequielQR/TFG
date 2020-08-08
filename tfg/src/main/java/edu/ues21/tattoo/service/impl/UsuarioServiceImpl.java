@@ -2,6 +2,17 @@ package edu.ues21.tattoo.service.impl;
 
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -20,9 +31,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	public String add(String nombre, String apellido) {
+	public String add(String nombre, String apellido, String correoElectronico) {
 		// TODO Auto-generated method stub
-		return usuarioRepository.add(createUsuario(nombre, apellido));
+		String username = createUsername(nombre, apellido);
+		String rawPassword = generateRandomRawPassword();
+		
+		sendMail(correoElectronico, username, rawPassword);
+		return usuarioRepository.add(createUsuario(username, rawPassword));
 	}
 
 	@Override
@@ -54,12 +69,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return null;
 	}
 	
-	private Usuario createUsuario(String nombre, String apellido) {
+	private Usuario createUsuario(String username, String rawPassword) {
 		Usuario u = new Usuario();
 		u.setActivo(true);
 		u.setUltimoCambio(new Date());
-		u.setNombre(createName(nombre, apellido));
-		u.setContraseniaHash(generateBCryptHash(generateRandomRawPassword()));
+		u.setNombre(username);
+		u.setContraseniaHash(generateBCryptHash(rawPassword));
 		return u;
 	}
 	
@@ -86,7 +101,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return hashedPassword;
 	}
 	
-	private String createName(String nombre, String apellido) {
+	private String createUsername(String nombre, String apellido) {
 		String username = generateName(nombre, apellido);
 		
 		if(usuarioRepository.getById(username) == null)
@@ -109,4 +124,73 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return username;
 	}
 
+	private void sendMail(String mailDestino, String username, String rawPassword) {
+		//TODO: Read both constants via external file.
+		final String MAIL_ORIGEN = "";
+		final String PASSWORD = "";
+		
+		Properties properties = new Properties();
+
+		//TODO: Don't use TLS, use SSL instead.
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		
+		/*SSL:
+		 *  prop.put("mail.smtp.host", "smtp.gmail.com");
+	        prop.put("mail.smtp.port", "465");
+	        prop.put("mail.smtp.auth", "true");
+	        prop.put("mail.smtp.socketFactory.port", "465");
+	        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		 */
+		
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				// TODO Auto-generated method stub
+				return new PasswordAuthentication(MAIL_ORIGEN, PASSWORD);
+			}
+		});
+		
+		Message message = prepareMesage(session, MAIL_ORIGEN, mailDestino, username, rawPassword);
+		
+		try {
+			Transport.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Message prepareMesage(Session session, String mailOrigen, String mailDestino, String username,
+								  String rawPassword) {
+		// TODO Auto-generated method stub
+		final String TITULO_CORREO = "Datos de acceso";
+		final String CUERPO_MENSAJE = "A continuación, se proporciona su cuenta y contraseña." + " "
+									  + "No comparta estos datos con nadie.\n\\n"
+									  + "Nombre de cuenta: " + username + "\n"
+									  + "Contraseña: " + rawPassword;
+		final String CUERPO_MENSAJE_HTML = "A continuación, se proporciona su cuenta y contraseña.<br>" + " "
+									  + "No comparta estos datos con nadie.<br><br>"
+									  + "<b>Nombre de cuenta:&nbsp;</b>" + username + "<br>"
+									  + "<b>Contraseña:&nbsp;</b>" + rawPassword;
+		
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(mailOrigen));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailDestino));
+			
+			message.setSubject(TITULO_CORREO);
+			//message.setText(CUERPO_MENSAJE);
+			message.setContent(CUERPO_MENSAJE_HTML, "text/html");
+			
+			return message;
+			
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

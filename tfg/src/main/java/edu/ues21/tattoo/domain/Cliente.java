@@ -28,8 +28,6 @@ public class Cliente implements Serializable{
 	@Id
 	@GeneratedValue
 	private int id;
-	@Column(name="correo_electronico")
-	private String correoElectronico;
 	@OneToMany(mappedBy="cliente", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=Turno.class)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
@@ -49,12 +47,6 @@ public class Cliente implements Serializable{
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getCorreoElectronico() {
-		return correoElectronico;
-	}
-	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
 	}
 	public List<Turno> getListaTurnos() {
 		return listaTurnos;

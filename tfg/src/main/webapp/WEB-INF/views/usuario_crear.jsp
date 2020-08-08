@@ -54,9 +54,8 @@
 			</div>
 		</div>
 	</nav>
-	<br><br>
 	<div class="container">
-		<section class="main row">
+		<div class="main row">
 			<form:form method="POST" modelAttribute="nuevaPersona" id="myForm">
 				<fieldset>
 					<legend>Crear Usuario</legend>
@@ -95,6 +94,11 @@
 					</div>
 					
 					<div class="form-group">
+						<label for="inputEmail">Correo electrónico</label>
+						<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
+					</div>
+					
+					<div class="form-group">
 						<label for="inputTel">Teléfono</label>
 						<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
 					</div>
@@ -110,7 +114,7 @@
 					
 				</fieldset>
 			</form:form>
-		</section>
+		</div>
 	</div>
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>

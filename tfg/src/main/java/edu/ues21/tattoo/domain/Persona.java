@@ -32,6 +32,8 @@ public class Persona implements Serializable{
 	private String telefono;
 	@Column(name="domicilio")
 	private String domicilio;
+	@Column(name="correo_electronico")
+	private String correoElectronico;
 	@OneToOne
 	@JoinColumn(name="categorias_id_rol")
 	private Categoria rol;
@@ -96,6 +98,14 @@ public class Persona implements Serializable{
 		this.domicilio = domicilio;
 	}
 
+	public String getCorreoElectronico() {
+		return correoElectronico;
+	}
+
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
+	}
+	
 	public Categoria getRol() {
 		return rol;
 	}
