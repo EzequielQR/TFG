@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ues21.tattoo.domain.Cliente;
+import edu.ues21.tattoo.domain.EncargadoCompras;
 import edu.ues21.tattoo.domain.Persona;
+import edu.ues21.tattoo.domain.Recepcionista;
+import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.Usuario;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.EncargadoComprasService;
@@ -57,12 +62,54 @@ public class UsuarioController {
 	@RequestMapping(value="/crear", method = RequestMethod.POST)
 	public String create(@ModelAttribute("nuevaPersona") Persona nuevaPersona,
 						 @RequestParam("usuarioDocumento") String dni,
-						 @RequestParam("usuarioRol") String rol) {
+						 @RequestParam("usuarioRol") String rol,
+						 @RequestParam(required = false, name = "tatuadorAlias") String alias) {
 		nuevaPersona.setTipoDocumento(categoriaService.getByName(dni));
 		nuevaPersona.setRol(categoriaService.getByName(rol));
 		
+		Usuario usuario = new Usuario();
+		
 		if(!rol.equalsIgnoreCase("cliente")) {
-			String username = usuarioService.add(nuevaPersona.getNombre(), nuevaPersona.getApellido(), nuevaPersona.getCorreoElectronico());
+			usuario.setNombre(usuarioService.add(nuevaPersona.getNombre(), 
+							   nuevaPersona.getApellido(),
+							   nuevaPersona.getCorreoElectronico()));
+			
+		}
+		
+		switch (rol.toLowerCase()) {
+		case "tatuador":
+			Tatuador tatuador = new Tatuador();
+			tatuador.setPseudonimo(alias);
+			tatuador.setPersona(nuevaPersona);
+			tatuador.setUsuario(usuario);
+			
+			tatuadorService.add(tatuador);
+			break;
+			
+		case "cliente":
+			Cliente cliente = new Cliente();
+			cliente.setPersona(nuevaPersona);
+			break;
+			
+		case "encargado de compras":
+			EncargadoCompras encargadoCompras = new EncargadoCompras();
+			encargadoCompras.setPersona(nuevaPersona);
+			encargadoCompras.setUsuario(usuario);
+			
+			encargadoComprasService.add(encargadoCompras);
+			break;
+			
+		case "recepcionista":
+			Recepcionista recepcionista = new Recepcionista();
+			recepcionista.setPersona(nuevaPersona);
+			recepcionista.setUsuario(usuario);
+			
+			recepcionistaService.add(recepcionista);
+			break;
+
+		default:
+			System.err.println("Rol no soportado");
+			break;
 		}
 		
 		return "redirect:/usuario/mostrar";

@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>9420 - Control Comercial</title>
+	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 </head>
 <body>
@@ -29,10 +30,10 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Crear Turno</a></li>
-								<li><a href="#">Visualizar Turno</a></li>
+								<li><a href="#">Visualizar Turnos</a></li>
 							</ul>
 					</li>
-					<li class="dropdown">
+					<li class="dropdown active">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Crear Usuario</a></li>
@@ -80,6 +81,11 @@
 					</div>
 					
 					<div class="form-group">
+						<label for="inputAlias">Alias</label>
+						<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias">
+					</div>
+					
+					<div class="form-group">
 						<label for="tipoDoc">Seleccione el tipo de documento</label>
 						<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
 							<c:forEach items="${listaTipoDocumentos}" var="documento">
@@ -109,14 +115,58 @@
 					</div>
 					
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary" id="btnAdd" value="Agregar">
+						<button type="submit" class="btn btn-success">
+							<span class="glyphicon glyphicon-user"></span>
+							Agregar
+						</button>
+						
+						<button type="submit" class="btn btn-danger" id="btnFichaClinica">
+							<span class="glyphicon glyphicon-tint"></span>
+							Agregar ficha clínica
+						</button>
 					</div>
-					
 				</fieldset>
 			</form:form>
 		</div>
 	</div>
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
+	<script type="text/javascript">
+		//. class
+		//# id
+		$(document).ready(function(){
+			//Comprobacion inicial
+   			if( $("#tipoUsuario").find(":selected").text().toUpperCase() === 'TATUADOR' ){
+   				$("#inputAlias").prop('required', true);
+   				$("#inputAlias").prop('disabled', false);
+   			} else {
+   				$("#inputAlias").prop('required', false);
+   				$("#inputAlias").prop('disabled', true);
+   			}
+
+   			if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
+   				$("#btnFichaClinica").prop('disabled', false);
+			} else {
+				$("#btnFichaClinica").prop('disabled', true);
+			}
+			
+			//Cuando el select cambia de estado, se evalua la condicion
+			$("#tipoUsuario").change(function(){
+				if($("#tipoUsuario option:selected").text().toUpperCase() === 'TATUADOR'){
+	   				$("#inputAlias").prop('required', true);
+	   				$("#inputAlias").prop('disabled', false);
+				} else {
+	   				$("#inputAlias").prop('required', false);
+	   				$("#inputAlias").prop('disabled', true);
+				}
+				
+				if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
+	   				$("#btnFichaClinica").prop('disabled', false);
+				} else {
+					$("#btnFichaClinica").prop('disabled', true);
+				}
+			})
+    	});
+	</script>
 </body>
 </html>

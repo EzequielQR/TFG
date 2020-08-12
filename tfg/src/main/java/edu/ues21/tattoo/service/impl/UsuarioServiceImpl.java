@@ -126,24 +126,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	private void sendMail(String mailDestino, String username, String rawPassword) {
 		//TODO: Read both constants via external file.
-		final String MAIL_ORIGEN = "";
-		final String PASSWORD = "";
+		final String MAIL_ORIGEN = "noreply.tatuaje@gmail.com";
+		final String PASSWORD = "tfg108811";
 		
 		Properties properties = new Properties();
-
-		//TODO: Don't use TLS, use SSL instead.
-		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
 		
-		/*SSL:
-		 *  prop.put("mail.smtp.host", "smtp.gmail.com");
-	        prop.put("mail.smtp.port", "465");
-	        prop.put("mail.smtp.auth", "true");
-	        prop.put("mail.smtp.socketFactory.port", "465");
-	        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		 */
+		//SSL:
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.socketFactory.port", "465");
+		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		properties.put("mail.smtp.port", "465");
+		properties.put("mail.smtp.auth", "true");
+		 
 		
 		Session session = Session.getInstance(properties, new Authenticator() {
 			@Override
@@ -159,6 +153,28 @@ public class UsuarioServiceImpl implements UsuarioService{
 			Transport.send(message);
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			
+			properties.clear();
+			//TLS:
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.starttls.enable", "true");
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.port", "587");
+			
+			session = Session.getInstance(properties, new Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					// TODO Auto-generated method stub
+					return new PasswordAuthentication(MAIL_ORIGEN, PASSWORD);
+				}
+			});
+			message = prepareMesage(session, MAIL_ORIGEN, mailDestino, username, rawPassword);
+			try {
+				Transport.send(message);
+			} catch (MessagingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -186,8 +202,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 			
 			return message;
 			
-		} catch (AddressException e) {
-			e.printStackTrace();
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

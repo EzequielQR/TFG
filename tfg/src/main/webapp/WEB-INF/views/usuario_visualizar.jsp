@@ -9,6 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>9420 - Control Comercial</title>
+	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 </head>
 <body>
@@ -30,10 +31,10 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Crear Turno</a></li>
-								<li><a href="#">Visualizar Turno</a></li>
+								<li><a href="#">Visualizar Turnos</a></li>
 							</ul>
 					</li>
-					<li class="dropdown">
+					<li class="dropdown active">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Crear Usuario</a></li>

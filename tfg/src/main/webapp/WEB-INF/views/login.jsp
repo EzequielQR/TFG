@@ -11,6 +11,7 @@
 	<!--
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	-->
+	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 	<style type="text/css">
 		body {
