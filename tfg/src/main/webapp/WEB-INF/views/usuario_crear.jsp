@@ -115,12 +115,12 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-success">
+						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="save">
 							<span class="glyphicon glyphicon-user"></span>
 							Agregar
 						</button>
 						
-						<button type="submit" class="btn btn-danger" id="btnFichaClinica">
+						<button type="submit" class="btn btn-danger" id="btnFichaClinica" name="action" value="ficha_clinica">
 							<span class="glyphicon glyphicon-tint"></span>
 							Agregar ficha clínica
 						</button>

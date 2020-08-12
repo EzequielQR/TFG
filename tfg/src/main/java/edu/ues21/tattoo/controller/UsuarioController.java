@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ues21.tattoo.domain.Cliente;
 import edu.ues21.tattoo.domain.EncargadoCompras;
+import edu.ues21.tattoo.domain.FichaClinica;
+import edu.ues21.tattoo.domain.FichaClinicaDetalleEts;
+import edu.ues21.tattoo.domain.FichaClinicaDetallePiel;
 import edu.ues21.tattoo.domain.Persona;
 import edu.ues21.tattoo.domain.Recepcionista;
 import edu.ues21.tattoo.domain.Tatuador;
@@ -21,6 +24,9 @@ import edu.ues21.tattoo.domain.Usuario;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.EncargadoComprasService;
+import edu.ues21.tattoo.service.FichaClinicaDetalleEtsService;
+import edu.ues21.tattoo.service.FichaClinicaDetallePielService;
+import edu.ues21.tattoo.service.FichaClinicaService;
 import edu.ues21.tattoo.service.PersonaService;
 import edu.ues21.tattoo.service.RecepcionistaService;
 import edu.ues21.tattoo.service.TatuadorService;
@@ -44,6 +50,12 @@ public class UsuarioController {
 	private CategoriaService categoriaService;
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private FichaClinicaService fichaClinicaService;
+	@Autowired
+	private FichaClinicaDetallePielService fichaClinicaDetallePielService;
+	@Autowired
+	private FichaClinicaDetalleEtsService fichaClinicaDetalleEtsService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
@@ -63,9 +75,11 @@ public class UsuarioController {
 	public String create(@ModelAttribute("nuevaPersona") Persona nuevaPersona,
 						 @RequestParam("usuarioDocumento") String dni,
 						 @RequestParam("usuarioRol") String rol,
-						 @RequestParam(required = false, name = "tatuadorAlias") String alias) {
+						 @RequestParam(required = false, name = "tatuadorAlias") String alias,
+						 @RequestParam(required = true, name="action") String btnPressed) {
 		nuevaPersona.setTipoDocumento(categoriaService.getByName(dni));
 		nuevaPersona.setRol(categoriaService.getByName(rol));
+		nuevaPersona.setId(personaService.add(nuevaPersona));
 		
 		Usuario usuario = new Usuario();
 		
@@ -88,7 +102,27 @@ public class UsuarioController {
 			
 		case "cliente":
 			Cliente cliente = new Cliente();
+			FichaClinica fichaClinica = new FichaClinica();
+			FichaClinicaDetallePiel fichaClinicaDetallePiel = new FichaClinicaDetallePiel();
+			FichaClinicaDetalleEts fichaClinicaDetalleEts = new FichaClinicaDetalleEts();
+
+			fichaClinicaDetalleEts.setId(fichaClinicaDetalleEtsService.add(fichaClinicaDetalleEts));
+			fichaClinicaDetallePiel.setId(fichaClinicaDetallePielService.add(fichaClinicaDetallePiel));
+			
+			fichaClinica.setFichaClinicaDetalleEts(fichaClinicaDetalleEts);
+			fichaClinica.setFichaClinicaDetallePiel(fichaClinicaDetallePiel);
+			fichaClinica.setId(fichaClinicaService.add(fichaClinica));
+			
 			cliente.setPersona(nuevaPersona);
+			cliente.setFichaClinica(fichaClinica);
+			
+			int idCliente = clienteService.add(cliente);
+			
+			if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
+				//TODO: Ir a pantalla: fichas clinicas.JSP
+				break;
+			}
+			
 			break;
 			
 		case "encargado de compras":

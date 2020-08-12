@@ -22,7 +22,7 @@ public class FichaClinica implements Serializable{
 	@Column(name="grupo_sanguineo")
 	private String grupoSanguineo;
 	@Column(name="factor_rh")
-	private char factorRh;
+	private String factorRh;
 	@Column(name="alergias")
 	private String alergias;
 	@Column(name="problemas_cardiacos")
@@ -51,10 +51,10 @@ public class FichaClinica implements Serializable{
 	public void setGrupoSanguineo(String grupoSanguineo) {
 		this.grupoSanguineo = grupoSanguineo;
 	}
-	public char getFactorRh() {
+	public String getFactorRh() {
 		return factorRh;
 	}
-	public void setFactorRh(char factorRh) {
+	public void setFactorRh(String factorRh) {
 		this.factorRh = factorRh;
 	}
 	public String getAlergias() {
