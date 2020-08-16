@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -142,7 +143,13 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>	
+				<form:form method="POST" action="fichaClinicaDetalle">
+					<button type="submit" class="btn btn-danger" id="btnFichaClinica" name="id_cliente" value="">
+							<span class="glyphicon glyphicon-tint"></span>
+							Ver ficha clínica
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+				</form:form>
 				</div>
 			</div>
 		</div>
@@ -175,8 +182,12 @@
 
 					if(obj1.persona.rol.nombre.toUpperCase() === "CLIENTE"){
 						$('.usuario_modal').html("El rol actual no admite usuarios.");
+						$('#btnFichaClinica').val(obj1.id);
+						$('#btnFichaClinica').prop('disabled', false);
 					} else {
 						$('.usuario_modal').html(obj1.usuario.nombre);
+						$('#btnFichaClinica').val(0);
+						$('#btnFichaClinica').prop('disabled', true);
 					}
 					
 					if(obj1.persona.rol.nombre.toUpperCase() === "TATUADOR"){
@@ -196,6 +207,12 @@
 				}
 			});			
 		});
+		
+		//$('#btnFichaClinica').click(function() {
+		//	var id_cliente = $('#btnFichaClinica').val();
+		//	$(location).attr('href', '/tfg/ficha-clinica/mostrar?id_cliente=' + id_cliente);
+		//});
+		
 	});
 	</script>
 </body>

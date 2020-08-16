@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,7 +77,8 @@ public class UsuarioController {
 						 @RequestParam("usuarioDocumento") String dni,
 						 @RequestParam("usuarioRol") String rol,
 						 @RequestParam(required = false, name = "tatuadorAlias") String alias,
-						 @RequestParam(required = true, name="action") String btnPressed) {
+						 @RequestParam(required = true, name="action") String btnPressed,
+						 RedirectAttributes redirectAttributes) {
 		nuevaPersona.setTipoDocumento(categoriaService.getByName(dni));
 		nuevaPersona.setRol(categoriaService.getByName(rol));
 		nuevaPersona.setId(personaService.add(nuevaPersona));
@@ -119,8 +121,8 @@ public class UsuarioController {
 			int idCliente = clienteService.add(cliente);
 			
 			if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
-				//TODO: Ir a pantalla: fichas clinicas.JSP
-				break;
+				redirectAttributes.addFlashAttribute("id_cliente", idCliente);
+				return "redirect:/ficha-clinica/crear";
 			}
 			
 			break;
@@ -186,5 +188,12 @@ public class UsuarioController {
 		}
 		
 		return "error";
+	}
+	
+	@RequestMapping(value = "/fichaClinicaDetalle", method = RequestMethod.POST)
+	public String verDetallesFichaClinica(@RequestParam(name = "id_cliente") String idCliente, 
+										 RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("id_cliente", Integer.parseInt(idCliente));
+		return "redirect:/ficha-clinica/mostrar";
 	}
 }
