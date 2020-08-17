@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ues21.tattoo.domain.Cliente;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.FichaClinicaDetalleEtsService;
 import edu.ues21.tattoo.service.FichaClinicaDetallePielService;
@@ -28,7 +29,7 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
 		try {
-			int idClientFlashAttribute = (int) model.asMap().get("id_cliente");
+			Cliente cliente = (Cliente) model.asMap().get("cliente_object");
 			return "fichaClinica_visualizar";	
 		} catch (NullPointerException e) {
 			// NullPointerExcepction will execute when flash attributes doesn't exist
@@ -39,9 +40,21 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String create(Model model) {
 		try {
-			int idClienteFlashAttribute = (int) model.asMap().get("id_cliente");
+			Cliente cliente = (Cliente) model.asMap().get("cliente_object");
 			return "fichaClinica_crear";
 		} catch (NullPointerException e) {
+			// NullPointerExcepction will execute when flash attributes doesn't exist
+			return "error";
+		}
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public String editar(Model model) {
+		try {
+			Cliente cliente = (Cliente) model.asMap().get("cliente_object");
+			return "fichaClinica_editar";
+		} catch (NullPointerException e) {
+			// TODO: handle exception
 			// NullPointerExcepction will execute when flash attributes doesn't exist
 			return "error";
 		}

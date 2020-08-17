@@ -115,7 +115,7 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="edit">
+						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="save">
 							<span class="glyphicon glyphicon-user"></span>
 							Agregar
 						</button>

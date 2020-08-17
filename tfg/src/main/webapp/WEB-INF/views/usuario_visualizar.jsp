@@ -69,7 +69,7 @@
 				      <th class="col-md-2">Teléfono</th>
 				      <th class="col-md-1">Detalles</th>
 				      <th class="col-md-1">Editar Usuario</th>
-				      <th class="col-md-1">Inhabilitar Usuario</th>
+				      <th class="col-md-1">Eliminar Usuario</th>
 				    </tr>
 				  </thead>
 				  <tbody>

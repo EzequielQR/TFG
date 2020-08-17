@@ -118,10 +118,10 @@ public class UsuarioController {
 			cliente.setPersona(nuevaPersona);
 			cliente.setFichaClinica(fichaClinica);
 			
-			int idCliente = clienteService.add(cliente);
+			cliente.setId(clienteService.add(cliente));
 			
 			if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
-				redirectAttributes.addFlashAttribute("id_cliente", idCliente);
+				redirectAttributes.addFlashAttribute("cliente_object", cliente);
 				return "redirect:/ficha-clinica/crear";
 			}
 			
@@ -156,7 +156,6 @@ public class UsuarioController {
 		int id = Integer.parseInt(idPersona);
 		Persona persona = personaService.getById(id);
 		
-		model.addAttribute("hiddenIdPersona", id);
 		model.addAttribute("persona", persona);
 		model.addAttribute("listaTipoDocumentos", categoriaService.getByTipo(1));
 		
@@ -168,8 +167,29 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
-	public String edit(@RequestParam(required = true, name="action") String btnPressed) {
-		return "";
+	public String edit(@ModelAttribute("persona") Persona persona,
+					   @RequestParam(required = true, name = "usuarioRol") String tipoRol,
+					   @RequestParam(required = true, name = "usuarioDocumento") String tipoDocumento,
+					   @RequestParam(required = true, name = "action") String btnPressed,
+					   @RequestParam(required = false, name = "tatuadorAlias") String aliasTatuador,
+					   RedirectAttributes redirectAttributes) {
+		persona.setTipoDocumento(categoriaService.getByName(tipoDocumento));
+		persona.setRol(categoriaService.getByName(tipoRol));
+		personaService.update(persona);
+		
+		if(persona.getRol().getNombre().equalsIgnoreCase("TATUADOR")) {
+			Tatuador tatuador = tatuadorService.getByPersonId(persona.getId());
+			tatuador.setPseudonimo(aliasTatuador);
+			tatuadorService.update(tatuador);
+		}
+		
+		if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
+			Cliente cliente = clienteService.getByPersonId(persona.getId());
+			redirectAttributes.addFlashAttribute("cliente_object", cliente);
+			return "redirect:/ficha-clinica/editar";
+		}
+		else
+			return "redirect:/usuario/mostrar";
 	}
 	
 	@ResponseBody
@@ -214,7 +234,8 @@ public class UsuarioController {
 	@RequestMapping(value = "/fichaClinicaDetalle", method = RequestMethod.POST)
 	public String verDetallesFichaClinica(@RequestParam(name = "id_cliente") String idCliente, 
 										 RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("id_cliente", Integer.parseInt(idCliente));
+		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
+		redirectAttributes.addFlashAttribute("cliente_object", cliente);
 		return "redirect:/ficha-clinica/mostrar";
 	}
 }

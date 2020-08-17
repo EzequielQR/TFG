@@ -61,7 +61,6 @@
 			<form:form method="POST" modelAttribute="persona" id="myForm">
 				<fieldset>
 					<legend>Editar Usuario</legend>
-					<input type="hidden" name="hiddenIdPersona" value="${reclamo.id}">
 					
 					<div class="form-group">
 						<label for="inputName">Nombre</label>
@@ -75,10 +74,11 @@
 					
 					<div class="form-group">
 						<label for="tipoUser">Seleccione el rol</label>
-						<select class="form-control" id="tipoUsuario" name="usuarioRol" disabled="disabled">
+						<select class="form-control" id="tipoUsuario" disabled="disabled">
 							<option>${persona.rol.nombre}</option>
 						</select>
 					</div>
+					<input type="hidden" name="usuarioRol" value="${persona.rol.nombre}">
 					
 					<div class="form-group">
 						<label for="inputAlias">Alias</label>
@@ -98,7 +98,14 @@
 						<label for="tipoDoc">Seleccione el tipo de documento</label>
 						<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
 							<c:forEach items="${listaTipoDocumentos}" var="documento">
-								<option>${documento.nombre}</option>
+								<c:choose>
+									<c:when test="${documento.nombre == persona.tipoDocumento.nombre}">
+										<option selected>${documento.nombre}</option>
+									</c:when>
+									<c:otherwise>
+										<option>${documento.nombre}</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>				
 					</div>
@@ -124,7 +131,7 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="save">
+						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="edit">
 							<span class="glyphicon glyphicon-user"></span>
 							Editar
 						</button>
