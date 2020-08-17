@@ -151,6 +151,27 @@ public class UsuarioController {
 		return "redirect:/usuario/mostrar";
 	}
 	
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public String edit(@RequestParam("id") String idPersona, Model model) {
+		int id = Integer.parseInt(idPersona);
+		Persona persona = personaService.getById(id);
+		
+		model.addAttribute("hiddenIdPersona", id);
+		model.addAttribute("persona", persona);
+		model.addAttribute("listaTipoDocumentos", categoriaService.getByTipo(1));
+		
+		if(persona.getRol().getNombre().equalsIgnoreCase("TATUADOR")) {
+			model.addAttribute("alias", tatuadorService.getByPersonId(id).getPseudonimo());
+		}
+		
+		return "usuario_editar";
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public String edit(@RequestParam(required = true, name="action") String btnPressed) {
+		return "";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/ajaxcall", method = RequestMethod.GET)
 	public String populateModal(@RequestParam("person_id") int id) {

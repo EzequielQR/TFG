@@ -80,7 +80,7 @@
 					      <td>${persona.apellido}, ${persona.nombre}</td>
 					      <td>${persona.telefono}</td>
 					      <td><a href="#" class="btn btn-default view_modal" data-id="${persona.id}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-					      <td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
+					      <td><a href="<spring:url value="/usuario/editar?id=${persona.id}"/>" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
 					      <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
 					    </tr>
 				 	 </c:forEach>

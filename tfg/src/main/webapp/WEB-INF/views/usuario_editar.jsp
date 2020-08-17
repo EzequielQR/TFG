@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,9 +58,10 @@
 	</nav>
 	<div class="container">
 		<div class="main row">
-			<form:form method="POST" modelAttribute="nuevaPersona" id="myForm">
+			<form:form method="POST" modelAttribute="persona" id="myForm">
 				<fieldset>
-					<legend>Crear Usuario</legend>
+					<legend>Editar Usuario</legend>
+					<input type="hidden" name="hiddenIdPersona" value="${reclamo.id}">
 					
 					<div class="form-group">
 						<label for="inputName">Nombre</label>
@@ -73,16 +75,23 @@
 					
 					<div class="form-group">
 						<label for="tipoUser">Seleccione el rol</label>
-						<select class="form-control" id="tipoUsuario" name="usuarioRol">
-							<c:forEach items="${listaRoles}" var="rol">
-								<option>${rol.nombre}</option>
-							</c:forEach>
+						<select class="form-control" id="tipoUsuario" name="usuarioRol" disabled="disabled">
+							<option>${persona.rol.nombre}</option>
 						</select>
 					</div>
 					
 					<div class="form-group">
 						<label for="inputAlias">Alias</label>
-						<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias">
+						<c:choose>
+							<c:when test="${fn:toLowerCase(persona.rol.nombre) == fn:toLowerCase('TATUADOR')}">
+								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
+								value="${alias}">
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
+								placeholder="Ingrese el alias">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					
 					<div class="form-group">
@@ -115,14 +124,14 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="edit">
+						<button type="submit" class="btn btn-success" id="btnSubmit" name="action" value="save">
 							<span class="glyphicon glyphicon-user"></span>
-							Agregar
+							Editar
 						</button>
 						
 						<button type="submit" class="btn btn-danger" id="btnFichaClinica" name="action" value="ficha_clinica">
 							<span class="glyphicon glyphicon-tint"></span>
-							Agregar ficha clínica
+							Editar ficha clínica
 						</button>
 					</div>
 				</fieldset>
@@ -149,23 +158,6 @@
 			} else {
 				$("#btnFichaClinica").prop('disabled', true);
 			}
-			
-			//Cuando el select cambia de estado, se evalua la condicion
-			$("#tipoUsuario").change(function(){
-				if($("#tipoUsuario option:selected").text().toUpperCase() === 'TATUADOR'){
-	   				$("#inputAlias").prop('required', true);
-	   				$("#inputAlias").prop('disabled', false);
-				} else {
-	   				$("#inputAlias").prop('required', false);
-	   				$("#inputAlias").prop('disabled', true);
-				}
-				
-				if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
-	   				$("#btnFichaClinica").prop('disabled', false);
-				} else {
-					$("#btnFichaClinica").prop('disabled', true);
-				}
-			})
     	});
 	</script>
 </body>
