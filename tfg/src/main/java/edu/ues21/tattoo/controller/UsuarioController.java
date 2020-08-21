@@ -77,8 +77,7 @@ public class UsuarioController {
 						 @RequestParam("usuarioDocumento") String dni,
 						 @RequestParam("usuarioRol") String rol,
 						 @RequestParam(required = false, name = "tatuadorAlias") String alias,
-						 @RequestParam(required = true, name="action") String btnPressed,
-						 RedirectAttributes redirectAttributes) {
+						 @RequestParam(required = true, name="action") String btnPressed) {
 		nuevaPersona.setTipoDocumento(categoriaService.getByName(dni));
 		nuevaPersona.setRol(categoriaService.getByName(rol));
 		nuevaPersona.setId(personaService.add(nuevaPersona));
@@ -120,10 +119,8 @@ public class UsuarioController {
 			
 			cliente.setId(clienteService.add(cliente));
 			
-			if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
-				redirectAttributes.addFlashAttribute("cliente_object", cliente);
-				return "redirect:/ficha-clinica/crear";
-			}
+			if(btnPressed.equalsIgnoreCase("ficha_clinica"))
+				return "redirect:/ficha-clinica/crear?id-cliente=" + cliente.getId();
 			
 			break;
 			
