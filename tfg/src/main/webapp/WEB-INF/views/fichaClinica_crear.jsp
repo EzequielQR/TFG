@@ -130,7 +130,7 @@
 					
 					<div class="form-group">
 						<label for="inputSkinComment">Comentarios Piel</label>
-						<input type="text" class="form-control" name="skin_commment" id="inputSkinComment" placeholder="Ingrese comentarios Piel"/>
+						<input type="text" class="form-control" name="skin_comment" id="inputSkinComment" placeholder="Ingrese comentarios Piel"/>
 					</div>
 					
 				</fieldset>

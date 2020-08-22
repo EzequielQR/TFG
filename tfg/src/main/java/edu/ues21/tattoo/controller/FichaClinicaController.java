@@ -1,7 +1,5 @@
 package edu.ues21.tattoo.controller;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +37,9 @@ public class FichaClinicaController {
 	}
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
-	public String create(@RequestParam(required = true, name = "id-cliente") String idFicha,
+	public String create(@RequestParam(required = true, name = "id-cliente") String idCliente,
 						 Model model) {
-		Cliente cliente = clienteService.getById(Integer.parseInt(idFicha));
+		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
 		
 		model.addAttribute("nombre", cliente.getPersona().getNombre());
 		model.addAttribute("apellido", cliente.getPersona().getApellido());
@@ -103,15 +101,15 @@ public class FichaClinicaController {
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
-	public String editar(Model model) {
-		try {
-			Cliente cliente = (Cliente) model.asMap().get("cliente_object");
-			return "fichaClinica_editar";
-		} catch (NullPointerException e) {
-			// TODO: handle exception
-			// NullPointerExcepction will execute when flash attributes doesn't exist
-			return "error";
-		}
+	public String edit(@RequestParam(required = true, name = "id-cliente") String idCliente,
+						 Model model) {
+		return "fichaClinica_editar";
+	}
+	
+	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
+	public String delete(@RequestParam(required = true, name = "id-cliente") String idCliente,
+						 Model model) {
+		return "fichaClinica_eliminar";
 	}
 
 }

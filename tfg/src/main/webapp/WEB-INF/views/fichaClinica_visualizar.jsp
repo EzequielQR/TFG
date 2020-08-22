@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -59,16 +59,17 @@
 	</nav>
 	<div class="container">
 		
-		<a href="#" class="btn btn-success" role="button">
+		<a href="<spring:url value="/ficha-clinica/editar?id-cliente=${cliente.id}"/>" class="btn btn-success" role="button">
 			<span class="glyphicon glyphicon-pencil"></span>
 			Editar Ficha Clínica
 		</a>
-		<a href="#" class="btn btn-danger" role="button">
+		<a href="<spring:url value="/ficha-clinica/eliminar?id-cliente=${cliente.id}"/>" class="btn btn-danger" role="button">
 			<span class="glyphicon glyphicon-trash"></span>
 			Eliminar Ficha Clínica
 		</a>
 		
 		<br><br>
+		
 		<div class="panel-group" id="accordion">
 		
 			<div class="panel panel-default">
@@ -93,19 +94,17 @@
 				    			</tr>
 				  			</thead>
 				  			<tbody>
-				  				<c:forEach items="${personas}" var="persona">
-					    			<tr>
-					    				<td>${persona.apellido}, ${persona.nombre}</td>
-					      				<th>${persona.id}</th>
-					      				<td>${persona.rol.nombre}</td>
-					      				<td>${persona.apellido}, ${persona.nombre}</td>
-					      				<td>${persona.telefono}</td>
-					      				<td></td>
-					    			</tr>
-				 	 			</c:forEach>
+					    		<tr>
+					    			<td>${cliente.persona.apellido}, ${cliente.persona.nombre}</td>
+					      			<td>${cliente.fichaClinica.grupoSanguineo}</td>
+					      			<td>${cliente.fichaClinica.factorRh}</td>
+					      			<td>${cliente.fichaClinica.alergias}</td>
+					      			<td>${cliente.fichaClinica.problemasCardiacos}</td>
+					      			<td>${empty cliente.fichaClinica.comentario ? 'No aplica' : cliente.fichaClinica.comentario }</td>
+					    		</tr>
+					    		<!-- Use 'empty' keyword for check if a String is null or empty -->
 				  			</tbody>
 						</table>
-					
 					</div>
 				</div>
 			</div>
@@ -130,14 +129,13 @@
 				    			</tr>
 				  			</thead>
 				  			<tbody>
-				  				<c:forEach items="${personas}" var="persona">
-					    			<tr>
-					      				<th>${persona.id}</th>
-					      				<td>${persona.rol.nombre}</td>
-					      				<td>${persona.apellido}, ${persona.nombre}</td>
-					      				<td></td>
-					    			</tr>
-				 	 			</c:forEach>
+					    		<tr>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetallePiel.psoriasis == true ? 'Si' : 'No'}</td>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetallePiel.eccema == true ? 'Si' : 'No'}</td>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetallePiel.queloide == true ? 'Si' : 'No'}</td>
+					      			<td>${empty cliente.fichaClinica.fichaClinicaDetallePiel.comentario ? 'No aplica' : cliente.fichaClinica.fichaClinicaDetallePiel.comentario }</td>
+					    		</tr>
+				  				<!-- Use 'empty' keyword for check if a String is null or empty -->
 				  			</tbody>
 						</table>
 						
@@ -166,15 +164,14 @@
 				    			</tr>
 				  			</thead>
 				  			<tbody>
-				  				<c:forEach items="${personas}" var="persona">
-					    			<tr>
-					      				<th>${persona.id}</th>
-					      				<td>${persona.rol.nombre}</td>
-					      				<td>${persona.apellido}, ${persona.nombre}</td>
-					      				<td>${persona.telefono}</td>
-					      				<td></td>
-					    			</tr>
-				 	 		</c:forEach>
+					    		<tr>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetalleEts.vih == true ? 'Si' : 'No'}</td>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetalleEts.sifilis == true ? 'Si' : 'No'}</td>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetalleEts.hepatitisB == true ? 'Si' : 'No'}</td>
+					      			<td>${cliente.fichaClinica.fichaClinicaDetalleEts.hpv == true ? 'Si' : 'No'}</td>
+					      			<td>${empty cliente.fichaClinica.fichaClinicaDetalleEts.comentario ? 'No aplica' : cliente.fichaClinica.fichaClinicaDetalleEts.comentario }</td>
+					    		</tr>
+					    		<!-- Use 'empty' keyword for check if a String is null or empty -->
 				  		</tbody>
 					</table>
 					
