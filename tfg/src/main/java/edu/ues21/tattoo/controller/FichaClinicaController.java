@@ -102,14 +102,56 @@ public class FichaClinicaController {
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public String edit(@RequestParam(required = true, name = "id-cliente") String idCliente,
-						 Model model) {
+					   Model model) {
+		model.addAttribute("cliente", clienteService.getById(Integer.parseInt(idCliente)));
 		return "fichaClinica_editar";
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public String edit(@RequestParam(required = true, name = "id_customer") String idCliente,
+					   @RequestParam(required = true, name = "blood_type") String tipoSangre,
+					   @RequestParam(required = true, name = "rh_blood") String rh,
+					   @RequestParam(required = false, name = "allergies") String alergias,
+					   @RequestParam(required = false, name = "cardiac_problems") String problemasCardiacos,
+					   @RequestParam(required = false, name = "gral_comment") String comentariosGeneral,
+					   @RequestParam(required = true, name = "psoriasis") Boolean psoriasis,
+					   @RequestParam(required = true, name = "eczema") Boolean eccema,
+					   @RequestParam(required = true, name = "keloid") Boolean queloide,
+					   @RequestParam(required = false, name = "skin_comment") String comentariosPiel,
+					   @RequestParam(required = true, name = "hiv") Boolean vih,
+					   @RequestParam(required = true, name = "syphilis") Boolean sifilis,
+					   @RequestParam(required = true, name = "hepatitis_b") Boolean hepatitisB,
+					   @RequestParam(required = true, name = "hpv") Boolean hpv,
+					   @RequestParam(required = false, name = "std_comment") String comentariosEts,
+					   Model model) {
+		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
+		
+		cliente.getFichaClinica().setAlergias(alergias);
+		cliente.getFichaClinica().setComentario(comentariosGeneral);
+		cliente.getFichaClinica().setFactorRh(rh);
+		cliente.getFichaClinica().setGrupoSanguineo(tipoSangre);
+		cliente.getFichaClinica().setProblemasCardiacos(problemasCardiacos);
+		
+		cliente.getFichaClinica().getFichaClinicaDetalleEts().setComentario(comentariosEts);
+		cliente.getFichaClinica().getFichaClinicaDetalleEts().setHepatitisB(hepatitisB);
+		cliente.getFichaClinica().getFichaClinicaDetalleEts().setHpv(hpv);
+		cliente.getFichaClinica().getFichaClinicaDetalleEts().setSifilis(sifilis);
+		cliente.getFichaClinica().getFichaClinicaDetalleEts().setVih(vih);
+		
+		cliente.getFichaClinica().getFichaClinicaDetallePiel().setComentario(comentariosPiel);
+		cliente.getFichaClinica().getFichaClinicaDetallePiel().setEccema(eccema);
+		cliente.getFichaClinica().getFichaClinicaDetallePiel().setPsoriasis(psoriasis);
+		cliente.getFichaClinica().getFichaClinicaDetallePiel().setQueloide(queloide);
+		
+		clienteService.update(cliente);
+		
+		return "redirect:/ficha-clinica/mostrar?id-cliente=" + idCliente;
 	}
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	public String delete(@RequestParam(required = true, name = "id-cliente") String idCliente,
 						 Model model) {
-		return "fichaClinica_eliminar";
+		return "redirect:/ficha-clinica/mostrar?id-cliente=" + idCliente;
 	}
 
 }
