@@ -10,7 +10,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -182,10 +181,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 								  String rawPassword) {
 		// TODO Auto-generated method stub
 		final String TITULO_CORREO = "Datos de acceso";
-		final String CUERPO_MENSAJE = "A continuación, se proporciona su cuenta y contraseña." + " "
-									  + "No comparta estos datos con nadie.\n\\n"
-									  + "Nombre de cuenta: " + username + "\n"
-									  + "Contraseña: " + rawPassword;
 		final String CUERPO_MENSAJE_HTML = "A continuación, se proporciona su cuenta y contraseña.<br>" + " "
 									  + "No comparta estos datos con nadie.<br><br>"
 									  + "<b>Nombre de cuenta:&nbsp;</b>" + username + "<br>"
@@ -197,7 +192,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailDestino));
 			
 			message.setSubject(TITULO_CORREO);
-			//message.setText(CUERPO_MENSAJE);
 			message.setContent(CUERPO_MENSAJE_HTML, "text/html");
 			
 			return message;

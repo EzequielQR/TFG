@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ues21.tattoo.domain.Cliente;
 import edu.ues21.tattoo.domain.FichaClinica;
-import edu.ues21.tattoo.domain.FichaClinicaDetalleEts;
-import edu.ues21.tattoo.domain.FichaClinicaDetallePiel;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.FichaClinicaDetalleEtsService;
 import edu.ues21.tattoo.service.FichaClinicaDetallePielService;
@@ -44,11 +42,14 @@ public class FichaClinicaController {
 		model.addAttribute("nombre", cliente.getPersona().getNombre());
 		model.addAttribute("apellido", cliente.getPersona().getApellido());
 		model.addAttribute("id_cliente", cliente.getId());
+		model.addAttribute("id_ficha_clinica", cliente.getFichaClinica().getId());
+		
 		return "fichaClinica_crear";
 	}
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	public String create(@RequestParam(required = true, name = "id_customer") String idCliente,
+						 @RequestParam(required = true, name = "id_clinical_record") String idFichaClinica,
 						 @RequestParam(required = true, name = "blood_type") String tipoSangre,
 						 @RequestParam(required = true, name = "rh_blood") String rh,
 						 @RequestParam(required = false, name = "allergies") String alergias,
@@ -64,40 +65,30 @@ public class FichaClinicaController {
 						 @RequestParam(required = true, name = "hpv") Boolean hpv,
 						 @RequestParam(required = false, name = "std_comment") String comentariosEts,
 						 Model model) {
-		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
-		
-		FichaClinica fichaClinica = new FichaClinica();
-		FichaClinicaDetalleEts fichaClinicaDetalleEts = new FichaClinicaDetalleEts();
-		FichaClinicaDetallePiel fichaClinicaDetallePiel = new FichaClinicaDetallePiel();
-		
+		FichaClinica fichaClinica = fichaClinicaService.getById(Integer.parseInt(idFichaClinica));
+
 		fichaClinica.setAlergias(alergias);
 		fichaClinica.setComentario(comentariosGeneral);
 		fichaClinica.setFactorRh(rh);
 		fichaClinica.setGrupoSanguineo(tipoSangre);
 		fichaClinica.setProblemasCardiacos(problemasCardiacos);
 		
-		fichaClinicaDetalleEts.setComentario(comentariosEts);
-		fichaClinicaDetalleEts.setHepatitisB(hepatitisB);
-		fichaClinicaDetalleEts.setHpv(hpv);
-		fichaClinicaDetalleEts.setSifilis(sifilis);
-		fichaClinicaDetalleEts.setVih(vih);
+		fichaClinica.getFichaClinicaDetalleEts().setComentario(comentariosEts);
+		fichaClinica.getFichaClinicaDetalleEts().setHepatitisB(hepatitisB);
+		fichaClinica.getFichaClinicaDetalleEts().setHpv(hpv);
+		fichaClinica.getFichaClinicaDetalleEts().setSifilis(sifilis);
+		fichaClinica.getFichaClinicaDetalleEts().setVih(vih);
 		
-		fichaClinicaDetallePiel.setComentario(comentariosPiel);
-		fichaClinicaDetallePiel.setEccema(eccema);
-		fichaClinicaDetallePiel.setPsoriasis(psoriasis);
-		fichaClinicaDetallePiel.setQueloide(queloide);
+		fichaClinica.getFichaClinicaDetallePiel().setComentario(comentariosPiel);
+		fichaClinica.getFichaClinicaDetallePiel().setEccema(eccema);
+		fichaClinica.getFichaClinicaDetallePiel().setPsoriasis(psoriasis);
+		fichaClinica.getFichaClinicaDetallePiel().setQueloide(queloide);
 		
-		fichaClinicaDetalleEts.setId(fichaClinicaDetalleEtsService.add(fichaClinicaDetalleEts));
-		fichaClinicaDetallePiel.setId(fichaClinicaDetallePielService.add(fichaClinicaDetallePiel));
+		fichaClinicaDetalleEtsService.update(fichaClinica.getFichaClinicaDetalleEts());
+		fichaClinicaDetallePielService.update(fichaClinica.getFichaClinicaDetallePiel());
+		fichaClinicaService.update(fichaClinica);
 		
-		fichaClinica.setFichaClinicaDetalleEts(fichaClinicaDetalleEts);
-		fichaClinica.setFichaClinicaDetallePiel(fichaClinicaDetallePiel);
-		fichaClinica.setId(fichaClinicaService.add(fichaClinica));
-		
-		cliente.setFichaClinica(fichaClinica);
-		clienteService.update(cliente);
-		
-		return "redirect:/ficha-clinica/mostrar?id-cliente=" + cliente.getId();
+		return "redirect:/ficha-clinica/mostrar?id-cliente=" + idCliente;
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
@@ -109,6 +100,7 @@ public class FichaClinicaController {
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public String edit(@RequestParam(required = true, name = "id_customer") String idCliente,
+					   @RequestParam(required = true, name = "id_clinical_record") String idFichaClinica,
 					   @RequestParam(required = true, name = "blood_type") String tipoSangre,
 					   @RequestParam(required = true, name = "rh_blood") String rh,
 					   @RequestParam(required = false, name = "allergies") String alergias,
@@ -124,26 +116,28 @@ public class FichaClinicaController {
 					   @RequestParam(required = true, name = "hpv") Boolean hpv,
 					   @RequestParam(required = false, name = "std_comment") String comentariosEts,
 					   Model model) {
-		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
+		FichaClinica fichaClinica = fichaClinicaService.getById(Integer.parseInt(idFichaClinica));
 		
-		cliente.getFichaClinica().setAlergias(alergias);
-		cliente.getFichaClinica().setComentario(comentariosGeneral);
-		cliente.getFichaClinica().setFactorRh(rh);
-		cliente.getFichaClinica().setGrupoSanguineo(tipoSangre);
-		cliente.getFichaClinica().setProblemasCardiacos(problemasCardiacos);
+		fichaClinica.setAlergias(alergias);
+		fichaClinica.setComentario(comentariosGeneral);
+		fichaClinica.setFactorRh(rh);
+		fichaClinica.setGrupoSanguineo(tipoSangre);
+		fichaClinica.setProblemasCardiacos(problemasCardiacos);
 		
-		cliente.getFichaClinica().getFichaClinicaDetalleEts().setComentario(comentariosEts);
-		cliente.getFichaClinica().getFichaClinicaDetalleEts().setHepatitisB(hepatitisB);
-		cliente.getFichaClinica().getFichaClinicaDetalleEts().setHpv(hpv);
-		cliente.getFichaClinica().getFichaClinicaDetalleEts().setSifilis(sifilis);
-		cliente.getFichaClinica().getFichaClinicaDetalleEts().setVih(vih);
+		fichaClinica.getFichaClinicaDetalleEts().setComentario(comentariosEts);
+		fichaClinica.getFichaClinicaDetalleEts().setHepatitisB(hepatitisB);
+		fichaClinica.getFichaClinicaDetalleEts().setHpv(hpv);
+		fichaClinica.getFichaClinicaDetalleEts().setSifilis(sifilis);
+		fichaClinica.getFichaClinicaDetalleEts().setVih(vih);
 		
-		cliente.getFichaClinica().getFichaClinicaDetallePiel().setComentario(comentariosPiel);
-		cliente.getFichaClinica().getFichaClinicaDetallePiel().setEccema(eccema);
-		cliente.getFichaClinica().getFichaClinicaDetallePiel().setPsoriasis(psoriasis);
-		cliente.getFichaClinica().getFichaClinicaDetallePiel().setQueloide(queloide);
+		fichaClinica.getFichaClinicaDetallePiel().setComentario(comentariosPiel);
+		fichaClinica.getFichaClinicaDetallePiel().setEccema(eccema);
+		fichaClinica.getFichaClinicaDetallePiel().setPsoriasis(psoriasis);
+		fichaClinica.getFichaClinicaDetallePiel().setQueloide(queloide);
 		
-		clienteService.update(cliente);
+		fichaClinicaService.update(fichaClinica);
+		fichaClinicaDetalleEtsService.update(fichaClinica.getFichaClinicaDetalleEts());
+		fichaClinicaDetallePielService.update(fichaClinica.getFichaClinicaDetallePiel());
 		
 		return "redirect:/ficha-clinica/mostrar?id-cliente=" + idCliente;
 	}

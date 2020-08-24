@@ -139,6 +139,10 @@
 								<td><b>Teléfono</b></td>
 								<td class="tel_modal"></td>
 							</tr>
+							<tr>
+								<td><b>Correo electrónico</b></td>
+								<td class="correo_modal"></td>
+							</tr>
 						</table>
 					</div>
 				</div>
@@ -202,6 +206,7 @@
 					$('.num_doc_modal').html(obj1.persona.numeroDocumento);
 					$('.domicilio_modal').html(obj1.persona.domicilio);
 					$('.tel_modal').html(obj1.persona.telefono);
+					$('.correo_modal').html(obj1.persona.correoElectronico);
 					//Trigger modal via Javascript:
 					$('#dataModal').modal("show");
 				}

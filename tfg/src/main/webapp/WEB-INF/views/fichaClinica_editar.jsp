@@ -63,6 +63,7 @@
 				<fieldset>
 					<legend>Ficha Clínica: General</legend>
 					<input type="hidden" name="id_customer" value="${cliente.id}">
+					<input type="hidden" name="id_clinical_record" value="${cliente.fichaClinica.id}">
 					
 					<div class="form-group">
 						<label for="inputName">Nombre</label>

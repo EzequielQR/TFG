@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -168,8 +167,7 @@ public class UsuarioController {
 					   @RequestParam(required = true, name = "usuarioRol") String tipoRol,
 					   @RequestParam(required = true, name = "usuarioDocumento") String tipoDocumento,
 					   @RequestParam(required = true, name = "action") String btnPressed,
-					   @RequestParam(required = false, name = "tatuadorAlias") String aliasTatuador,
-					   RedirectAttributes redirectAttributes) {
+					   @RequestParam(required = false, name = "tatuadorAlias") String aliasTatuador) {
 		persona.setTipoDocumento(categoriaService.getByName(tipoDocumento));
 		persona.setRol(categoriaService.getByName(tipoRol));
 		personaService.update(persona);
@@ -182,8 +180,7 @@ public class UsuarioController {
 		
 		if(btnPressed.equalsIgnoreCase("ficha_clinica")) {
 			Cliente cliente = clienteService.getByPersonId(persona.getId());
-			redirectAttributes.addFlashAttribute("cliente_object", cliente);
-			return "redirect:/ficha-clinica/editar";
+			return "redirect:/ficha-clinica/editar?id-cliente=" + cliente.getId();
 		}
 		else
 			return "redirect:/usuario/mostrar";
@@ -229,10 +226,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/fichaClinicaDetalle", method = RequestMethod.POST)
-	public String verDetallesFichaClinica(@RequestParam(name = "id_cliente") String idCliente, 
-										 RedirectAttributes redirectAttributes) {
-		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
-		redirectAttributes.addFlashAttribute("cliente_object", cliente);
-		return "redirect:/ficha-clinica/mostrar";
+	public String verDetallesFichaClinica(@RequestParam(name = "id_cliente") String idCliente) {
+		return "redirect:/ficha-clinica/mostrar?id-cliente=" + idCliente;
 	}
 }
