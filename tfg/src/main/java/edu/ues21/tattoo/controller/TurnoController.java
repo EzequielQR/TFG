@@ -31,27 +31,11 @@ public class TurnoController {
 	@ResponseBody
 	@RequestMapping(value = "/populateCalendar", method = RequestMethod.GET)
 	public String populateCalendar() {
-		List<EventDTO> list = new ArrayList<EventDTO>();
-		
-		EventDTO evento1 = new EventDTO();
-		evento1.setId(1);
-		evento1.setStart("2020-08-28");
-		evento1.setEnd("2020-08-29");
-		evento1.setTitle("Tarea 1");
-		evento1.setColor("blue");
-		
-		EventDTO evento2 = new EventDTO();
-		evento2.setId(1);
-		evento2.setStart("2020-08-29");
-		evento2.setEnd("2020-08-30");
-		evento2.setTitle("Tarea 2");
-		evento2.setColor("red");
-		
-		list.add(evento1);
-		list.add(evento2);
+		List<EventDTO> list = turnoService.getAllEventDTO();
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list));
 			return mapper.writeValueAsString(list);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

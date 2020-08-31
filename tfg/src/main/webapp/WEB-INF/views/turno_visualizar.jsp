@@ -63,58 +63,58 @@
 		</section>
 	</div>
 		
-	<!-- Modal  to Add Event -->
-	<div id="createEventModal" class="modal fade" role="dialog">
-		 <div class="modal-dialog">
+	<!-- Modal to ADD an appointment -->
+	<div class="modal fade" id="createEventModal" role="dialog">
+		 <div class="modal-dialog modal-sm">
+		 
 			 <!-- Modal content-->
 			 <div class="modal-content">
+				 
 				 <div class="modal-header">
-					 <button type="button" class="close" data-dismiss="modal">×</button>
-					 <h4 class="modal-title">Add Event</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Agregar Turno</h4>
 				 </div>
+				 
 				 <div class="modal-body">
-					 <div class="control-group">
-						 <label class="control-label" for="inputPatient">Event:</label>
-						 <div class="field desc">
-							 <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
-						 </div>
-					 </div>
-					 
-					 <input type="hidden" id="startTime"/>
-					 <input type="hidden" id="endTime"/>
-					 
-					 <div class="control-group">
-						 <label class="control-label" for="when">When:</label>
-						 	<div class="controls controls-row" id="when" style="margin-top:5px;">
-						 	</div>
-					 </div>
+				 	<p>Crear un turno para la fecha:&nbsp;<strong id="date_picked"></strong></p>
 				 </div>
+				 
 				 <div class="modal-footer">
-					 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					 <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+				 	<input type="hidden" id="date">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="submit" class="btn btn-primary" id="submitButton">Si</button>
 				 </div>
 			 </div>
+			 
 		 </div>
 	</div>
 
-	<!-- Modal to Event Details -->
-	<div id="calendarModal" class="modal fade">
+	<!-- Modal to SEE event details -->
+	<div class="modal fade" id="calendarModal" role="dialog">
 		<div class="modal-dialog">
-			 <div class="modal-content">
-				 <div class="modal-header">
-					 <button type="button" class="close" data-dismiss="modal">×</button>
-					 <h4 class="modal-title">Event Details</h4>
-				 </div>
-				 <div id="modalBody" class="modal-body">
-					 <h4 id="modalTitle" class="modal-title"></h4>
-					 <div id="modalWhen" style="margin-top:5px;"></div>
-				 </div>
-				 <input type="hidden" id="eventID"/>
-				 <div class="modal-footer">
-					 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					 <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
-				 </div>
+		
+			<!-- MODAL CONTENT -->
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Event Details</h4>
+				</div>
+				
+				<div class="modal-body" id="modalBody">
+					<h4 id="modalTitle" class="modal-title"></h4>
+					<div id="modalWhen" style="margin-top:5px;"></div>
+				</div>
+				
+				<input type="hidden" id="eventID"/>
+				
+				<div class="modal-footer">
+				    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+				</div>
+				
 			 </div>
+			 
 		</div>
 	</div>
 		
@@ -138,6 +138,16 @@
 		    // Page is now ready, initialize the calendar with JS Code.
 		    $('#calendar').fullCalendar({
 		    	
+		    	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+
+	            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+
+	            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+
+	            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+		    	
+	            weekends : true, // will NOT hide Saturdays and Sundays
+	            				
 		    	events : 'populateCalendar',
 		    	//[
 		    	//	{
@@ -157,8 +167,29 @@
 		    	//		editable : true
 		    	//	},
 		    	//],
+		
 		    	
-		    	weekends : true // will NOT hide Saturdays and Sundays
+		    	//dayClick function: When we click in a day, an event will trigger. Si hago click en UN EVENTO
+		    	//NO SE VA a disparar la funcion.
+		    	
+		    	//eventClick function: When we click in a day, an event will trigger.
+		    	
+		    	//date: Holds a MomentJS for the clicked day, ergo, I can use MomentJS functions. See official
+		    		  //page for more functions.
+		    	//jsEvent: Holds the native JavaScript event with low-level info.
+		    	//view: Is the current View Object.
+		    	//view.name: in FullCalendar we have some view name: Views by month, View by week, view by day
+		    	//y View por lista.
+		    	//view.title: Titulo de la vista.
+		    	dayClick : function(date, jsEvent, view) {
+							console.log('Clicked on: ' + date.format());
+							console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+							console.log('Current view: ' + view.name);
+							
+							$('#date').val(date.format());
+							$('#date_picked').text(date.format());
+							$('#createEventModal').modal("show");
+  				}
 		    })
 		});
 	</script>

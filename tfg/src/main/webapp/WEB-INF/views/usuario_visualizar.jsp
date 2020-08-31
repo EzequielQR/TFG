@@ -88,7 +88,7 @@
 			</table>
 		</section>
 	</div>
-	<div id ="dataModal" class="modal fade">
+	<div class="modal fade" id ="dataModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
