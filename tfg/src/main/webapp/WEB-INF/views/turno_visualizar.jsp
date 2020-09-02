@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,13 +78,17 @@
 				 </div>
 				 
 				 <div class="modal-body">
-				 	<p>Crear un turno para la fecha:&nbsp;<strong id="date_picked"></strong></p>
+				 	<p>Crear un turno para la fecha:&nbsp;<strong id="date_picked_show"></strong></p>
 				 </div>
 				 
 				 <div class="modal-footer">
-				 	<input type="hidden" id="date">
-					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-					<button type="submit" class="btn btn-primary" id="submitButton">Si</button>
+					<form:form method="POST" action="redirectToCreation">
+						<input type="hidden" id="date_picked_hidden" name="fecha-elegida">
+						<button type="submit" class="btn btn-primary" id="submitButton">
+								Si
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					</form:form>
 				 </div>
 			 </div>
 			 
@@ -118,14 +124,6 @@
 		</div>
 	</div>
 		
-	<!-- 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
-	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
-	-->
-	
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
@@ -186,8 +184,8 @@
 							console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 							console.log('Current view: ' + view.name);
 							
-							$('#date').val(date.format());
-							$('#date_picked').text(date.format());
+							$('#date_picked_hidden').val(date.format());
+							$('#date_picked_show').text(date.format());
 							$('#createEventModal').modal("show");
   				}
 		    })
