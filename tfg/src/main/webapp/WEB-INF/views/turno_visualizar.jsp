@@ -12,7 +12,7 @@
 	<title>9420 - Control Comercial</title>
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"/>
+	<link rel="stylesheet" href="<c:url value="/resources/fullcalendar-3.10.2/css/fullcalendar.min.css"/>">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -125,9 +125,9 @@
 	</div>
 		
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+	<script src="<c:url value="/resources/moment-2.27.0/js/moment.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+	<script src="<c:url value="/resources/fullcalendar-3.10.2/js/fullcalendar.min.js"/>"></script>
 	
 	<!-- .class -->
 	<!-- # id -->

@@ -12,10 +12,7 @@
 	<title>9420 - Control Comercial</title>
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
-	
-	<!-- Bootstrap Select -->
-	<!-- https://developer.snapappointments.com/bootstrap-select/ -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"/>
+	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-select-1.13.18/css/bootstrap-select.min.css"/>"/>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -68,7 +65,7 @@
 					<legend>Crear Turno</legend>
 					
 					<div class="form-group">
-						<label for="inputName">Turno iniciado por</label>
+						<label for="inputName">Turno iniciado por:</label>
 						<input type="text" class="form-control" id="inputName" 
 						placeholder="Ezequiel Quispe Reyes" disabled="disabled"/>
 					</div>
@@ -76,7 +73,7 @@
 					<!-- Padre-->
 					<div class="form-group row">
 					
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3">
+						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
 							<label for="input-fecha">Fecha:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
@@ -89,7 +86,7 @@
 							</div>
 						</div>
 						
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3">
+						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
 							<label for="input-hora">Hora:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
@@ -99,7 +96,7 @@
 						    </div>
 						</div>
 						
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3">
+						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
 							<label for="advance-payment">Seña:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
@@ -109,7 +106,7 @@
 							</div>
 						</div>
 	
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3">
+						<div class="form-inline col-lg-3 col-md-2 col-sm-3 col-xs-6">
 				    		<label for="tipoCategoria">Prioridad:&nbsp;</label>
 				    		<select class="form-control" id="tipoCategoria" name="prioridadId">
 				      			<c:forEach items="${listaPrioridades}" var="prioridad">
@@ -123,14 +120,24 @@
 					
 					<div class="form-group">
 			    		<label for="tatuador">Tatuador:</label>
-			    		<select class="form-control" id="tatuador" name="tatuadorId">
+			    		<select class="form-control selectpicker" id="tatuador" name="tatuadorId">
 			    			<c:forEach items="${listaTatuadores}" var="tattooist">
 								<option value="${tattooist.id}">${tattooist.pseudonimo}</option>
 							</c:forEach>
 			    		</select>
   					</div>
 
-  					<!-- Para realizar la búsqueda se utiliza Select2-->
+					<!-- Para realizar la búsqueda se utiliza Bootstrap-Select-->
+					<div class="form-group">
+			    		<label for="tipoEstilo">Estilo de tatuaje:</label>
+			    		<select class="form-control selectpicker" id="tipoEstilo" name="estiloId" data-live-search="true" title="Buscar por estilo de tatuaje">
+			    			<c:forEach items="${listaEstiloTatuajes}" var="estilos">
+								<option value="${estilos.id}">${estilos.nombre}</option>
+							</c:forEach>
+			    		</select>
+  					</div>
+
+  					<!-- Para realizar la búsqueda se utiliza Bootstrap-Select-->
   					<div class="form-group">
   						<label for="inputCli2">Cliente:</label>
 	  					<select class="form-control selectpicker" id="inputCli2" name="clienteId" data-live-search="true" title="Buscar por nombre, apellido o número de documento">
@@ -144,7 +151,7 @@
 					
 					<div class="form-group">
 		  			 	<label for="inputDescripci">Descripción:</label>
-						<textarea class="form-control" rows="5" id="inputDescri" placeholder="Escriba la descripción:"></textarea>
+						<textarea class="form-control" rows="5" id="inputDescri" placeholder="Inserte la descripción"></textarea>
 					</div>
 					
 					<div class="form-group">
@@ -168,8 +175,8 @@
 	
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-es_ES.min.js"></script>
+	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
+	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
 	<script type="text/javascript">
 		//. class
 		//# id

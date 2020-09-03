@@ -81,6 +81,7 @@ public class TurnoController {
 									Model model){
 		model.addAttribute("fecha_hidden", fechaElegida);
 		model.addAttribute("listaPrioridades", categoriaService.getByTipo(2));
+		model.addAttribute("listaEstiloTatuajes", categoriaService.getByTipo(5));
 		model.addAttribute("listaTatuadores", tatuadorService.getAll());
 		model.addAttribute("listaClientes", clienteService.getAll());
 		

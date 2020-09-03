@@ -54,6 +54,9 @@ public class Turno implements Serializable{
 	@OneToOne
 	@JoinColumn(name="categorias_id_estado")
 	private Categoria estado;
+	@OneToOne
+	@JoinColumn(name="categorias_id_tipo_tatuaje")
+	private Categoria tipoTatuaje;
 	@OneToMany(mappedBy="turno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Producto.class)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
@@ -135,6 +138,14 @@ public class Turno implements Serializable{
 
 	public void setEstado(Categoria estado) {
 		this.estado = estado;
+	}
+
+	public Categoria getTipoTatuaje() {
+		return tipoTatuaje;
+	}
+
+	public void setTipoTatuaje(Categoria tipoTatuaje) {
+		this.tipoTatuaje = tipoTatuaje;
 	}
 
 	public List<Producto> getListaProductosUtilizados() {

@@ -11,6 +11,24 @@ INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('9', '4', 'Cliente', 'Tipos de Roles');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('10', '4', 'Encargado de Compras', 'Tipos de Roles');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('11', '4', 'Recepcionista', 'Tipos de Roles');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('12', '5', 'Realismo (Black and Grey)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('13', '5', 'Realismo (Color)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('14', '5', 'Japonés (Oriental)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('15', '5', 'Trash Polka', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('16', '5', 'New School', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('17', '5', 'Old School (Traditional)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('18', '5', 'Acuarela (Watercolor)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('19', '5', 'Puntillismo (Dotwork)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('20', '5', 'Blackwork', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('21', '5', 'Lettering', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('22', '5', 'Biomechanical', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('23', '5', 'Tribal', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('24', '5', 'Maori', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('25', '5', 'Neotradicional (Neotraditional)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('26', '5', 'Celta (Celtic)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('27', '5', 'Anime (Manga Comic)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('28', '5', 'Chicano', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('29', '5', 'Sketch', 'Tipos de Tatuajes');
 
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('admin', '$2a$10$UU.fdp9947vaLKotZr25jeXGcUdgVvUr8rdSOKywYHlpdg/8agoCm', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('gdroguett', '$2a$10$qwEFxFiK9OrINw2OKSQms.Uiwl1lB1YjN7VtcQq9u31aEIo0IboOa', '2020-07-20 11:13:15', '1');
@@ -71,11 +89,11 @@ INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES 
 INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('5', '5', '5');
 INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('6', '6', '6');
 
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('1', 'Japonés en pierna.', current_timestamp(), '2000', '7', '6', '4', '1', '1');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin` , `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('2', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 3 HOUR),'6000', '9', '7', '4', '1', '1');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('3', 'Maori en espalda.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '500', '7', '6', '4', '1', '2');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('4', 'Realismo en pierna.', current_timestamp(), '800', '7', '6', '4', '2', '3');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('5', 'Trash Polka en muslo.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '1500', '9', '6', '4', '2', '4');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('6', 'Lettering en antebrazo.', current_timestamp(), '1200', '9', '6', '4', '3', '5');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('7', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '2500', '9', '6', '4', '3', '6');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin` , `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `tatuadores_id`, `clientes_id`) VALUES ('8', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 3 HOUR),'6000', '9', '7', '4', '3', '1');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('1', 'Japonés en pierna.', current_timestamp(), '2000', '7', '6', '4', '14', '1', '1');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin` , `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('2', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 3 HOUR),'6000', '9', '7', '4', '16', '1', '1');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('3', 'Maori en espalda.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '500', '7', '6', '4', '24', '1', '2');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('4', 'Realismo en pierna.', current_timestamp(), '800', '7', '6', '4', '12', '2', '3');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('5', 'Trash Polka en muslo.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '1500', '9', '6', '4', '15', '2', '4');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('6', 'Lettering en antebrazo.', current_timestamp(), '1200', '9', '6', '4', '21', '3', '5');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('7', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 3 HOUR), '2500', '9', '6', '4', '16', '3', '6');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin` , `seña`, `personas_id_iniciado_por`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`) VALUES ('8', 'Old School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 3 HOUR),'6000', '9', '7', '4', '17', '3', '1');
