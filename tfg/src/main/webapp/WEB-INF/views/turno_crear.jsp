@@ -92,23 +92,23 @@
 								<div class="input-group-addon">
 									<span class="glyphicon glyphicon-dashboard"></span>
 								</div>
-							    <input type="text" class="form-control" id="input-hora" placeholder="Seleccione hora">
+							    <input type="time" class="form-control" id="input-hora" placeholder="Seleccione hora" name="hour" required="required">
 						    </div>
 						</div>
 						
 						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="advance-payment">Seña:&nbsp;</label>
+							<label for="input-pago">Seña:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<span>$</span>
 								</div>
-								<input type="text" class="form-control" id="advance-payment" placeholder="Ingrese solo números">
+								<input type="number" class="form-control" id="input-pago" placeholder="Ingrese solo números" name="advance_payment" required="required">
 							</div>
 						</div>
 	
 						<div class="form-inline col-lg-3 col-md-2 col-sm-3 col-xs-6">
-				    		<label for="tipoCategoria">Prioridad:&nbsp;</label>
-				    		<select class="form-control" id="tipoCategoria" name="prioridadId">
+				    		<label for="input-prioridad">Prioridad:&nbsp;</label>
+				    		<select class="form-control" id="input-prioridad" name="priority_id">
 				      			<c:forEach items="${listaPrioridades}" var="prioridad">
 									<option value="${prioridad.id}">${prioridad.nombre}</option>
 								</c:forEach>
@@ -119,8 +119,8 @@
 					<!-- Padre -->
 					
 					<div class="form-group">
-			    		<label for="tatuador">Tatuador:</label>
-			    		<select class="form-control selectpicker" id="tatuador" name="tatuadorId">
+			    		<label for="input-tatuador">Tatuador:</label>
+			    		<select class="form-control selectpicker" id="input-tatuador" name="tattooist_id">
 			    			<c:forEach items="${listaTatuadores}" var="tattooist">
 								<option value="${tattooist.id}">${tattooist.pseudonimo}</option>
 							</c:forEach>
@@ -129,8 +129,8 @@
 
 					<!-- Para realizar la búsqueda se utiliza Bootstrap-Select-->
 					<div class="form-group">
-			    		<label for="tipoEstilo">Estilo de tatuaje:</label>
-			    		<select class="form-control selectpicker" id="tipoEstilo" name="estiloId" data-live-search="true" title="Buscar por estilo de tatuaje">
+			    		<label for="input-estilo">Estilo de tatuaje:</label>
+			    		<select class="form-control selectpicker" id="input-estilo" name="tattoo_style_id" data-live-search="true" title="Buscar por estilo de tatuaje" required="required">
 			    			<c:forEach items="${listaEstiloTatuajes}" var="estilos">
 								<option value="${estilos.id}">${estilos.nombre}</option>
 							</c:forEach>
@@ -139,8 +139,8 @@
 
   					<!-- Para realizar la búsqueda se utiliza Bootstrap-Select-->
   					<div class="form-group">
-  						<label for="inputCli2">Cliente:</label>
-	  					<select class="form-control selectpicker" id="inputCli2" name="clienteId" data-live-search="true" title="Buscar por nombre, apellido o número de documento">
+  						<label for="input-cliente">Cliente:</label>
+	  					<select class="form-control selectpicker" id="input-cliente" name="customer_id" data-live-search="true" title="Buscar por nombre, apellido o número de documento" required="required">
 							<c:forEach items="${listaClientes}" var="client">
 								<option value="${client.id}" data-tokens="${client.persona.numeroDocumento}">
 									${client.persona.apellido}, ${client.persona.nombre}
@@ -150,8 +150,8 @@
 					</div>
 					
 					<div class="form-group">
-		  			 	<label for="inputDescripci">Descripción:</label>
-						<textarea class="form-control" rows="5" id="inputDescri" placeholder="Inserte la descripción"></textarea>
+		  			 	<label for="input-descripcion">Descripción:</label>
+						<textarea class="form-control" rows="5" id="input-descripcion" placeholder="Inserte la descripción" name="description"></textarea>
 					</div>
 					
 					<div class="form-group">

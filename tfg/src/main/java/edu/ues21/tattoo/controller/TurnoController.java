@@ -1,5 +1,7 @@
 package edu.ues21.tattoo.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 import edu.ues21.tattoo.domain.EventDTO;
+import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
+import edu.ues21.tattoo.service.PersonaService;
 import edu.ues21.tattoo.service.TatuadorService;
 import edu.ues21.tattoo.service.TurnoService;
 
@@ -33,6 +37,8 @@ public class TurnoController {
 	private ClienteService clienteService;
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private PersonaService personaService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String create() {
@@ -90,10 +96,40 @@ public class TurnoController {
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	public String createAppointment(@RequestParam(required = true, name = "fecha-elegida") String fechaElegida,
-									String descripcion,
+									@RequestParam(required = true, name = "hour") String hora,
+									@RequestParam(required = true, name = "advance_payment") String senia,
+									@RequestParam(required = true, name = "priority_id") String prioridadId,
+									@RequestParam(required = true, name = "tattooist_id") String tatuadorId,
+									@RequestParam(required = true, name = "tattoo_style_id") String estiloTatuajeId,
+									@RequestParam(required = true, name = "customer_id") String clienteId,
+									@RequestParam(required = false, name = "description")String descripcion,
+									@RequestParam(required = true, name = "action") String btnPressed,
 									Model model){
-		System.out.println("POST: " +fechaElegida);
-		return "";
+		Turno turno = new Turno();
+		turno.setCliente(clienteService.getById(Integer.parseInt(clienteId)));
+		turno.setDescripcion(descripcion);
+		turno.setEstado(categoriaService.getByName("Abierto"));
+		try {
+			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd").parse(fechaElegida));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		turno.setFechaFin(null);
+		//TODO: FIXME remove hardcoded userlogged
+		turno.setIniciadoPor(personaService.getById(11));
+		turno.setListaProductosUtilizados(null);
+		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
+		turno.setSenia(Integer.parseInt(senia));
+		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));
+		turno.setTipoTatuaje(categoriaService.getById(Integer.parseInt(estiloTatuajeId)));
+
+		turnoService.add(turno);
+		
+		if(btnPressed.equalsIgnoreCase("save"))
+			return "redirect:/turno/mostrar";
+		else
+			return "redirect:/panel-asistente";
 	}
 
 }
