@@ -13,6 +13,7 @@
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-select-1.13.18/css/bootstrap-select.min.css"/>"/>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -87,12 +88,12 @@
 						</div>
 						
 						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-hora">Hora:&nbsp;</label>
+							<label for="input-timepicker">Hora:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<span class="glyphicon glyphicon-dashboard"></span>
 								</div>
-							    <input type="time" class="form-control" id="input-hora" placeholder="Seleccione hora" name="hour" required="required">
+							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour" required="required">
 						    </div>
 						</div>
 						
@@ -177,12 +178,24 @@
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<script type="text/javascript">
 		//. class
 		//# id
 		$(document).ready(function(){
 			//Comprobacion inicial
 			$('.my-select').selectpicker();
+
+			$('#input-timepicker').timepicker({
+			    timeFormat: 'HH:mm',
+			    interval: 30,
+			    minTime: '10:00',
+			    maxTime: '20:30',
+			    dynamic: false,
+			    dropdown: true,
+			    scrollbar: true
+			});
+
     	});
 	</script>
 </body>

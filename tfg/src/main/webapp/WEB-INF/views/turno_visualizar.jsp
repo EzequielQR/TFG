@@ -145,7 +145,9 @@
 	            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
 		    	
 	            weekends : true, // will NOT hide Saturdays and Sundays
-	            				
+	            
+	            timeFormat: 'HH:mm',
+	            
 		    	events : 'populateCalendar',
 		    	//[
 		    	//	{

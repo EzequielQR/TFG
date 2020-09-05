@@ -110,7 +110,8 @@ public class TurnoController {
 		turno.setDescripcion(descripcion);
 		turno.setEstado(categoriaService.getByName("Abierto"));
 		try {
-			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd").parse(fechaElegida));
+			System.out.println(hora);
+			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + hora));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
