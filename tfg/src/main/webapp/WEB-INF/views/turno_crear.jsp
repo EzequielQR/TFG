@@ -66,38 +66,55 @@
 					<legend>Crear Turno</legend>
 					
 					<div class="form-group">
-						<label for="inputName">Turno iniciado por:</label>
-						<input type="text" class="form-control" id="inputName" 
-						placeholder="Ezequiel Quispe Reyes" disabled="disabled"/>
-					</div>
+				        <div class="row">
+				            
+				            <div class="col-lg-6 col-md-6">
+				                <label for="inputName">Turno iniciado:</label>
+				                <input type="text" class="form-control" id="inputName"
+				                placeholder="Ezequiel Quispe Reyes" disabled="disabled"/>
+				            </div>
+				            
+				            <div class="col-lg-6 col-md-6">
+				            	<label for="input-fecha">Fecha:&nbsp;</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</div>
+									<!-- Convert String to Date -->
+									<fmt:parseDate value="${fecha_hidden}" pattern="yyyy-MM-dd" var="parse_date"/>
+									<input type="text" class="form-control" id="input-fecha" 
+									value="<fmt:formatDate pattern='dd/MMM/yyyy' value ='${parse_date}'/>" disabled="disabled">
+								</div>
+				            </div>
+				        
+				        </div><!-- End row -->
+    			  </div><!-- End form-group -->
 					
 					<!-- Padre-->
 					<div class="form-group row">
 					
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-fecha">Fecha:&nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</div>
-								<!-- Convert String to Date -->
-								<fmt:parseDate value="${fecha_hidden}" pattern="yyyy-MM-dd" var="parse_date"/>
-								<input type="text" class="form-control" id="input-fecha" 
-								value="<fmt:formatDate pattern='dd/MMM/yyyy' value ='${parse_date}'/>" disabled="disabled">
-							</div>
-						</div>
-						
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-timepicker">Hora:&nbsp;</label>
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+							<label for="input-timepicker">Hora inicio:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<span class="glyphicon glyphicon-dashboard"></span>
 								</div>
-							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour" required="required">
+							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour_start" required="required">
 						    </div>
 						</div>
 						
-						<div class="form-inline col-lg-3 col-md-3 col-sm-3 col-xs-6">
+						
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+							<label for="input-timepicker">Hora fin:&nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-dashboard"></span>
+								</div>
+							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour_end" required="required">
+						    </div>
+						</div>
+						
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 							<label for="input-pago">Seña:&nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon">
@@ -107,9 +124,9 @@
 							</div>
 						</div>
 	
-						<div class="form-inline col-lg-3 col-md-2 col-sm-3 col-xs-6">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 				    		<label for="input-prioridad">Prioridad:&nbsp;</label>
-				    		<select class="form-control" id="input-prioridad" name="priority_id">
+				    		<select class="form-control selectpicker" id="input-prioridad" name="priority_id">
 				      			<c:forEach items="${listaPrioridades}" var="prioridad">
 									<option value="${prioridad.id}">${prioridad.nombre}</option>
 								</c:forEach>
@@ -185,7 +202,6 @@
 		$(document).ready(function(){
 			//Comprobacion inicial
 			$('.my-select').selectpicker();
-
 			$('#input-timepicker').timepicker({
 			    timeFormat: 'HH:mm',
 			    interval: 30,
@@ -195,7 +211,6 @@
 			    dropdown: true,
 			    scrollbar: true
 			});
-
     	});
 	</script>
 </body>

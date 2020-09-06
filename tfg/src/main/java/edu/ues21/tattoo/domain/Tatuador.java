@@ -37,6 +37,8 @@ public class Tatuador implements Serializable{
 	private List<Turno> turnos;
 	@Column(name="pseudonimo")
 	private String pseudonimo;
+	@Column(name="color_hex")
+	private String color;
 	@OneToOne
 	@JoinColumn(name="personas_id")
 	private Persona persona;
@@ -67,6 +69,12 @@ public class Tatuador implements Serializable{
 	}
 	public void setPseudonimo(String pseudonimo) {
 		this.pseudonimo = pseudonimo;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	public Persona getPersona() {
 		return persona;

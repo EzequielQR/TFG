@@ -96,7 +96,8 @@ public class TurnoController {
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	public String createAppointment(@RequestParam(required = true, name = "fecha-elegida") String fechaElegida,
-									@RequestParam(required = true, name = "hour") String hora,
+									@RequestParam(required = true, name = "hour_start") String horaInicio,
+									@RequestParam(required = true, name = "hour_end") String horaFin,
 									@RequestParam(required = true, name = "advance_payment") String senia,
 									@RequestParam(required = true, name = "priority_id") String prioridadId,
 									@RequestParam(required = true, name = "tattooist_id") String tatuadorId,
@@ -110,13 +111,12 @@ public class TurnoController {
 		turno.setDescripcion(descripcion);
 		turno.setEstado(categoriaService.getByName("Abierto"));
 		try {
-			System.out.println(hora);
-			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + hora));
+			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + horaInicio));
+			turno.setFechaFin(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + horaFin));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		turno.setFechaFin(null);
 		//TODO: FIXME remove hardcoded userlogged
 		turno.setIniciadoPor(personaService.getById(11));
 		turno.setListaProductosUtilizados(null);

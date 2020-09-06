@@ -54,9 +54,9 @@ INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) 
 
 INSERT INTO `tfg`.`recepcionistas` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'lserra', '9');
 
-INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`) VALUES ('1', 'gdroguett', '7', 'DRA');
-INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`) VALUES ('2', 'mrenzo', '10', 'Marchi Renzo');
-INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`) VALUES ('3', 'ndroguett', '11', 'NQK');
+INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`, `color_hex`) VALUES ('1', 'gdroguett', '7', 'DRA', '#FF9B9B');
+INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`, `color_hex`) VALUES ('2', 'mrenzo', '10', 'Marchi Renzo', '#FF0000');
+INSERT INTO `tfg`.`tatuadores` (`id`, `usuarios_nombre`, `personas_id`, `pseudonimo`, `color_hex`) VALUES ('3', 'ndroguett', '11', 'NQK', '#FF00FF');
 
 INSERT INTO `tfg`.`fichas_clinica_piel` (`id`, `psoriasis`, `eccema`, `queloide`, `comentario`) VALUES ('1', '0', '0', '1', 'No aplica');
 INSERT INTO `tfg`.`fichas_clinica_ets` (`id`, `vih`, `sifilis`, `hepatitis_b`, `hpv`, `comentario`) VALUES ('1', '0', '0', '0', '0', 'No aplica');

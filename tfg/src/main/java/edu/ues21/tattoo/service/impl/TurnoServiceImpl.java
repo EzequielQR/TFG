@@ -70,8 +70,9 @@ public class TurnoServiceImpl implements TurnoService{
 				
 				eventDTO.setId(listaTurnos.get(i).getId());
 				eventDTO.setStart(listaTurnos.get(i).getFechaInicio());
+				eventDTO.setEnd(listaTurnos.get(i).getFechaFin());
 				eventDTO.setTitle(listaTurnos.get(i).getDescripcion());
-				eventDTO.setColor("blue");
+				eventDTO.setColor(listaTurnos.get(i).getTatuador().getColor());
 				
 				listaDTO.add(eventDTO);
 			}
