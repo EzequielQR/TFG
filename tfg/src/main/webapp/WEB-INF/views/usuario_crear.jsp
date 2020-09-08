@@ -62,51 +62,67 @@
 					<legend>Crear Usuario</legend>
 					
 					<div class="form-group">
-						<label for="inputName">Nombre</label>
-						<form:input path="nombre" class="form-control" type="text" id="inputName" placeholder="Ingrese su nombre" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="input-name">Nombre</label>
+								<form:input path="nombre" class="form-control" type="text" id="input-name" placeholder="Ingrese su nombre" required="required"/>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="input-apellido">Apellido</label>
+								<form:input path="apellido" class="form-control" type="text" id="input-apellido" placeholder="Ingrese su apellido" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputApellido">Apellido</label>
-						<form:input path="apellido" class="form-control" type="text" id="inputApellido" placeholder="Ingrese su apellido" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="tipoUser">Seleccione el rol</label>
+								<select class="form-control" id="tipoUsuario" name="usuarioRol">
+									<c:forEach items="${listaRoles}" var="rol">
+										<option>${rol.nombre}</option>
+									</c:forEach>
+								</select>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputAlias">Alias</label>
+								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias">
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="tipoUser">Seleccione el rol</label>
-						<select class="form-control" id="tipoUsuario" name="usuarioRol">
-							<c:forEach items="${listaRoles}" var="rol">
-								<option>${rol.nombre}</option>
-							</c:forEach>
-						</select>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="tipoDoc">Seleccione el tipo de documento</label>
+								<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
+									<c:forEach items="${listaTipoDocumentos}" var="documento">
+										<option>${documento.nombre}</option>
+									</c:forEach>
+								</select>				
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputNumDoc">Documento</label>
+								<form:input path="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputAlias">Alias</label>
-						<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias">
-					</div>
-					
-					<div class="form-group">
-						<label for="tipoDoc">Seleccione el tipo de documento</label>
-						<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
-							<c:forEach items="${listaTipoDocumentos}" var="documento">
-								<option>${documento.nombre}</option>
-							</c:forEach>
-						</select>				
-					</div>
-					
-					<div class="form-group">
-						<label for="inputNumDoc">Documento</label>
-						<form:input path="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required"/>
-					</div>
-					
-					<div class="form-group">
-						<label for="inputEmail">Correo electrónico</label>
-						<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
-					</div>
-					
-					<div class="form-group">
-						<label for="inputTel">Teléfono</label>
-						<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="inputEmail">Correo electrónico</label>
+								<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputTel">Teléfono</label>
+								<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">

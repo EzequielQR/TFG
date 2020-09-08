@@ -63,66 +63,82 @@
 					<legend>Editar Usuario</legend>
 					
 					<div class="form-group">
-						<label for="inputName">Nombre</label>
-						<form:input path="nombre" class="form-control" type="text" id="inputName" placeholder="Ingrese su nombre" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="inputName">Nombre</label>
+								<form:input path="nombre" class="form-control" type="text" id="inputName" placeholder="Ingrese su nombre" required="required"/>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputApellido">Apellido</label>
+								<form:input path="apellido" class="form-control" type="text" id="inputApellido" placeholder="Ingrese su apellido" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputApellido">Apellido</label>
-						<form:input path="apellido" class="form-control" type="text" id="inputApellido" placeholder="Ingrese su apellido" required="required"/>
-					</div>
-					
-					<div class="form-group">
-						<label for="tipoUser">Seleccione el rol</label>
-						<select class="form-control" id="tipoUsuario" disabled="disabled">
-							<option>${persona.rol.nombre}</option>
-						</select>
-					</div>
-					<input type="hidden" name="usuarioRol" value="${persona.rol.nombre}">
-					
-					<div class="form-group">
-						<label for="inputAlias">Alias</label>
-						<c:choose>
-							<c:when test="${fn:toLowerCase(persona.rol.nombre) == fn:toLowerCase('TATUADOR')}">
-								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
-								value="${alias}">
-							</c:when>
-							<c:otherwise>
-								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
-								placeholder="Ingrese el alias">
-							</c:otherwise>
-						</c:choose>
-					</div>
-					
-					<div class="form-group">
-						<label for="tipoDoc">Seleccione el tipo de documento</label>
-						<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
-							<c:forEach items="${listaTipoDocumentos}" var="documento">
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="tipoUser">Seleccione el rol</label>
+								<select class="form-control" id="tipoUsuario" disabled="disabled">
+									<option>${persona.rol.nombre}</option>
+								</select>
+							</div>
+							<input type="hidden" name="usuarioRol" value="${persona.rol.nombre}">
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputAlias">Alias</label>
 								<c:choose>
-									<c:when test="${documento.nombre == persona.tipoDocumento.nombre}">
-										<option selected>${documento.nombre}</option>
+									<c:when test="${fn:toLowerCase(persona.rol.nombre) == fn:toLowerCase('TATUADOR')}">
+										<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
+										value="${alias}">
 									</c:when>
 									<c:otherwise>
-										<option>${documento.nombre}</option>
+										<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" 
+										placeholder="Ingrese el alias">
 									</c:otherwise>
 								</c:choose>
-							</c:forEach>
-						</select>				
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputNumDoc">Documento</label>
-						<form:input path="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="tipoDoc">Seleccione el tipo de documento</label>
+								<select class="form-control" id="tipoDocumento" name="usuarioDocumento">
+									<c:forEach items="${listaTipoDocumentos}" var="documento">
+										<c:choose>
+											<c:when test="${documento.nombre == persona.tipoDocumento.nombre}">
+												<option selected>${documento.nombre}</option>
+											</c:when>
+											<c:otherwise>
+												<option>${documento.nombre}</option>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</select>				
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputNumDoc">Documento</label>
+								<form:input path="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputEmail">Correo electrónico</label>
-						<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
-					</div>
-					
-					<div class="form-group">
-						<label for="inputTel">Teléfono</label>
-						<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="inputEmail">Correo electrónico</label>
+								<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="inputTel">Teléfono</label>
+								<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">

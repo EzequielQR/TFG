@@ -13,7 +13,7 @@
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-select-1.13.18/css/bootstrap-select.min.css"/>"/>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<link rel="stylesheet" href="<c:url value="/resources/jquery-timepicker-1.3.5/css/jquery.timepicker.min.css"/>">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -69,8 +69,8 @@
 				        <div class="row">
 				            
 				            <div class="col-lg-6 col-md-6">
-				                <label for="inputName">Turno iniciado:</label>
-				                <input type="text" class="form-control" id="inputName"
+				                <label for="input-name">Turno iniciado:</label>
+				                <input type="text" class="form-control" id="input-name"
 				                placeholder="Ezequiel Quispe Reyes" disabled="disabled"/>
 				            </div>
 				            
@@ -91,50 +91,51 @@
     			  </div><!-- End form-group -->
 					
 					<!-- Padre-->
-					<div class="form-group row">
-					
-						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-timepicker">Hora inicio:&nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span class="glyphicon glyphicon-dashboard"></span>
-								</div>
-							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour_start" required="required">
-						    </div>
-						</div>
+					<div class="form-group">
+						<div class="row">
 						
-						
-						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-timepicker">Hora fin:&nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span class="glyphicon glyphicon-dashboard"></span>
-								</div>
-							    <input type="text" class="form-control" id="input-timepicker" placeholder="Seleccione hora" name="hour_end" required="required">
-						    </div>
-						</div>
-						
-						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-							<label for="input-pago">Seña:&nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span>$</span>
-								</div>
-								<input type="number" class="form-control" id="input-pago" placeholder="Ingrese solo números" name="advance_payment" required="required">
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+								<label for="input-timepicker-hour-start">Hora inicio:&nbsp;</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-dashboard"></span>
+									</div>
+								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-start" placeholder="Seleccione hora" name="hour_start" required="required">
+							    </div>
 							</div>
-						</div>
-	
-						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-				    		<label for="input-prioridad">Prioridad:&nbsp;</label>
-				    		<select class="form-control selectpicker" id="input-prioridad" name="priority_id">
-				      			<c:forEach items="${listaPrioridades}" var="prioridad">
-									<option value="${prioridad.id}">${prioridad.nombre}</option>
-								</c:forEach>
-				    		</select>
-	  					</div>
-						
-					</div>
-					<!-- Padre -->
+							
+							
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+								<label for="input-timepicker-hour-end">Hora fin:&nbsp;</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-dashboard"></span>
+									</div>
+								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-end" placeholder="Seleccione hora" name="hour_end" required="required">
+							    </div>
+							</div>
+							
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+								<label for="input-pago">Seña:&nbsp;</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span>$</span>
+									</div>
+									<input type="number" class="form-control" id="input-pago" placeholder="Ingrese solo números" name="advance_payment" required="required">
+								</div>
+							</div>
+		
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+					    		<label for="input-prioridad">Prioridad:&nbsp;</label>
+					    		<select class="form-control selectpicker" id="input-prioridad" name="priority_id">
+					      			<c:forEach items="${listaPrioridades}" var="prioridad">
+										<option value="${prioridad.id}">${prioridad.nombre}</option>
+									</c:forEach>
+					    		</select>
+		  					</div>
+		  					
+						</div> <!-- End row -->
+					</div> <!-- End form-group -->
 					
 					<div class="form-group">
 			    		<label for="input-tatuador">Tatuador:</label>
@@ -195,14 +196,14 @@
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+	<script src="<c:url value="/resources/jquery-timepicker-1.3.5/js/jquery.timepicker.min.js"/>"></script>
 	<script type="text/javascript">
 		//. class
 		//# id
 		$(document).ready(function(){
 			//Comprobacion inicial
 			$('.my-select').selectpicker();
-			$('#input-timepicker').timepicker({
+			$('.input-timepicker').timepicker({
 			    timeFormat: 'HH:mm',
 			    interval: 30,
 			    minTime: '10:00',

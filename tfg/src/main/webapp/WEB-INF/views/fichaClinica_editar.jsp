@@ -66,13 +66,17 @@
 					<input type="hidden" name="id_clinical_record" value="${cliente.fichaClinica.id}">
 					
 					<div class="form-group">
-						<label for="inputName">Nombre</label>
-						<input type="text" class="form-control" id="inputName" value="${cliente.persona.nombre}" disabled="disabled"/>
-					</div>
-					
-					<div class="form-group">
-						<label for="inputApellido">Apellido</label>
-						<input type="text" class="form-control" id="inputApellido" value="${cliente.persona.apellido}" disabled="disabled"/>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<label for="input-name">Nombre</label>
+								<input type="text" class="form-control" id="input-name" value="${cliente.persona.nombre}" disabled="disabled"/>
+							</div>
+							
+							<div class="col-lg-6 col-md-6">
+								<label for="input-apellido">Apellido</label>
+								<input type="text" class="form-control" id="input-apellido" value="${cliente.persona.apellido}" disabled="disabled"/>
+							</div>
+						</div>
 					</div>
 					
 					<div class="form-group">

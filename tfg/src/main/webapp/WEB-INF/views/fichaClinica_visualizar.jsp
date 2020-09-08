@@ -98,9 +98,9 @@
 					    			<td>${cliente.persona.apellido}, ${cliente.persona.nombre}</td>
 					      			<td>${cliente.fichaClinica.grupoSanguineo}</td>
 					      			<td>${cliente.fichaClinica.factorRh}</td>
-					      			<td>${cliente.fichaClinica.alergias}</td>
-					      			<td>${cliente.fichaClinica.problemasCardiacos}</td>
-					      			<td>${empty cliente.fichaClinica.comentario ? 'No aplica' : cliente.fichaClinica.comentario }</td>
+					      			<td>${empty cliente.fichaClinica.alergias ? 'No aplica' : cliente.fichaClinica.alergias}</td>
+					      			<td>${empty cliente.fichaClinica.problemasCardiacos ? 'No aplica' : cliente.fichaClinica.problemasCardiacos}</td>
+					      			<td>${empty cliente.fichaClinica.comentario ? 'No aplica' : cliente.fichaClinica.comentario}</td>
 					    		</tr>
 					    		<!-- Use 'empty' keyword for check if a String is null or empty -->
 				  			</tbody>
@@ -158,9 +158,9 @@
 				    			<tr>
 				      				<th class="col-md-1">VIH</th>
 				      				<th class="col-md-1">Sifilis</th>
-				      				<th class="col-md-1">Hepatitis B</th>
+				      				<th class="col-md-2">Hepatitis B</th>
 				      				<th class="col-md-1">HPV</th>
-				      				<th class="col-md-8">Comentarios</th>
+				      				<th class="col-md-7">Comentarios</th>
 				    			</tr>
 				  			</thead>
 				  			<tbody>
