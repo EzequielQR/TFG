@@ -96,7 +96,7 @@
 	</div>
 
 	<!-- Modal to SEE event details -->
-	<div class="modal fade" id="calendarModal" role="dialog">
+	<div class="modal fade" id="detailsAppointmentModal" role="dialog">
 		<div class="modal-dialog">
 		
 			<!-- MODAL CONTENT -->
@@ -104,24 +104,48 @@
 			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Event Details</h4>
+					<h4 class="modal-title">Detalles turno</h4>
 				</div>
 				
 				<div class="modal-body" id="modalBody">
-					<h4 id="modalTitle" class="modal-title"></h4>
-					<div id="modalWhen" style="margin-top:5px;"></div>
+					<h4 id="modal-body-title" class="modal-title"></h4>
+					<div id="modal-body-when" style="margin-top:5px;"></div>
 				</div>
 				
 				<input type="hidden" id="eventID"/>
 				
 				<div class="modal-footer">
-				    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+				    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-warning" id="deleteButton">Borrar</button>
 				</div>
 				
 			 </div>
 			 
 		</div>
+	</div>
+	
+	<!-- Modal to show an warning notification -->
+	<div class="modal fade" id="createEventSunday" role="dialog">
+		 <div class="modal-dialog modal-sm">
+		 
+			 <!-- Modal content-->
+			 <div class="modal-content">
+				 
+				 <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Advertencia</h4>
+				 </div>
+				 
+				 <div class="modal-body">
+				 	<p>La creación de turnos para los días domingos ha sido deshabilitada.</p>
+				 </div>
+				 
+				 <div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Volver</button>
+				 </div>
+			 </div>
+			 
+		 </div>
 	</div>
 		
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
@@ -148,6 +172,8 @@
 	            
 	            timeFormat: 'HH:mm',
 	            
+	            firstDay : 1,	// Sunday=0, Monday=1, Tuesday=2, etc.
+	            
 		    	events : 'populateCalendar',
 		    	//[
 		    	//	{
@@ -172,8 +198,6 @@
 		    	//dayClick function: When we click in a day, an event will trigger. Si hago click en UN EVENTO
 		    	//NO SE VA a disparar la funcion.
 		    	
-		    	//eventClick function: When we click in a day, an event will trigger.
-		    	
 		    	//date: Holds a MomentJS for the clicked day, ergo, I can use MomentJS functions. See official
 		    		  //page for more functions.
 		    	//jsEvent: Holds the native JavaScript event with low-level info.
@@ -186,10 +210,33 @@
 							console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 							console.log('Current view: ' + view.name);
 							
-							$('#date_picked_hidden').val(date.format());
-							$('#date_picked_show').text(date.format());
-							$('#createEventModal').modal("show");
-  				}
+							//momentJS: isoWeekday()  returns 1-7 where 1 is Monday and 7 is Sunday
+							
+							console.log(date.isoWeekday());
+
+							if(date.isoWeekday() == 7){
+								$('#createEventSunday').modal("show");
+							} else {
+								$('#date_picked_hidden').val(date.format());
+								$('#date_picked_show').text(date.format());
+								$('#createEventModal').modal("show");
+							}
+							
+  				},
+		    
+		    eventClick : function(event, jsEvent, view) {
+		    		console.log($.fullCalendar.moment(event.start).format('dddd, DD/MMMM/YYYY, HH:mm'));
+		    		
+		    		startTime = $.fullCalendar.moment(event.start).format('dddd, DD/MMMM/YYYY, HH:mm');
+		    		endTime = $.fullCalendar.moment(event.end).format('HH:mm');
+	                
+		    		var when = startTime + ' - ' + endTime;
+	                
+	                $('#modal-body-title').html(event.title);
+	                $('#modal-body-when').text(when);
+	                $('#eventID').val(event.id);
+	                $('#detailsAppointmentModal').modal("show");			
+		    	}
 		    })
 		});
 	</script>
