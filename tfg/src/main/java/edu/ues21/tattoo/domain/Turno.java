@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,11 +35,11 @@ public class Turno implements Serializable{
 	private Persona iniciadoPor;
 	@ManyToOne
 	@JoinColumn(name="tatuadores_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Tatuador tatuador;
 	@ManyToOne
 	@JoinColumn(name="clientes_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Cliente cliente;
 	@Column(name="descripcion")
 	private String descripcion;
@@ -163,5 +162,5 @@ public class Turno implements Serializable{
 	public void setSenia(int senia) {
 		this.senia = senia;
 	}
-	
+
 }

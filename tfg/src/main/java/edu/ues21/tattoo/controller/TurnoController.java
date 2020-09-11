@@ -132,5 +132,28 @@ public class TurnoController {
 		else
 			return "redirect:/panel-asistente";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxAppointmentDetails", method = RequestMethod.GET)
+	public String populateModal(@RequestParam("id_appointment") int idAppointment) {
+		Turno turno = turnoService.getById(idAppointment);
+		
+		System.out.println(turno.getCliente().getPersona().getId());
+		System.out.println(turno.getCliente().getPersona().getApellido());
+		System.out.println(turno.getCliente().getPersona().getNombre());
+		
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+			mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(turno));
+			return mapper.writeValueAsString(turno);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "error";
+	}
 
 }

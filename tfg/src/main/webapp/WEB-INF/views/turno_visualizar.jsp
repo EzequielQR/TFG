@@ -104,15 +104,57 @@
 			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Detalles turno</h4>
+					<h4 class="modal-title">Detalles del turno</h4>
 				</div>
 				
-				<div class="modal-body" id="modalBody">
-					<h4 id="modal-body-title" class="modal-title"></h4>
-					<div id="modal-body-when" style="margin-top:5px;"></div>
+				<div class="modal-body" id="modal_detail">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td><b>ID</b></td>
+								<td class="id_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Fecha</b></td>
+								<td class="date_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Hora Inicio - Hora Fin</b></td>
+								<td class="hour_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Prioridad</b></td>
+								<td class="priority_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Tatuador</b></td>
+								<td class="tatuador_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Cliente</b></td>
+								<td class="customer_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Teléfono Cliente</b></td>
+								<td class="customer_phone_number_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Seña</b></td>
+								<td class="advance_payment_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Tipo Tatuaje</b></td>
+								<td class="style_tattoo_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Descripción</b></td>
+								<td class="description_modal"></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 				
-				<input type="hidden" id="eventID"/>
+				<input type="hidden" id="appointmentHiddenId"/>
 				
 				<div class="modal-footer">
 				    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -206,36 +248,69 @@
 		    	//y View por lista.
 		    	//view.title: Titulo de la vista.
 		    	dayClick : function(date, jsEvent, view) {
-							console.log('Clicked on: ' + date.format());
-							console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-							console.log('Current view: ' + view.name);
+		    		
+		    		console.log('Clicked on: ' + date.format());
+					console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+					console.log('Current view: ' + view.name);
 							
-							//momentJS: isoWeekday()  returns 1-7 where 1 is Monday and 7 is Sunday
+					//momentJS: isoWeekday()  returns 1-7 where 1 is Monday and 7 is Sunday
 							
-							console.log(date.isoWeekday());
+					console.log(date.isoWeekday());
 
-							if(date.isoWeekday() == 7){
-								$('#createEventSunday').modal("show");
-							} else {
-								$('#date_picked_hidden').val(date.format());
-								$('#date_picked_show').text(date.format());
-								$('#createEventModal').modal("show");
-							}
+					if(date.isoWeekday() == 7){
+						$('#createEventSunday').modal("show");
+					} else {
+						$('#date_picked_hidden').val(date.format());
+						$('#date_picked_show').text(date.format());
+						$('#createEventModal').modal("show");
+					}
 							
   				},
 		    
-		    eventClick : function(event, jsEvent, view) {
+		    	eventClick : function(event, jsEvent, view) {
+		    		
 		    		console.log($.fullCalendar.moment(event.start).format('dddd, DD/MMMM/YYYY, HH:mm'));
 		    		
 		    		startTime = $.fullCalendar.moment(event.start).format('dddd, DD/MMMM/YYYY, HH:mm');
 		    		endTime = $.fullCalendar.moment(event.end).format('HH:mm');
 	                
-		    		var when = startTime + ' - ' + endTime;
-	                
-	                $('#modal-body-title').html(event.title);
-	                $('#modal-body-when').text(when);
-	                $('#eventID').val(event.id);
-	                $('#detailsAppointmentModal').modal("show");			
+					var when = startTime + ' - ' + endTime;
+				    
+				    $.ajax({
+				    	url : "ajaxAppointmentDetails",
+				    	method : "get",
+				    	data : {id_appointment : event.id},	//{key : value}
+				    	success : function(result){
+							//The JSON you are receiving is in string. You have to convert it into JSON object.
+							//Alert() only can display Strings.
+							//For debug proposes, use console.log(data);
+							var obj = JSON.parse(result);
+							console.log(obj);
+							
+							var fecha = $.fullCalendar.moment(event.start).format('dddd, DD/MMMM/YYYY');
+							
+							var horaInicio = moment(event.start).format('HH:mm');
+							var horaFin = moment(event.end).format('HH:mm');
+							var rangoHora = horaInicio + ' - ' + horaFin;
+							
+							
+							$('#appointmentHiddenId').val(obj.id);
+							
+							$('.id_modal').html(obj.id);
+							$('.date_modal').html(fecha);
+							$('.hour_modal').html(rangoHora);
+							$('.priority_modal').html(obj.prioridad.nombre);
+							$('.tatuador_modal').html(obj.tatuador.pseudonimo);
+							$('.customer_modal').html(obj.cliente.persona.apellido + ', ' + obj.cliente.persona.nombre);
+							$('.customer_phone_number_modal').html(obj.cliente.persona.telefono);
+							$('.advance_payment_modal').html('$ ' + obj.senia);
+							$('.style_tattoo_modal').html(obj.tipoTatuaje.nombre);
+							$('.description_modal').html(obj.descripcion);
+							
+							
+							$('#detailsAppointmentModal').modal("show");							
+				    	}
+				    });
 		    	}
 		    })
 		});
