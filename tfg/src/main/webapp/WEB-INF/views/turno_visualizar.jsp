@@ -154,11 +154,13 @@
 					</div>
 				</div>
 				
-				<input type="hidden" id="appointmentHiddenId"/>
-				
 				<div class="modal-footer">
-				    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="submit" class="btn btn-warning" id="deleteButton">Borrar</button>
+					<form:form method="POST" action="actionDetailsAppointment">
+						<input type="hidden" id="appointmentHiddenId" name="id-appointment"/>
+					    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					    <button type="submit" class="btn btn-info" id="editButton" name="btn-action" value="edit">Editar</button>
+						<button type="submit" class="btn btn-warning" id="deleteButton" name="btn-action" value="delete">Borrar</button>
+					</form:form>
 				</div>
 				
 			 </div>
@@ -166,7 +168,7 @@
 		</div>
 	</div>
 	
-	<!-- Modal to show an warning notification -->
+	<!-- Modal to show a warning notification -->
 	<div class="modal fade" id="createEventSunday" role="dialog">
 		 <div class="modal-dialog modal-sm">
 		 
@@ -306,7 +308,6 @@
 							$('.advance_payment_modal').html('$ ' + obj.senia);
 							$('.style_tattoo_modal').html(obj.tipoTatuaje.nombre);
 							$('.description_modal').html(obj.descripcion);
-							
 							
 							$('#detailsAppointmentModal').modal("show");							
 				    	}

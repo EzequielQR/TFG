@@ -1,8 +1,10 @@
 package edu.ues21.tattoo.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
@@ -65,9 +68,17 @@ public class TurnoController {
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
+			StdDateFormat stdDateFormat = new StdDateFormat();
+			
+			//https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+			stdDateFormat.setTimeZone(TimeZone.getTimeZone("America/Argentina/Cordoba"));
+			stdDateFormat.withColonInTimeZone(true);
+			
+			//Without the line above, the date will be show as unix time stamp.
 			mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-			mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+			mapper.setDateFormat(stdDateFormat);
 			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list));
+			
 			return mapper.writeValueAsString(list);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -135,18 +146,22 @@ public class TurnoController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxAppointmentDetails", method = RequestMethod.GET)
-	public String populateModal(@RequestParam("id_appointment") int idAppointment) {
+	public String populateAppointmentDetailsModal(@RequestParam("id_appointment") int idAppointment) {
 		Turno turno = turnoService.getById(idAppointment);
-		
-		System.out.println(turno.getCliente().getPersona().getId());
-		System.out.println(turno.getCliente().getPersona().getApellido());
-		System.out.println(turno.getCliente().getPersona().getNombre());
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
+			StdDateFormat stdDateFormat = new StdDateFormat();
+
+			//https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+			stdDateFormat.setTimeZone(TimeZone.getTimeZone("America/Argentina/Cordoba"));
+			stdDateFormat.withColonInTimeZone(true);
+			
+			//Without the line above, the date will be show as unix time stamp.
 			mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-			mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+			mapper.setDateFormat(stdDateFormat);
 			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(turno));
+			
 			return mapper.writeValueAsString(turno);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -154,6 +169,25 @@ public class TurnoController {
 		}
 		
 		return "error";
+	}
+	
+	@RequestMapping(value = "/actionDetailsAppointment", method = RequestMethod.POST)
+	public String redirectToActionDetailsAppointment(
+								@RequestParam(required = true, name = "id-appointment") String idAppointment,
+								@RequestParam(required = true, name = "btn-action") String btnAction) {
+		if(btnAction.equalsIgnoreCase("edit")) {
+			return "redirect:/turno/editar?id-turno=" + idAppointment;
+		} else {
+			turnoService.delete(Integer.parseInt(idAppointment));
+			return "redirect:/turno/mostrar";
+		}
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment, 
+								  Model model) {
+		model.addAttribute("turno", turnoService.getById(Integer.parseInt(idAppointment)));
+		return "turno_editar";
 	}
 
 }
