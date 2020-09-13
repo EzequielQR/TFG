@@ -1,6 +1,5 @@
 package edu.ues21.tattoo.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
@@ -187,7 +185,18 @@ public class TurnoController {
 	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment, 
 								  Model model) {
 		model.addAttribute("turno", turnoService.getById(Integer.parseInt(idAppointment)));
+		
+		model.addAttribute("listaPrioridades", categoriaService.getByTipo(2));
+		model.addAttribute("listaEstiloTatuajes", categoriaService.getByTipo(5));
+		model.addAttribute("listaTatuadores", tatuadorService.getAll());
+		model.addAttribute("listaClientes", clienteService.getAll());
+		
 		return "turno_editar";
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment) {
+		return "";
 	}
 
 }

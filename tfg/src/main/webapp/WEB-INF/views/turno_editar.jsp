@@ -124,7 +124,7 @@
 									<div class="input-group-addon">
 										<span>$</span>
 									</div>
-									<input type="number" class="form-control" id="input-pago" placeholder="Ingrese solo números" name="advance_payment" required="required">
+									<input type="number" class="form-control" id="input-pago" placeholder="Ingrese solo números" name="advance_payment" required="required" value="${turno.senia}">
 								</div>
 							</div>
 		
@@ -132,7 +132,14 @@
 					    		<label for="input-prioridad">Prioridad:&nbsp;</label>
 					    		<select class="form-control selectpicker" id="input-prioridad" name="priority_id">
 					      			<c:forEach items="${listaPrioridades}" var="prioridad">
-										<option value="${prioridad.id}">${prioridad.nombre}</option>
+					      				<c:choose>
+					      					<c:when test="${prioridad.nombre == turno.prioridad.nombre}">
+					      						<option selected value="${prioridad.id}">${prioridad.nombre}</option>
+					      					</c:when>
+					      					<c:otherwise>
+												<option value="${prioridad.id}">${prioridad.nombre}</option>					      						
+					      					</c:otherwise>
+					      				</c:choose>
 									</c:forEach>
 					    		</select>
 		  					</div>
@@ -144,7 +151,14 @@
 			    		<label for="input-tatuador">Tatuador:</label>
 			    		<select class="form-control selectpicker" id="input-tatuador" name="tattooist_id">
 			    			<c:forEach items="${listaTatuadores}" var="tattooist">
-								<option value="${tattooist.id}">${tattooist.pseudonimo}</option>
+			    				<c:choose>
+			    					<c:when test="${tattooist.pseudonimo == turno.tatuador.pseudonimo}">
+			    						<option selected value="${tattooist.id}">${tattooist.pseudonimo}</option>
+			    					</c:when>
+			    					<c:otherwise>
+										<option value="${tattooist.id}">${tattooist.pseudonimo}</option>			    					
+			    					</c:otherwise>
+			    				</c:choose>
 							</c:forEach>
 			    		</select>
   					</div>
@@ -154,7 +168,14 @@
 			    		<label for="input-estilo">Estilo de tatuaje:</label>
 			    		<select class="form-control selectpicker" id="input-estilo" name="tattoo_style_id" data-live-search="true" title="Buscar por estilo de tatuaje" required="required">
 			    			<c:forEach items="${listaEstiloTatuajes}" var="estilos">
-								<option value="${estilos.id}">${estilos.nombre}</option>
+			    				<c:choose>
+			    					<c:when test="${estilos.nombre == turno.tipoTatuaje.nombre}">
+			    						<option selected value="${estilos.id}">${estilos.nombre}</option>
+			    					</c:when>
+			    					<c:otherwise>
+										<option value="${estilos.id}">${estilos.nombre}</option>			    					
+			    					</c:otherwise>
+			    				</c:choose>
 							</c:forEach>
 			    		</select>
   					</div>
@@ -164,23 +185,32 @@
   						<label for="input-cliente">Cliente:</label>
 	  					<select class="form-control selectpicker" id="input-cliente" name="customer_id" data-live-search="true" title="Buscar por nombre, apellido o número de documento" required="required">
 							<c:forEach items="${listaClientes}" var="client">
-								<option value="${client.id}" data-tokens="${client.persona.numeroDocumento}">
-									${client.persona.apellido}, ${client.persona.nombre}
-								</option>
+								<c:choose>
+									<c:when test="${client.id == turno.cliente.id}">
+										<option selected value="${client.id}" data-tokens="${client.persona.numeroDocumento}">
+											${client.persona.apellido}, ${client.persona.nombre}
+										</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${client.id}" data-tokens="${client.persona.numeroDocumento}">
+											${client.persona.apellido}, ${client.persona.nombre}
+										</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>
 					
 					<div class="form-group">
 		  			 	<label for="input-descripcion">Descripción:</label>
-						<textarea class="form-control" rows="5" id="input-descripcion" placeholder="Inserte la descripción" name="description"></textarea>
+						<textarea class="form-control" rows="5" id="input-descripcion" placeholder="Inserte la descripción" name="description">${turno.descripcion}</textarea>
 					</div>
 					
 					<div class="form-group">
 					
 						<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="save">
-							<span class="glyphicon glyphicon-plus"></span>
-							Agregar
+							<span class="glyphicon glyphicon-pencil"></span>
+							Editar
 						</button>
 						
 						<button type="submit" class="btn btn-success" id="btnAssistant" name="action" value="assistant">
