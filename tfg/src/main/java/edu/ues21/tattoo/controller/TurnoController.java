@@ -128,6 +128,7 @@ public class TurnoController {
 		}
 		//TODO: FIXME remove hardcoded userlogged
 		turno.setIniciadoPor(personaService.getById(11));
+		//TODO: Checkout null attribute in listaProductosUtilizados field
 		turno.setListaProductosUtilizados(null);
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
 		turno.setSenia(Integer.parseInt(senia));
@@ -195,8 +196,46 @@ public class TurnoController {
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
-	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment) {
-		return "";
+	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment,
+								  @RequestParam(required = true, name = "fecha-elegida") String fechaElegida,
+								  @RequestParam(required = true, name = "hour_start") String horaInicio,
+								  @RequestParam(required = true, name = "hour_end") String horaFin,
+								  @RequestParam(required = true, name = "advance_payment") String senia,
+								  @RequestParam(required = true, name = "priority_id") String prioridadId,
+								  @RequestParam(required = true, name = "tattooist_id") String tatuadorId,
+								  @RequestParam(required = true, name = "tattoo_style_id") String estiloTatuajeId,
+								  @RequestParam(required = true, name = "customer_id") String clienteId,
+								  @RequestParam(required = false, name = "description")String descripcion,
+								  @RequestParam(required = true, name = "action") String btnPressed,
+								  Model model) {
+		Turno turno = new Turno();
+		turno.setCliente(clienteService.getById(Integer.parseInt(clienteId)));
+		turno.setDescripcion(descripcion);
+		turno.setEstado(categoriaService.getByName("Abierto"));
+		
+		try {
+			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + horaInicio));
+			turno.setFechaFin(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fechaElegida + " " + horaFin));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		turno.setId(Integer.parseInt(idAppointment));
+		//TODO: FIXME remove hardcoded userlogged
+		turno.setIniciadoPor(personaService.getById(11));
+		//TODO: Checkout null attribute in listaProductosUtilizados field
+		turno.setListaProductosUtilizados(null);
+		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
+		turno.setSenia(Integer.parseInt(senia));
+		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));
+		turno.setTipoTatuaje(categoriaService.getById(Integer.parseInt(estiloTatuajeId)));
+		
+		turnoService.update(turno);
+		
+		if(btnPressed.equalsIgnoreCase("edit"))
+			return "redirect:/turno/mostrar";
+		else
+			return "redirect:/panel-asistente";
 	}
 
 }

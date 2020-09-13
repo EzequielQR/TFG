@@ -65,6 +65,8 @@
 				<fieldset>
 					<legend>Editar Turno</legend>
 					
+					<input type="hidden" name="fecha-elegida" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${turno.fechaInicio}'/>">
+					
 					<div class="form-group">
 				        <div class="row">
 				            
@@ -208,7 +210,7 @@
 					
 					<div class="form-group">
 					
-						<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="save">
+						<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="edit">
 							<span class="glyphicon glyphicon-pencil"></span>
 							Editar
 						</button>
