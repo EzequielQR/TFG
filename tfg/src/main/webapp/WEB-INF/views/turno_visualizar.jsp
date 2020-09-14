@@ -330,7 +330,6 @@
 		    				  //the drag.
   				eventDrop : function(eventDropInfo, delta, revertFunc){
   					console.log(eventDropInfo);
-  					alert(eventDropInfo.title + " was dropped on " + eventDropInfo.start.format());
   					
   					//momentJS: isoWeekday()  returns 1-7 where 1 is Monday and 7 is Sunday
   					if(eventDropInfo.start.isoWeekday() == 7){

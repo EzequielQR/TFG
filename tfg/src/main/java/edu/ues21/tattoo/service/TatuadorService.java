@@ -13,4 +13,5 @@ public interface TatuadorService {
 	void update(Tatuador tatuador);
 	void delete(Tatuador tatuador);
 	void delete(int id);
+	List<Tatuador> getTattoistWithActualAppointments();
 }

@@ -2,11 +2,15 @@ package edu.ues21.tattoo.domain.repository.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.domain.repository.TatuadorRepository;
 import edu.ues21.tattoo.util.HibernateUtil;
 
@@ -78,4 +82,17 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public List<Tatuador> getTattoistWithActualAppointments(){
+		Session session = HibernateUtil.beginTransaction();
+		String SQL = "SELECT t FROM Tatuador t "
+				+ "JOIN FETCH t.turnos tu WHERE tu.fechaInicio >= '2020-09-14 00:00:00' AND "
+				+ "tu.fechaInicio <= '2020-09-14 23:59:59'";
+		Query query = session.createQuery(SQL);
+		List<Tatuador> list = query.list();
+		session.getTransaction().commit();
+		
+		return list;
+	}
+	
 }

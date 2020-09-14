@@ -122,4 +122,10 @@ public class TatuadorServiceImpl implements TatuadorService{
 		return colorCode;
 	}
 
+	@Override
+	public List<Tatuador> getTattoistWithActualAppointments() {
+		// TODO Auto-generated method stub
+		return tatuadorRepository.getTattoistWithActualAppointments();
+	}
+
 }
