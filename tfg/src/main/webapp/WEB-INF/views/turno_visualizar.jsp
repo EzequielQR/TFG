@@ -169,7 +169,7 @@
 	</div>
 	
 	<!-- Modal to show a warning notification -->
-	<div class="modal fade" id="createEventSunday" role="dialog">
+	<div class="modal fade" id="sunday-events" role="dialog">
 		 <div class="modal-dialog modal-sm">
 		 
 			 <!-- Modal content-->
@@ -181,7 +181,7 @@
 				 </div>
 				 
 				 <div class="modal-body">
-				 	<p>La creación de turnos para los días domingos ha sido deshabilitada.</p>
+				 	<p id="paragraph-body-modal-sunday"></p>
 				 </div>
 				 
 				 <div class="modal-footer">
@@ -217,6 +217,15 @@
 	            timeFormat: 'HH:mm',
 	            
 	            firstDay : 1,	// Sunday=0, Monday=1, Tuesday=2, etc.
+
+	            //Determines if the events can be dragged and resized. Enables/disables both at the same time.
+	            //If you don't want both, use editable in conjunction with: 'eventStartEditable' and
+	            //'eventDurationEditable'.
+	            editable : true,
+	            
+	            eventStartEditable : true,	//Permite/no permite mover los eventos dentro del calendario.
+	            
+	            eventDurationEditable : false, //Permite/No permite el resize de eventos.
 	            
 		    	events : 'populateCalendar',
 		    	//[
@@ -260,7 +269,8 @@
 					console.log(date.isoWeekday());
 
 					if(date.isoWeekday() == 7){
-						$('#createEventSunday').modal("show");
+						$('#paragraph-body-modal-sunday').text("La creación de turnos para los días domingos ha sido deshabilitada.");
+						$('#sunday-events').modal("show");
 					} else {
 						$('#date_picked_hidden').val(date.format());
 						$('#date_picked_show').text(date.format());
@@ -312,7 +322,41 @@
 							$('#detailsAppointmentModal').modal("show");							
 				    	}
 				    });
-		    	}
+		    	},
+  				
+		    	//eventDropInfo: is an Event Object that hold the event information (date, title, etc)
+		    	//delta: is a Duration Object that represents the amount of time the event was moved by.
+		    	//revertFunc: is a function that, if called, reverts the events start/end date to values before
+		    				  //the drag.
+  				eventDrop : function(eventDropInfo, delta, revertFunc){
+  					console.log(eventDropInfo);
+  					alert(eventDropInfo.title + " was dropped on " + eventDropInfo.start.format());
+  					
+  					//momentJS: isoWeekday()  returns 1-7 where 1 is Monday and 7 is Sunday
+  					if(eventDropInfo.start.isoWeekday() == 7){
+  						$('#paragraph-body-modal-sunday').text("No es posible mover el turno seleccionado para el día domingo.");
+  						$('#sunday-events').modal("show");
+  						revertFunc();
+  					} else {
+  						$.ajax({
+  							url : "ajaxUpdateDraggedEvent",
+  							method : "get",
+  							//data : {key : value}
+  							data : {id_appointment : eventDropInfo.id, picked_date : eventDropInfo.start.format()},
+  							success : function(result){
+  								//The JSON you are receiving is in string. You have to convert it into JSON object.
+  								//Alert() only can display Strings.
+  								//For debug proposes, use console.log(data);
+  								
+  								//var obj = JSON.parse(result);
+								//console.log(obj);
+  								
+  								console.log("Se ejecuto con éxito la función AJAX.");
+  							}
+  						});
+  					}
+  				}
+  				
 		    })
 		});
 	</script>

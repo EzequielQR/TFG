@@ -20,7 +20,7 @@ public class HomeController {
 		//TODO: FIXME Linea 21: NullPointerExcecption
 		model.addAttribute("nombre", UserUtil.getUsuario(null).getNombre());
 		model.addAttribute("list", tatuadorService.getTattooistWithActualAppointments());
-		
+
 		return "home";
 	}
 	

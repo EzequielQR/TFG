@@ -1,7 +1,9 @@
 package edu.ues21.tattoo.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -236,6 +238,41 @@ public class TurnoController {
 			return "redirect:/turno/mostrar";
 		else
 			return "redirect:/panel-asistente";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxUpdateDraggedEvent", method = RequestMethod.GET)
+	public String updateDraggedAppointment(@RequestParam("id_appointment") int idAppointment,
+										   @RequestParam("picked_date") String stringPickedDate) {
+		
+		//TODO:
+		//Chequear que el tatuador no tenga turno agendado (en controller) cuando se haga un drag en un nuevo día.
+		//En el controller: -> tatuador disponible -> hacer update -> mandar estado al ajax.
+		//  				-> no dispónible	 -> no  updatear -> mandar estado al ajax y ejecutar revertFunc()
+		
+		Turno turno = turnoService.getById(idAppointment);
+		
+		try {
+			//stringPickedDate = 2020-09-03T11:38:58
+			Date pickedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(stringPickedDate);
+			
+			String newDate = new SimpleDateFormat("yyyy-MM-dd").format(pickedDate);
+			String hourStart = new SimpleDateFormat("HH:mm").format(turno.getFechaInicio());
+			String hourEnd = new SimpleDateFormat("HH:mm").format(turno.getFechaFin());
+
+			turno.setFechaInicio(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(newDate + " " + hourStart));
+			turno.setFechaFin(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(newDate + " " + hourEnd));
+
+			turnoService.update(turno);
+			
+			return "";
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "";
+		}
+		
 	}
 
 }

@@ -121,4 +121,5 @@ public class TatuadorServiceImpl implements TatuadorService{
 		
 		return colorCode;
 	}
+
 }
