@@ -12,5 +12,5 @@ public interface TatuadorRepository {
 	void update(Tatuador tatuador);
 	void delete(Tatuador tatuador);
 	void delete(int id);
-	List<Tatuador> getTattoistWithActualAppointments();
+	List<Tatuador> getTattoistWithActualAppointments(String fechaInicio, String fechaFin);
 }

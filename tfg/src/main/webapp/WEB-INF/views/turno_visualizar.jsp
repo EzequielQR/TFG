@@ -350,7 +350,25 @@
   								//var obj = JSON.parse(result);
 								//console.log(obj);
   								
-  								console.log("Se ejecuto con éxito la función AJAX.");
+								if(result == "success")
+  									console.log("Se ejecuto con éxito la función AJAX.");
+								else if (result == "not-available"){
+									console.log("Is not an available slot");
+									revertFunc();
+									$('#paragraph-body-modal-sunday').html
+									("No se puede mover el turno para el día seleccionado, por algunos de los siguientes motivos:<br><br>" +
+									"<ul><li>Existe suporposición de turnos.</li><li>Existe pocas horas de diferencia entre turnos del mismo día.</li></ul>");
+									
+									$('#sunday-events').modal("show");
+								} else {
+									console.log("Parse error");
+									revertFunc();
+									$('#paragraph-body-modal-sunday').text
+									("Hubo un error de parseo. Intentelo nuevamente.");
+									
+									$('#sunday-events').modal("show");
+								}
+  								
   							}
   						});
   					}

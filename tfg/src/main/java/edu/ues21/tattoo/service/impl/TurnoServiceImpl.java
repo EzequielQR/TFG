@@ -1,7 +1,9 @@
 package edu.ues21.tattoo.service.impl;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,25 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		turnoRepository.delete(id);
 	}
+
+	@Override
+	public boolean tattoistHasAvailableSlot(int idTattoist, Date dateStart, Date dateEnd) {
+		// TODO Auto-generated method stub
+		Date dateStartHourOffset = modifyHoursToJavaUtilDate(dateStart, -1);
+		Date dateEndHourOffset = modifyHoursToJavaUtilDate(dateEnd, +1);
+
+		String dayStartString = new SimpleDateFormat("yyyy-MM-dd").format(dateStart);
+		String fechaInicioOffsetString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(dateStartHourOffset);
+		String fechaFinOffsetString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(dateEndHourOffset);
+		
+		List<Turno> listaTurnos = turnoRepository.getAllByTattoistAndSpecificDate
+				(idTattoist, dayStartString, fechaInicioOffsetString, fechaFinOffsetString);
+		
+		if(listaTurnos.isEmpty())
+			return true;
+		else
+			return false;
+	}
 	
 	private List<EventDTO> turnoToDTO(List<Turno> listaTurnos){
 		List<EventDTO> listaDTO = new ArrayList<>();
@@ -82,4 +103,12 @@ public class TurnoServiceImpl implements TurnoService{
 		}
 			
 	}
+	
+	private Date modifyHoursToJavaUtilDate(Date date, int hours) {
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    calendar.add(Calendar.HOUR_OF_DAY, hours);
+	    return calendar.getTime();
+	}
+
 }

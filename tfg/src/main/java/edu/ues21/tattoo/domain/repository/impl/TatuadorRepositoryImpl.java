@@ -83,12 +83,13 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 	}
 
 	@Override
-	public List<Tatuador> getTattoistWithActualAppointments(){
+	public List<Tatuador> getTattoistWithActualAppointments(String fechaInicio, String fechaFin){
 		Session session = HibernateUtil.beginTransaction();
 		String SQL = "SELECT t FROM Tatuador t "
-				+ "JOIN FETCH t.turnos tu WHERE tu.fechaInicio >= '2020-09-14 00:00:00' AND "
-				+ "tu.fechaInicio <= '2020-09-14 23:59:59'";
+				+ "JOIN FETCH t.turnos tu WHERE tu.fechaInicio >= :inicio AND tu.fechaInicio <= :fin";
 		Query query = session.createQuery(SQL);
+		query.setString("inicio", fechaInicio);
+		query.setString("fin", fechaFin);
 		List<Tatuador> list = query.list();
 		session.getTransaction().commit();
 		

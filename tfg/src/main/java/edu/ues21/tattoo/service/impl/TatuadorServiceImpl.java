@@ -125,7 +125,10 @@ public class TatuadorServiceImpl implements TatuadorService{
 	@Override
 	public List<Tatuador> getTattoistWithActualAppointments() {
 		// TODO Auto-generated method stub
-		return tatuadorRepository.getTattoistWithActualAppointments();
+		String fechaActual = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
+		return tatuadorRepository.getTattoistWithActualAppointments(fechaActual + " " + "00:00:00", 
+																	fechaActual + " " + "23:59:59");
 	}
 
 }

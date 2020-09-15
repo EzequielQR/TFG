@@ -1,5 +1,6 @@
 package edu.ues21.tattoo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.ues21.tattoo.domain.EventDTO;
@@ -13,4 +14,5 @@ public interface TurnoService {
 	void update(Turno turno);
 	void delete(Turno turno);
 	void delete(int id);
+	boolean tattoistHasAvailableSlot(int idTattoist, Date dateStart, Date dateEnd);
 }

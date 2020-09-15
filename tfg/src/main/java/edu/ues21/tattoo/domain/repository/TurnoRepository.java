@@ -8,6 +8,8 @@ public interface TurnoRepository {
 	int add(Turno turno);
 	List<Turno> getAll();
 	Turno getById(int id);
+	List<Turno> getAllByTattoist(int idTattoist);
+	List<Turno> getAllByTattoistAndSpecificDate(int idTattoist, String diaInicio, String fechaInicio, String fechaFin);
 	void update(Turno turno);
 	void delete(Turno turno);
 	void delete(int id);
