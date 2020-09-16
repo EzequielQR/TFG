@@ -9,7 +9,7 @@ public interface TurnoRepository {
 	List<Turno> getAll();
 	Turno getById(int id);
 	List<Turno> getAllByTattoist(int idTattoist);
-	List<Turno> getAllByTattoistAndSpecificDate(int idTattoist, String diaInicio, String fechaInicio, String fechaFin);
+	List<Turno> getAllByTattoistAndSpecificDate(int idTattoist, String fechaInicio, String fechaFin);
 	void update(Turno turno);
 	void delete(Turno turno);
 	void delete(int id);

@@ -69,12 +69,11 @@ public class TurnoServiceImpl implements TurnoService{
 		Date dateStartHourOffset = modifyHoursToJavaUtilDate(dateStart, -1);
 		Date dateEndHourOffset = modifyHoursToJavaUtilDate(dateEnd, +1);
 
-		String dayStartString = new SimpleDateFormat("yyyy-MM-dd").format(dateStart);
 		String fechaInicioOffsetString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(dateStartHourOffset);
 		String fechaFinOffsetString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(dateEndHourOffset);
 		
 		List<Turno> listaTurnos = turnoRepository.getAllByTattoistAndSpecificDate
-				(idTattoist, dayStartString, fechaInicioOffsetString, fechaFinOffsetString);
+				(idTattoist, fechaInicioOffsetString, fechaFinOffsetString);
 		
 		if(listaTurnos.isEmpty())
 			return true;
