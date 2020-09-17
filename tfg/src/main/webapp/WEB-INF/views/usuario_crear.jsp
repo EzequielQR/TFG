@@ -29,15 +29,14 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Crear Turno</a></li>
-								<li><a href="#">Visualizar Turnos</a></li>
+								<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
 							</ul>
 					</li>
 					<li class="dropdown active">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Crear Usuario</a></li>
-								<li><a href="#">Visualizar Usuarios</a></li>
+								<li><a href="${pageContext.request.contextPath}/usuario/mostrar">Visualizar Usuarios</a></li>
 							</ul>
 					</li>
 					<li class="dropdown">
