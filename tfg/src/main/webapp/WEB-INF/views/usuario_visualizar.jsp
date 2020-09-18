@@ -61,7 +61,7 @@
 		<section class="main row">
 			<table class ="table table-bordered table-striped table-hover">
 				<thead>
-				    <tr>
+				    <tr class="warning">
 				      <th class="col-md-1">Código</th>
 				      <th class="col-md-2">Rol</th>
 				      <th class="col-md-2">Apellido y Nombre</th>

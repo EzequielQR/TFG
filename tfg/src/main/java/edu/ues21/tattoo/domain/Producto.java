@@ -22,6 +22,8 @@ public class Producto implements Serializable{
 	@Id
 	@GeneratedValue
 	private int id;
+	@Column(name = "cantidad")
+	private int cantidad;
 	@OneToOne
 	@JoinColumn(name="categorias_id_marca")
 	private Categoria marca;
@@ -45,6 +47,14 @@ public class Producto implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Categoria getMarca() {

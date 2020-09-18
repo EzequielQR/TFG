@@ -83,7 +83,7 @@
 					
 						<table class ="table table-bordered table-striped table-hover">
 							<thead>
-				    			<tr>
+				    			<tr class="warning">
 				    				<th class="col-md-2">Apellido y Nombre</th>
 				      				<th class="col-md-2">Grupo Sanguíneo</th>
 				      				<th class="col-md-1">Factor RH</th>
@@ -120,7 +120,7 @@
 					
 						<table class ="table table-bordered table-striped table-hover">
 							<thead>
-				    			<tr>
+				    			<tr class="warning">
 				      				<th class="col-md-1">Psoriasis</th>
 				      				<th class="col-md-1">Eccema</th>
 				      				<th class="col-md-1">Queloide</th>
@@ -154,7 +154,7 @@
 					
 						<table class ="table table-bordered table-striped table-hover">
 							<thead>
-				    			<tr>
+				    			<tr class="warning">
 				      				<th class="col-md-1">VIH</th>
 				      				<th class="col-md-1">Sifilis</th>
 				      				<th class="col-md-2">Hepatitis B</th>

@@ -11,7 +11,6 @@ import edu.ues21.tattoo.domain.EncargadoCompras;
 import edu.ues21.tattoo.domain.FichaClinica;
 import edu.ues21.tattoo.domain.FichaClinicaDetalleEts;
 import edu.ues21.tattoo.domain.FichaClinicaDetallePiel;
-import edu.ues21.tattoo.domain.Inventario;
 import edu.ues21.tattoo.domain.Persona;
 import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.domain.Recepcionista;
@@ -32,7 +31,6 @@ public class HibernateUtil {
 		config.addAnnotatedClass(FichaClinica.class);
 		config.addAnnotatedClass(FichaClinicaDetalleEts.class);
 		config.addAnnotatedClass(FichaClinicaDetallePiel.class);
-		config.addAnnotatedClass(Inventario.class);
 		config.addAnnotatedClass(Persona.class);
 		config.addAnnotatedClass(Producto.class);
 		config.addAnnotatedClass(Recepcionista.class);
