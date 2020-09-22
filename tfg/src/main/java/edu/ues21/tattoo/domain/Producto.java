@@ -1,13 +1,15 @@
 package edu.ues21.tattoo.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,10 +34,13 @@ public class Producto implements Serializable{
 	private Categoria tipoProducto;
 	@Column(name="caracteristica")
 	private String caracteristica;
-	@ManyToOne
-	@JoinColumn(name="turnos_id")
+	@ManyToMany
+	@JoinTable(
+			name = "turnos_has_productos",
+			joinColumns = @JoinColumn(name = "productos_id"),
+			inverseJoinColumns = @JoinColumn(name = "turnos_id"))
 	@JsonBackReference
-	private Turno turno;
+	private List<Turno> listaTurnos;
 	
 	public Producto() {
 		super();
@@ -79,14 +84,6 @@ public class Producto implements Serializable{
 
 	public void setCaracteristica(String caracteristica) {
 		this.caracteristica = caracteristica;
-	}
-
-	public Turno getTurno() {
-		return turno;
-	}
-
-	public void setTurno(Turno turno) {
-		this.turno = turno;
 	}
 
 }

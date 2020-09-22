@@ -46,8 +46,8 @@
 					<li class="dropdown active">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
-								<li><a href="#">Visualizar Stock</a></li>
+								<li><a href="#">Registrar Producto</a></li>
+								<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 							</ul>
 					</li>
 				</ul>
@@ -59,50 +59,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<!-- /paginaAredirigir?search=T-->
-		<form action="paginaAredirigir">
-			<div class="input-group">
-				<!-- El atributo search se va a cocatenar a la URL cuando se le ponga submit-->
-				<input type="text" class="form-control" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera..." name="search">
-				<div class="input-group-btn">
-					<button class="btn btn-info" type="button" data-toggle="modal" data-target="#loginModal">
-						<i class="glyphicon glyphicon-cog"></i>
-					</button>
-					<button class="btn btn-success" type="submit">
-						<i class="glyphicon glyphicon-search"></i>
-					</button>
-				</div>
-			</div>
-		</form>
-		<br><br>
-		<table class ="table table-bordered table-striped table-hover">
-			<thead>
-			    <tr class="warning">
-			      <th class="col-md-1">Código Producto</th>
-			      <th class="col-md-2">Marca</th>
-			      <th class="col-md-2">Tipo de Producto</th>
-			      <th class="col-md-2">Detalle</th>
-			      <th class="col-md-2">Cantidad</th>
-			      <th class="col-md-1">Visualizar</th>
-			      <th class="col-md-1">Editar Producto</th>
-			      <th class="col-md-1">Eliminar Producto</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	<c:forEach items="${listaStock}" var="producto">
-			  		<tr>
-			  			<th>${producto.id}</th>
-			  			<td>${producto.marca.nombre}</td>
-			  			<td>${producto.tipoProducto.nombre}</td>
-			  			<td>${producto.caracteristica}</td>
-			  			<td>${producto.cantidad}</td>
-						<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-			      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
-			      		<td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
-			  		</tr>
-			  	</c:forEach>
-			  </tbody>			
-		</table>
+		
 	</div>
 	
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>

@@ -46,8 +46,8 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Registrar Producto</a></li>
-								<li><a href="#">Visualizar Stock</a></li>
+								<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
+								<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 							</ul>
 					</li>
 				</ul>
