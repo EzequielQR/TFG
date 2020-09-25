@@ -99,7 +99,7 @@
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-dashboard"></span>
 									</div>
-								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-start" placeholder="Seleccione hora" name="hour_start" required="required">
+								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-start" placeholder="Seleccione hora" name="hour_start" required="required" autocomplete="off">
 							    </div>
 							</div>
 							
@@ -110,7 +110,7 @@
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-dashboard"></span>
 									</div>
-								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-end" placeholder="Seleccione hora" name="hour_end" required="required">
+								    <input type="text" class="form-control input-timepicker" id="input-timepicker-hour-end" placeholder="Seleccione hora" name="hour_end" required="required" autocomplete="off">
 							    </div>
 							</div>
 							

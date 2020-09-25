@@ -3,6 +3,7 @@ package edu.ues21.tattoo.domain.repository.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +43,22 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 	}
 
 	@Override
+	public Producto getByFields(int marcaId, int productoId, String caracteristica) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("FROM Producto "
+						+ "WHERE marca.id = :brandId "
+						+ "AND tipoProducto.id = :productId "
+						+ "AND caracteristica = :caracteristic");
+		query.setInteger("brandId", marcaId);
+		query.setInteger("productId", productoId);
+		query.setString("caracteristic", caracteristica);
+		Producto producto = (Producto) query.uniqueResult();
+		session.getTransaction().commit();
+		return producto;
+	}
+	
+	@Override
 	public void update(Producto producto) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
@@ -61,10 +78,16 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
+		
+		SQLQuery sqlQuery = session.createSQLQuery("DELETE FROM turnos_has_productos WHERE productos_id = :id");
+		sqlQuery.setInteger("id", id);
+		sqlQuery.executeUpdate();
+		
 		Query query = session.createQuery("delete Producto where id = :id");
 		query.setInteger("id", id);
 		query.executeUpdate();
+		
 		session.getTransaction().commit();
 	}
-
+	
 }

@@ -98,7 +98,7 @@
 			  			<td>${producto.cantidad}</td>
 						<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
 			      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
-			      		<td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+			      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
 			  		</tr>
 			  	</c:forEach>
 			  </tbody>			

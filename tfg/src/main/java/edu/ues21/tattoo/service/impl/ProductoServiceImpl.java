@@ -34,6 +34,12 @@ public class ProductoServiceImpl implements ProductoService{
 	}
 
 	@Override
+	public Producto getByFields(int marcaId, int productoId, String caracteristica) {
+		// TODO Auto-generated method stub
+		return productoRepository.getByFields(marcaId, productoId, caracteristica);
+	}
+	
+	@Override
 	public void update(Producto producto) {
 		// TODO Auto-generated method stub
 		productoRepository.update(producto);
