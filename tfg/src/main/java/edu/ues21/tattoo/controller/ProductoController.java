@@ -66,6 +66,18 @@ public class ProductoController {
 		return "redirect:/stock/mostrar";
 	}
 	
+	@RequestMapping(value = "/redirectToCreationProduct", method = RequestMethod.POST)
+	public String creationProduct(@RequestParam(required = true, name = "producto-modal") String productName) {
+		System.out.println(productName);
+		return "redirect:/stock/crear";
+	}
+	
+	@RequestMapping(value = "/redirectToCreationBrand", method = RequestMethod.POST)
+	public String creationBrand(@RequestParam(required = true, name = "marca-modal") String brandName) {
+		System.out.println(brandName);
+		return "redirect:/stock/crear";
+	}
+	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	public String eliminar(@RequestParam(required = true, name = "id-producto") String idProducto) {
 		productoService.delete(Integer.parseInt(idProducto));

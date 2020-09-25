@@ -162,8 +162,12 @@
 	        	<div class="form-group">
   					<div class="row">
   						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				  			<label for="input-modal-marca">Marca:</label>
-							<input type="text" class="form-control" id="input-modal-marca" placeholder="Ingrese la marca" name="marca-modal" required="required">
+  							
+  							<form:form method="POST" action="redirectToCreationBrand" id="formModalBrand">
+				  				<label for="input-modal-marca">Marca:</label>
+								<input type="text" class="form-control" id="input-modal-marca" placeholder="Ingrese la marca" name="marca-modal" required="required"/>
+							</form:form>
+						
 						</div>
 					</div>
 				</div>
@@ -171,16 +175,14 @@
 	        </div>
 	        <div class="modal-footer">
 	        
-	        	<form:form method="POST" action="redirectToCreationBrand">
-	        		<button type="button" class="btn btn-default" data-dismiss="modal">
-	          			<span class="glyphicon glyphicon-remove"></span>
-	          			Cerrar
-	          		</button>
-	          		<button type="submit" class="btn btn-primary" id="btnSubmitBrandModal" name="action" value="createBrand">
-	          			<span class="glyphicon glyphicon-plus"></span>
-	          			Agregar Marca
-	          		</button>
-				</form:form>
+        		<button type="button" class="btn btn-default" data-dismiss="modal">
+          			<span class="glyphicon glyphicon-remove"></span>
+          			Cerrar
+          		</button>
+          		<button type="button" class="btn btn-primary" id="btnSubmitBrandModal" name="action" value="createBrand">
+          			<span class="glyphicon glyphicon-plus"></span>
+          			Agregar Marca
+          		</button>
 				
 	        </div>
 	      </div>
@@ -203,8 +205,12 @@
 	        	<div class="form-group">
   					<div class="row">
   						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				  			<label for="input-modal-producto">Producto:</label>
-							<input type="text" class="form-control" id="input-modal-producto" placeholder="Ingrese el producto" name="producto-modal" required="required">
+  						
+  							<form:form method="POST" action="redirectToCreationProduct" id="formModalProduct">
+				  				<label for="input-modal-producto">Producto:</label>
+								<input type="text" class="form-control" id="input-modal-producto" placeholder="Ingrese el producto" name="producto-modal" required="required"/>
+							</form:form>
+						
 						</div>
 					</div>
 				</div>
@@ -212,16 +218,14 @@
 	        </div>
 	        <div class="modal-footer">
 	        
-	        	<form:form method="POST" action="redirectToCreationProduct">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-	          			<span class="glyphicon glyphicon-remove"></span>
-	          			Cerrar
-	          		</button>
-	          		<button type="submit" class="btn btn-primary" id="btnSubmitBrandModal" name="action" value="createProduct">
-	          			<span class="glyphicon glyphicon-plus"></span>
-	          			Agregar Producto
-	          		</button>
-				</form:form>
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+	          		<span class="glyphicon glyphicon-remove"></span>
+	          		Cerrar
+	          	</button>
+	          	<button type="submit" class="btn btn-primary" id="btnSubmitProductModal" name="action" value="createProduct">
+	          		<span class="glyphicon glyphicon-plus"></span>
+	          		Agregar Producto
+	          	</button>
 				
 	        </div>
 	      </div>
@@ -240,6 +244,16 @@
 		$(document).ready(function(){
 			//Comprobacion inicial
 			$('.my-select').selectpicker();
+			
+			$('#btnSubmitProductModal').click(function(){
+				$('#formModalProduct').submit();
+			});
+			
+			$('#btnSubmitBrandModal').click(function(){
+				$('#formModalBrand').submit();
+			});
+			
+		});
 	</script>
 </body>
 </html>
