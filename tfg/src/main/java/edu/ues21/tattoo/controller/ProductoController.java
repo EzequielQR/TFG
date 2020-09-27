@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ues21.tattoo.domain.Categoria;
 import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ProductoService;
@@ -65,16 +66,28 @@ public class ProductoController {
 		
 		return "redirect:/stock/mostrar";
 	}
-	
-	@RequestMapping(value = "/redirectToCreationProduct", method = RequestMethod.POST)
-	public String creationProduct(@RequestParam(required = true, name = "producto-modal") String productName) {
-		System.out.println(productName);
+
+	@RequestMapping(value = "/redirectToCreationBrand", method = RequestMethod.POST)
+	public String creationBrand(@RequestParam(required = true, name = "marca-modal") String brandName) {
+		Categoria categoria = new Categoria();
+		categoria.setDescripcion("Tipos de Marcas");
+		categoria.setNombre(brandName);
+		categoria.setTipo(6);
+		
+		categoriaService.add(categoria);
+		
 		return "redirect:/stock/crear";
 	}
 	
-	@RequestMapping(value = "/redirectToCreationBrand", method = RequestMethod.POST)
-	public String creationBrand(@RequestParam(required = true, name = "marca-modal") String brandName) {
-		System.out.println(brandName);
+	@RequestMapping(value = "/redirectToCreationProduct", method = RequestMethod.POST)
+	public String creationProduct(@RequestParam(required = true, name = "producto-modal") String productName) {
+		Categoria categoria = new Categoria();
+		categoria.setDescripcion("Tipos de Productos");
+		categoria.setNombre(productName);
+		categoria.setTipo(7);
+		
+		categoriaService.add(categoria);
+		
 		return "redirect:/stock/crear";
 	}
 	

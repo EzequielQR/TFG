@@ -166,6 +166,7 @@
   							<form:form method="POST" action="redirectToCreationBrand" id="formModalBrand">
 				  				<label for="input-modal-marca">Marca:</label>
 								<input type="text" class="form-control" id="input-modal-marca" placeholder="Ingrese la marca" name="marca-modal" required="required"/>
+								<button type="submit" id="hiddenBtnBrandModal" hidden="hidden"></button>
 							</form:form>
 						
 						</div>
@@ -209,6 +210,7 @@
   							<form:form method="POST" action="redirectToCreationProduct" id="formModalProduct">
 				  				<label for="input-modal-producto">Producto:</label>
 								<input type="text" class="form-control" id="input-modal-producto" placeholder="Ingrese el producto" name="producto-modal" required="required"/>
+								<button type="submit" id="hiddenBtnProductModal" hidden="hidden"></button>
 							</form:form>
 						
 						</div>
@@ -245,12 +247,51 @@
 			//Comprobacion inicial
 			$('.my-select').selectpicker();
 			
-			$('#btnSubmitProductModal').click(function(){
-				$('#formModalProduct').submit();
+			//Cuando el select cambia de estado, se evalua la condicion
+			$("#input-producto").change(function(){
+				if($("#input-producto option:selected").text().toUpperCase() === 'TINTA'){
+					$("#input-color-ink").prop("disabled", false);
+					$("#input-descripcion").prop("disabled", true);
+				} else{
+					$("#input-color-ink").prop("disabled", true);
+					$("#input-descripcion").prop("disabled", false);
+				}
 			});
 			
+			//This will fire the change event, hence, will check the conditions 
+			$("#input-producto").trigger('change');
+			
 			$('#btnSubmitBrandModal').click(function(){
-				$('#formModalBrand').submit();
+				
+				if($('#input-modal-marca').val().trim().length === 0) {
+					$('#input-modal-marca').val("")
+					$('#input-modal-marca').css('border', '2px solid red');
+				} else {
+					$('#hiddenBtnBrandModal').click();					
+				}
+			});
+			
+			$('#btnSubmitProductModal').click(function(){
+				
+				if($('#input-modal-producto').val().trim().length === 0) {
+					$('#input-modal-producto').val("")
+					$('#input-modal-producto').css('border', '2px solid red');
+				} else {
+					$('#hiddenBtnProductModal').click();	
+				}
+				
+			});
+			
+			//hide.bs.modal: This event is fired immediately when the hide instance method has been called.
+			//hidden.bs.modal: This event is fired when the modal has finished being hidden from the user (will 
+					           //wait for CSS transitions to complete).
+			
+			$('#createBrandModal').on('hide.bs.modal', function() {
+				$('#input-modal-marca').css('border', '');//Remove CSS property
+			});
+			
+			$('#createProductModal').on('hide.bs.modal', function() {
+				$('#input-modal-producto').css('border', '');//Remove CSS property
 			});
 			
 		});
