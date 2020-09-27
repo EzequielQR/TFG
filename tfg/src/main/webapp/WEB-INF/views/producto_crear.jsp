@@ -166,7 +166,6 @@
   							<form:form method="POST" action="redirectToCreationBrand" id="formModalBrand">
 				  				<label for="input-modal-marca">Marca:</label>
 								<input type="text" class="form-control" id="input-modal-marca" placeholder="Ingrese la marca" name="marca-modal" required="required"/>
-								<button type="submit" id="hiddenBtnBrandModal" hidden="hidden"></button>
 							</form:form>
 						
 						</div>
@@ -210,7 +209,6 @@
   							<form:form method="POST" action="redirectToCreationProduct" id="formModalProduct">
 				  				<label for="input-modal-producto">Producto:</label>
 								<input type="text" class="form-control" id="input-modal-producto" placeholder="Ingrese el producto" name="producto-modal" required="required"/>
-								<button type="submit" id="hiddenBtnProductModal" hidden="hidden"></button>
 							</form:form>
 						
 						</div>
@@ -267,7 +265,7 @@
 					$('#input-modal-marca').val("")
 					$('#input-modal-marca').css('border', '2px solid red');
 				} else {
-					$('#hiddenBtnBrandModal').click();					
+					$('#formModalBrand').submit();
 				}
 			});
 			
@@ -277,7 +275,7 @@
 					$('#input-modal-producto').val("")
 					$('#input-modal-producto').css('border', '2px solid red');
 				} else {
-					$('#hiddenBtnProductModal').click();	
+					$('#formModalProduct').submit();
 				}
 				
 			});
