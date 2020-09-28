@@ -136,12 +136,12 @@ public class TurnoController {
 		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));
 		turno.setTipoTatuaje(categoriaService.getById(Integer.parseInt(estiloTatuajeId)));
 
-		turnoService.add(turno);
+		int idTurno = turnoService.add(turno);
 		
 		if(btnPressed.equalsIgnoreCase("save"))
 			return "redirect:/turno/mostrar";
 		else
-			return "redirect:/panel-asistente";
+			return "redirect:/panel-asistente/opciones?id-turno=" + idTurno;
 	}
 	
 	@ResponseBody
@@ -236,7 +236,7 @@ public class TurnoController {
 		if(btnPressed.equalsIgnoreCase("edit"))
 			return "redirect:/turno/mostrar";
 		else
-			return "redirect:/panel-asistente";
+			return "redirect:/panel-asistente/opciones?id-turno=" + turno.getId();
 	}
 	
 	@ResponseBody
