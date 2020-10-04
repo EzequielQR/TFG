@@ -1,13 +1,30 @@
 package edu.ues21.tattoo.service.impl;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.customsearch.Customsearch;
+import com.google.api.services.customsearch.CustomsearchRequestInitializer;
+import com.google.api.services.customsearch.model.Result;
+import com.google.api.services.customsearch.model.Search;
 
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Turno;
@@ -108,6 +125,116 @@ public class TurnoServiceImpl implements TurnoService{
 	    calendar.setTime(date);
 	    calendar.add(Calendar.HOUR_OF_DAY, hours);
 	    return calendar.getTime();
+	}
+
+	@Override
+	public String getImagesJSON(String query) {
+		// TODO Auto-generated method stub
+		//String cx = "";	//tattoo account
+		String cx = "";	//personal account
+		
+		//String apiKey = "";	//tattoo account
+		String apiKey = "";		//personal account
+		
+		String searchQuery = "tattoo dragon japones";
+		
+		List<Result> resultList = new ArrayList<Result>();
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayNode arrayNodeFilteredResults = mapper.createArrayNode();
+		ObjectNode objectNode = mapper.createObjectNode();
+		
+		try {
+			Customsearch customSearch = new Customsearch.Builder
+					(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
+							null).setApplicationName("TFG")
+								 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
+								 .build();
+			
+			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(searchQuery);
+			listCustomSearch.setCx(cx);
+			listCustomSearch.setNum(10L);
+			
+			for(long index = 1; index <= 41; index += 10){
+				listCustomSearch.setStart(index);
+				Search results = listCustomSearch.execute();
+				java.util.List<Result> listQuery = results.getItems();
+				resultList.addAll(listQuery);
+			}
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
+			
+			ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
+			Iterator<JsonNode> itr = arrayNodeResults.iterator();
+			
+			while (itr.hasNext()) {
+				JsonNode inmutableJSONnode = (JsonNode) itr.next();
+				String URL = inmutableJSONnode.get("pagemap").get("cse_image").get(0).get("src").toString().replace("\"", "");
+			
+				
+			}
+			
+			System.out.println(arrayNodeFilteredResults);
+			
+			return "A";
+			
+		} catch (GeneralSecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "B";
+	}
+	
+	private String auxiliarGetImagesJSON(String query) {
+	
+		//String cx = "";	//tattoo account
+		String cx = "";	//personal account
+		
+		//String apiKey = "";	//tattoo account
+		String apiKey = "";		//personal account
+		
+		String searchQuery = "tattoo dragon japones";
+		
+		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
+				new HttpRequestInitializer() {
+					public void initialize(HttpRequest httpRequest) {
+						// set connect and read timeouts //7000
+						httpRequest.setConnectTimeout(3 * 600000);
+						httpRequest.setReadTimeout(3 * 600000);
+					}
+		});
+		
+		try {
+			Customsearch.Cse.List list = customsearch.cse().list(searchQuery);
+			list.setKey(apiKey);
+			//The Programmable Search Engine ID to use for this request.
+			list.setCx(cx);
+			//Number of search results to return. Valid values are integers between 1 and 10, inclusive.
+			//Maximum value for num is 10.
+			list.setNum(10L);
+			//The index of the first result to return. The default number of results per page is 10, so,
+			//&start=11 would start at the top of the second page of results. 
+			//Note: The JSON API will never return more than 100 results, even if more than 100 documents
+			//match the query, so setting the sum of start + num to a number greater than 100 will produce 
+			//an error.
+			//0L AND 1L will produce the same results.
+			//11L: Second page.
+			//21L: Third page.
+			//91L: Last page.
+			//92L: Error
+			list.setStart(1L);
+			Search results = list.execute();
+			java.util.List<Result> resultList = results.getItems();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList);
+			
+			return json;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }

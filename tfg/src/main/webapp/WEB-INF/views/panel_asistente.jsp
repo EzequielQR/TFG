@@ -60,7 +60,14 @@
 	</nav>
 
 	<div class="container">
+		
+		<!-- Insert your own Programmable Search Engine ID here -->
+		<script src="https://cse.google.com/cse.js?cx=894f345ef3f3a3b75"></script>
 
+		<div class="gcse-searchbox"></div>
+		<div class="gcse-searchresults" data-defaultToImageSearch="true" data-disableWebSearch="true"></div>
+
+		
 		<h1 style="text-align:center">Asistente de diseño de tatuajes: <strong>Oriental.&nbsp;</strong><small>Flores&nbsp;(Peonías).</small></h1>
 		<br>
 
