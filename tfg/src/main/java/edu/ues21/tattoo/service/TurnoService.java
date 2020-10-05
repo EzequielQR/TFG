@@ -16,4 +16,5 @@ public interface TurnoService {
 	void delete(int id);
 	boolean tattoistHasAvailableSlot(int idTattoist, Date dateStart, Date dateEnd);
 	String getImagesJSON(String query);
+	List<String> getImagesList(String query);
 }

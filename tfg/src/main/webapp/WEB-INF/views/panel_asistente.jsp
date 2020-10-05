@@ -60,87 +60,56 @@
 	</nav>
 
 	<div class="container">
-		
-		<!-- Insert your own Programmable Search Engine ID here -->
-		<script src="https://cse.google.com/cse.js?cx=894f345ef3f3a3b75"></script>
-
-		<div class="gcse-searchbox"></div>
-		<div class="gcse-searchresults" data-defaultToImageSearch="true" data-disableWebSearch="true"></div>
-
-		
-		<h1 style="text-align:center">Asistente de diseño de tatuajes: <strong>Oriental.&nbsp;</strong><small>Flores&nbsp;(Peonías).</small></h1>
+	
+		<h1 style="text-align:center">
+			Asistente de diseño de tatuajes:&nbsp;<strong><c:out value="${estilo}"/>.</strong>
+			<small><c:out value="${query}"/></small>
+		</h1>
 		<br>
-
+		<form:form class="form-horizontal" method="GET">
+		
+			<input type="hidden" name="id-turno" value="${idTurno}">
+			<input type="hidden" name="estilo" value="${estilo}">
+			
+			<div class="form-group">
+				<label for="input-search" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Búsqueda:</label>
+			    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+			     <input type="text" class="form-control" id="input-search" 
+			     placeholder="Ingresar palabras claves separadas por espacios. Ejemplo: Pez Koi Color"
+			     name="query">
+			    </div>
+			    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+			    	<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="search">
+						<span class="glyphicon glyphicon-search"></span>
+						Buscar
+					</button>
+			    </div>
+			</div>
+		
+		</form:form>
+		<br>
+		
 		<section class="main row">
 
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-            		<div class="panel-body">
-            			<a href="https://i.pinimg.com/474x/9b/52/c2/9b52c2fe731a2574a1efacd5d5e3a518--tattos.jpg" target="_blank">
-	                		<img style="width:365px;height:335px" src="https://i.pinimg.com/474x/9b/52/c2/9b52c2fe731a2574a1efacd5d5e3a518--tattos.jpg" class="img-responsive img-rounded">
-	                	</a>
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
+				<c:forEach items="${listImg}" var="listItem">
+					<div class="col-xs-6 col-md-4 col-lg-4">
+						<div class="panel panel-default">
+		            		<div class="panel-body">
+		            			<a href='<c:out value="${listItem}"/>' target="_blank">
+			                		<img style="width:365px;height:335px" src='<c:out value="${listItem}"/>' 
+			                		class="img-responsive img-rounded">
+			                	</a>
+			            	</div>
+			            	<div class="panel-footer">
+			            		<a class="btn btn-lg btn-block btn-success" 
+			            		href="<c:url value="/panel-asistente/guardar?id-turno=${idTurno}&img=${listItem}"/>">
+			            			<span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir
+			            		</a>
+			            	</div>
+		        		</div>
+					</div>
+				</c:forEach>
 
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-            		<div class="panel-body">
-	                	<img style="width:365px;height:335px" src="https://i.pinimg.com/474x/77/20/bf/7720bfcaa6f88b70850b47e0f9f9253d.jpg" class="img-responsive img-rounded">
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
-
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-            		<div class="panel-body">
-	                	<img style="width:365px;height:335px" src="https://i.pinimg.com/474x/38/4a/ed/384aedfff87bbf068b00c0cb973c3cee.jpg" class="img-responsive img-rounded">
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
-
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default ">
-            		<div class="panel-body">
-	                	<img style="width:365px;height:335px" src="https://i.pinimg.com/736x/21/8e/eb/218eebef34641fcdcd696d2caf90ff5d.jpg" class="img-responsive img-rounded">
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
-
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-            		<div class="panel-body">
-	                	<img style="width:365px;height:335px" src="https://i.pinimg.com/474x/9a/c9/de/9ac9de3c623398afa5dd7a233a767be9--lotus-flower-design-flower-designs.jpg" class="img-responsive img-rounded">
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
-
-			<div class="col-xs-6 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-            		<div class="panel-body">
-	                	<img style="width:365px;height:335px" src="https://i.pinimg.com/474x/e5/7f/c0/e57fc00ea7e615e7093289927b98f893--tattoo-sketchbook-sketch-tattoo.jpg" class="img-responsive img-rounded">
-	            	</div>
-	            	<div class="panel-footer">
-	            		<button class="btn btn-lg btn-block btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir</button>
-	            	</div>
-        		</div>
-			</div>
-			
 		</section>
 	</div>
 	

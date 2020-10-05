@@ -18,11 +18,22 @@ public class AsistenteController {
 	
 	@RequestMapping(value = "/opciones", method = RequestMethod.GET)
 	public String asistente(@RequestParam(required = true, name = "id-turno") String idAppointment,
+							@RequestParam(required = true, name = "estilo") String estilo,
+							@RequestParam(required = false, name = "query") String query,
 							Model model) {
-		
-		turnoService.getImagesJSON("");
+		model.addAttribute("listImg", turnoService.getImagesList(estilo + " " + query));
+		model.addAttribute("idTurno", idAppointment);
+		model.addAttribute("estilo", estilo);
+		model.addAttribute("query", query);
 		
 		return "panel_asistente";
+	}
+	
+	@RequestMapping(value = "/guardar", method = RequestMethod.GET)
+	public String guardar(@RequestParam(required = true, name = "id-turno") String idAppointment,
+						  @RequestParam(required = true, name = "img") String imgURL) {
+		
+		return "redirect:/turno/mostrar";
 	}
 
 }

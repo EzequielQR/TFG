@@ -141,7 +141,8 @@ public class TurnoController {
 		if(btnPressed.equalsIgnoreCase("save"))
 			return "redirect:/turno/mostrar";
 		else
-			return "redirect:/panel-asistente/opciones?id-turno=" + idTurno;
+			return "redirect:/panel-asistente/opciones?id-turno=" + idTurno + 
+					"&estilo=" + turno.getTipoTatuaje().getNombre();
 	}
 	
 	@ResponseBody
@@ -236,7 +237,8 @@ public class TurnoController {
 		if(btnPressed.equalsIgnoreCase("edit"))
 			return "redirect:/turno/mostrar";
 		else
-			return "redirect:/panel-asistente/opciones?id-turno=" + turno.getId();
+			return "redirect:/panel-asistente/opciones?id-turno=" + turno.getId() +
+					"&estilo=" + turno.getTipoTatuaje().getNombre();
 	}
 	
 	@ResponseBody

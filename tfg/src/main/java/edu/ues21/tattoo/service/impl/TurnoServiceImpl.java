@@ -130,18 +130,13 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
-		//String cx = "";	//tattoo account
 		String cx = "";	//personal account
-		
-		//String apiKey = "";	//tattoo account
+				
 		String apiKey = "";		//personal account
-		
-		String searchQuery = "tattoo dragon japones";
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode arrayNodeFilteredResults = mapper.createArrayNode();
-		ObjectNode objectNode = mapper.createObjectNode();
 		
 		try {
 			Customsearch customSearch = new Customsearch.Builder
@@ -150,7 +145,7 @@ public class TurnoServiceImpl implements TurnoService{
 								 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
 								 .build();
 			
-			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(searchQuery);
+			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
 			listCustomSearch.setCx(cx);
 			listCustomSearch.setNum(10L);
 			
@@ -167,32 +162,81 @@ public class TurnoServiceImpl implements TurnoService{
 			
 			while (itr.hasNext()) {
 				JsonNode inmutableJSONnode = (JsonNode) itr.next();
-				String URL = inmutableJSONnode.get("pagemap").get("cse_image").get(0).get("src").toString().replace("\"", "");
+				String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
 			
+				ObjectNode auxNode = mapper.createObjectNode();
+				auxNode.put("img-url", URL);
 				
+				arrayNodeFilteredResults.add(auxNode);
 			}
 			
 			System.out.println(arrayNodeFilteredResults);
 			
-			return "A";
+			return arrayNodeFilteredResults.toString();
 			
 		} catch (GeneralSecurityException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "B";
+		return null;
+	}
+	
+	@Override
+	public List<String> getImagesList(String query) {
+		// TODO Auto-generated method stub
+		List<String> finalResult = new ArrayList<String>();
+		
+		String cx = "";	//tattoo account
+				
+		String apiKey = "";	//tattoo account
+		
+		List<Result> resultList = new ArrayList<Result>();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			Customsearch customSearch = new Customsearch.Builder
+					(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
+							null).setApplicationName("TFG")
+								 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
+								 .build();
+			
+			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
+			listCustomSearch.setCx(cx);
+			listCustomSearch.setNum(10L);
+			
+			for(long index = 1; index <= 41; index += 10){
+				listCustomSearch.setStart(index);
+				Search results = listCustomSearch.execute();
+				java.util.List<Result> listQuery = results.getItems();
+				resultList.addAll(listQuery);
+			}
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
+			
+			ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
+			Iterator<JsonNode> itr = arrayNodeResults.iterator();
+			
+			while (itr.hasNext()) {
+				JsonNode inmutableJSONnode = (JsonNode) itr.next();
+				String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
+				finalResult.add(URL);
+			}
+			
+			return finalResult;
+			
+		} catch (GeneralSecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	private String auxiliarGetImagesJSON(String query) {
 	
-		//String cx = "";	//tattoo account
 		String cx = "";	//personal account
-		
-		//String apiKey = "";	//tattoo account
+				
 		String apiKey = "";		//personal account
-		
-		String searchQuery = "tattoo dragon japones";
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {
@@ -204,7 +248,7 @@ public class TurnoServiceImpl implements TurnoService{
 		});
 		
 		try {
-			Customsearch.Cse.List list = customsearch.cse().list(searchQuery);
+			Customsearch.Cse.List list = customsearch.cse().list(query);
 			list.setKey(apiKey);
 			//The Programmable Search Engine ID to use for this request.
 			list.setCx(cx);
