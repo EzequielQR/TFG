@@ -101,8 +101,8 @@
 			                	</a>
 			            	</div>
 			            	<div class="panel-footer">
-			            		<a class="btn btn-lg btn-block btn-success" 
-			            		href="<c:url value="/panel-asistente/guardar?id-turno=${idTurno}&img=${listItem}"/>">
+			            		<a href="<c:url value="/panel-asistente/guardar?id-turno=${idTurno}&img=${listItem}"/>"
+			            		 class="btn btn-lg btn-block btn-success"> 
 			            			<span class="glyphicon glyphicon-ok"></span>&nbsp;Elegir
 			            		</a>
 			            	</div>

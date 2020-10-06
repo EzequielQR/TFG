@@ -61,7 +61,9 @@ public class Turno implements Serializable{
 	private List<Producto> listaProductosUtilizados;
 	@Column(name="seña")
 	private int senia;
-	
+	@Column(name = "imagen_referencia")
+	private String imagenURL;
+
 	public Turno() {
 		super();
 	}
@@ -162,4 +164,12 @@ public class Turno implements Serializable{
 		this.senia = senia;
 	}
 
+	public String getImagenURL() {
+		return imagenURL;
+	}
+
+	public void setImagenURL(String imagenURL) {
+		this.imagenURL = imagenURL;
+	}
+	
 }

@@ -210,7 +210,8 @@ public class TurnoController {
 								  @RequestParam(required = false, name = "description")String descripcion,
 								  @RequestParam(required = true, name = "action") String btnPressed,
 								  Model model) {
-		Turno turno = new Turno();
+		Turno turno = turnoService.getById(Integer.parseInt(idAppointment));
+		
 		turno.setCliente(clienteService.getById(Integer.parseInt(clienteId)));
 		turno.setDescripcion(descripcion);
 		turno.setEstado(categoriaService.getByName("Abierto"));
@@ -222,11 +223,8 @@ public class TurnoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		turno.setId(Integer.parseInt(idAppointment));
 		//TODO: FIXME remove hardcoded userlogged
 		turno.setIniciadoPor(personaService.getById(11));
-		//TODO: Checkout null attribute in listaProductosUtilizados field
-		turno.setListaProductosUtilizados(null);
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
 		turno.setSenia(Integer.parseInt(senia));
 		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));

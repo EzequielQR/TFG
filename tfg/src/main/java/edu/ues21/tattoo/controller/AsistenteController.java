@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.service.TurnoService;
 
 @Controller
@@ -32,6 +33,9 @@ public class AsistenteController {
 	@RequestMapping(value = "/guardar", method = RequestMethod.GET)
 	public String guardar(@RequestParam(required = true, name = "id-turno") String idAppointment,
 						  @RequestParam(required = true, name = "img") String imgURL) {
+		Turno turno = turnoService.getById(Integer.parseInt(idAppointment));
+		turno.setImagenURL(imgURL);
+		turnoService.update(turno);
 		
 		return "redirect:/turno/mostrar";
 	}

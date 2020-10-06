@@ -17,6 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -130,9 +132,9 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
-		String cx = "";	//personal account
-				
-		String apiKey = "";		//personal account
+		String cx = "";	//tattoo account
+						
+		String apiKey = "";	//tattoo account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -187,9 +189,9 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		List<String> finalResult = new ArrayList<String>();
 		
-		String cx = "";	//tattoo account
-				
-		String apiKey = "";	//tattoo account
+		String cx = "";	//Olof account
+						
+		String apiKey = "";//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -234,9 +236,9 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 	
-		String cx = "";	//personal account
-				
-		String apiKey = "";		//personal account
+		String cx = "";	//tattoo account
+						
+		String apiKey = "";	//tattoo account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {
