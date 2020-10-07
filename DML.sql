@@ -17,7 +17,7 @@ INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('15', '5', 'Blackwork', 'Tipos de Tatuajes');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('16', '5', 'Celta (Celtic)', 'Tipos de Tatuajes');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('17', '5', 'Chicano', 'Tipos de Tatuajes');
-INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('18', '5', 'Japonés (Oriental)', 'Tipos de Tatuajes');
+INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('18', '5', 'Japones (Oriental)', 'Tipos de Tatuajes');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('19', '5', 'Lettering', 'Tipos de Tatuajes');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('20', '5', 'Maori', 'Tipos de Tatuajes');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('21', '5', 'Neotradicional (Neotraditional)', 'Tipos de Tatuajes');

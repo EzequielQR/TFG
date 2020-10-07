@@ -56,7 +56,7 @@ public class TurnoRepositoryImpl implements TurnoRepository{
 	public List<Turno> getAllByTattoistAndSpecificDate(int idTattoist, String fechaInicio, String fechaFin){
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("SELECT t FROM Turno t WHERE t.tatuador.id = :idTattooer "
+		Query query = session.createQuery("SELECT t FROM Turno t WHERE (t.tatuador.id = :idTattooer) "
 										+ "AND (t.fechaInicio BETWEEN :inicio AND :fin) "
 										+ "OR (t.fechaFin BETWEEN :inicio AND :fin)");
 		query.setInteger("idTattooer", idTattoist);

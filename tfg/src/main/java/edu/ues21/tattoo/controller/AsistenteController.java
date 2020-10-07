@@ -27,7 +27,7 @@ public class AsistenteController {
 		model.addAttribute("estilo", estilo);
 		model.addAttribute("query", query);
 		
-		return "panel_asistente";
+		return "panel_asistente_crear";
 	}
 	
 	@RequestMapping(value = "/guardar", method = RequestMethod.GET)
@@ -38,6 +38,21 @@ public class AsistenteController {
 		turnoService.update(turno);
 		
 		return "redirect:/turno/mostrar";
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public String editar(@RequestParam(required = true, name = "id-turno") String idAppointment,
+						 @RequestParam(required = true, name = "estilo") String estilo,
+						 @RequestParam(required = true, name = "img") String image,
+						 @RequestParam(required = false, name = "query") String query,
+						 Model model) {
+		model.addAttribute("listImg", turnoService.getImagesList(estilo + " " + query));
+		model.addAttribute("idTurno", idAppointment);
+		model.addAttribute("imgTurno", image);
+		model.addAttribute("estilo", estilo);
+		model.addAttribute("query", query);
+		
+		return "panel_asistente_editar";
 	}
 
 }

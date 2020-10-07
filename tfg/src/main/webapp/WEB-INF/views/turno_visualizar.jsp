@@ -57,12 +57,20 @@
 			</div>
 		</div>
 	</nav>
-
-	<div class="container">
-		<section class="main row">
-			<div id="calendar"></div>
-		</section>
-	</div>
+		
+		<div class="container">
+		
+			<div class="alert alert-info alert-dismissible fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  				<c:forEach items="${listTatuadores}" var="tattooist">
+  					<span class="badge" style="background-color: ${tattooist.color}">&nbsp;</span>&nbsp;${tattooist.pseudonimo}&nbsp;&nbsp;
+  				</c:forEach>
+			</div>
+			
+			<section class="main row">
+				<div id="calendar"></div>
+			</section>
+		</div>
 		
 	<!-- Modal to ADD an appointment -->
 	<div class="modal fade" id="createEventModal" role="dialog">
@@ -148,6 +156,10 @@
 							<tr>
 								<td><b>Descripción</b></td>
 								<td class="description_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Imagen</b></td>
+								<td class="reference_image_modal"></td>
 							</tr>
 						</table>
 					</div>
@@ -317,6 +329,11 @@
 							$('.advance_payment_modal').html('$ ' + obj.senia);
 							$('.style_tattoo_modal').html(obj.tipoTatuaje.nombre);
 							$('.description_modal').html(obj.descripcion);
+							
+							if(!obj.imagenURL)	
+								$('.reference_image_modal').html("El turno seleccionado no dispone de una imagen de referencia.");
+							else
+								$('.reference_image_modal').html("<a href='" + obj.imagenURL+ "' class='btn btn-block btn-success' target='_blank'><span class='glyphicon glyphicon-picture'></span>&nbsp;Ver imagen de referencia</a>");
 							
 							$('#detailsAppointmentModal').modal("show");							
 				    	}

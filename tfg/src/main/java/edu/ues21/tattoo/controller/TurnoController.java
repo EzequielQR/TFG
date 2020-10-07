@@ -43,7 +43,8 @@ public class TurnoController {
 	private PersonaService personaService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
-	public String create() {
+	public String create(Model model) {
+		model.addAttribute("listTatuadores", tatuadorService.getAll());
 		return "turno_visualizar";
 	}
 	
@@ -235,8 +236,9 @@ public class TurnoController {
 		if(btnPressed.equalsIgnoreCase("edit"))
 			return "redirect:/turno/mostrar";
 		else
-			return "redirect:/panel-asistente/opciones?id-turno=" + turno.getId() +
-					"&estilo=" + turno.getTipoTatuaje().getNombre();
+			return "redirect:/panel-asistente/editar?id-turno=" + turno.getId() +
+					"&estilo=" + turno.getTipoTatuaje().getNombre() + 
+					"&img=" + turno.getImagenURL();
 	}
 	
 	@ResponseBody

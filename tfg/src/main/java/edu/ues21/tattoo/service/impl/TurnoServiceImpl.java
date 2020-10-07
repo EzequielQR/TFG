@@ -96,8 +96,14 @@ public class TurnoServiceImpl implements TurnoService{
 		
 		if(listaTurnos.isEmpty())
 			return true;
-		else
-			return false;
+		else {
+			for (Turno turno : listaTurnos) {
+				if(turno.getTatuador().getId() == idTattoist) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 	
 	private List<EventDTO> turnoToDTO(List<Turno> listaTurnos){
@@ -132,9 +138,9 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
-		String cx = "";	//tattoo account
-						
-		String apiKey = "";	//tattoo account
+		String cx = "";	//Olof account
+								
+		String apiKey = "";//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -190,7 +196,7 @@ public class TurnoServiceImpl implements TurnoService{
 		List<String> finalResult = new ArrayList<String>();
 		
 		String cx = "";	//Olof account
-						
+								
 		String apiKey = "";//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
@@ -236,9 +242,9 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 	
-		String cx = "";	//tattoo account
-						
-		String apiKey = "";	//tattoo account
+		String cx = "";	//Olof account
+								
+		String apiKey = "";//Olof account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {
