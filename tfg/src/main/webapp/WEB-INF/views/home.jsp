@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +50,16 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> ${nombre}</a></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							<span class="glyphicon glyphicon-user"></span>
+							${nombre}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" data-toggle="modal" data-target="#modalChangePassword">Cambiar Contraseña</a></li>
+						</ul>
+					</li>
 					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
 				</ul>
 			</div>
@@ -91,7 +102,65 @@
 			
 		</section>
 	</div>
+	
+	<!-- Modal -->
+	<div id="modalChangePassword" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Cambiar contraseña</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<form:form method="POST" action="redirectToUpdatePassword" id="formModalPassword">
+	      		<div class="form-group">
+  					<div class="row">
+  						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label for="input-modal-old-password">Contraseña actual:</label>
+							<input type="password" class="form-control" id="input-modal-old-password" placeholder="Ingrese su contraseña actual" name="old-password-modal" required="required"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+  					<div class="row">
+  						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label for="input-modal-new-password">Nueva contraseña:</label>
+							<input type="password" class="form-control" id="input-modal-new-password" placeholder="Ingrese su nueva contraseña" name="new-password-modal" required="required"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+  					<div class="row">
+  						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label for="input-modal-new-password-repeat">Ingrese nuevamente:</label>
+							<input type="password" class="form-control" id="input-modal-new-password-repeat" placeholder="Repita su nueva contraseña" name="new-password-repeat-modal" required="required"/>
+						</div>
+					</div>
+				</div>
+			</form:form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">
+	        	<span class="glyphicon glyphicon-remove"></span>
+	        	Cerrar
+	        </button>
+	        <button type="button" class="btn btn-success" id="btnSubmitUploadPassword" name="action" value="updatePassword">
+	        	<span class="glyphicon glyphicon-ok"></span>
+	        	Cambiar Contraseña
+	        </button>
+	      </div><!-- End modal-footer -->
+	    </div><!-- End modal-content -->
+	
+	  </div>
+	</div>
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
+	<script type="text/javascript">
+		$('#btnSubmitBrandModal').click(function(){
+			
+		});
+	</script>
 </body>
 </html>
