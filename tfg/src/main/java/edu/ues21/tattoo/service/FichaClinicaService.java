@@ -13,4 +13,5 @@ public interface FichaClinicaService {
 	void delete(FichaClinica fichaClinica);
 	void delete(int id);
 	Map<String, String> digitalTransformation(String path);
+	Map<String, String> digitalTransformation(byte[] data);
 }

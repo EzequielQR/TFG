@@ -82,6 +82,18 @@ public class FichaClinicaServiceImpl implements FichaClinicaService{
 		return null;
 	}
 	
+	@Override
+	public Map<String, String> digitalTransformation(byte[] data) {
+		// TODO Auto-generated method stub
+		try {
+			return getFields(detectTextGoogle(data));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private void detectText(String filePath, PrintStream out) throws Exception, IOException {
         List<AnnotateImageRequest> requests = new ArrayList<>();
 
@@ -124,6 +136,35 @@ public class FichaClinicaServiceImpl implements FichaClinicaService{
 	      // Reads the image file into memory
 	      Path path = Paths.get(filePath);
 	      byte[] data = Files.readAllBytes(path);
+	      ByteString imgBytes = ByteString.copyFrom(data);
+
+	      // Builds the image annotation request
+	      List<AnnotateImageRequest> requests = new ArrayList<>();
+	      Image img = Image.newBuilder().setContent(imgBytes).build();
+	      Feature feat = Feature.newBuilder().setType(Type.TEXT_DETECTION).build();
+	      AnnotateImageRequest request =
+	          AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+	      requests.add(request);
+
+	      // Performs detection on the image file
+	      BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
+	      List<AnnotateImageResponse> responsesList = response.getResponsesList();
+	      
+	      vision.close();
+	      return responsesList.get(0).getTextAnnotationsList().get(0).getDescription().trim();
+
+	  }
+
+    }
+	
+	//C:\\Users\\eezeq\\Pictures\\ficha clinica\\j\\ms-font.jpeg
+	private String detectTextGoogle(byte[] data) throws Exception, IOException {
+		// Initialize client that will be used to send requests. This client only needs to be created
+	    // once, and can be reused for multiple requests. After completing all of your requests, call
+	    // the "close" method on the client to safely clean up any remaining background resources.
+	    try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
+
+	      // Reads the image file into memory
 	      ByteString imgBytes = ByteString.copyFrom(data);
 
 	      // Builds the image annotation request

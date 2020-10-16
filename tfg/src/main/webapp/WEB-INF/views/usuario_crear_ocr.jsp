@@ -69,16 +69,39 @@
 				<fieldset>
 					<legend>Crear Usuario</legend>
 					
+					<input type="hidden" name="blood_type" value="${ocr['bloodType']}">
+					<input type="hidden" name="rh_factor" value="${ocr['rhFactor']}">
+					<input type="hidden" name="cardiac_boolean" value="${ocr['cardiacBoolean']}">
+					<input type="hidden" name="cardiac_details" value="${ocr['cardiacDetails']}">
+					<input type="hidden" name="skin_boolean" value="${ocr['skinBoolean']}">
+					<input type="hidden" name="skin_details" value="${ocr['skinDetails']}">
+					<input type="hidden" name="circulation_boolean" value="${ocr['circulationBoolean']}">
+					<input type="hidden" name="circulation_details" value="${ocr['circulationDetails']}">
+					<input type="hidden" name="allergies_boolean" value="${ocr['allergiesBoolean']}">
+					<input type="hidden" name="allergies_details" value="${ocr['allergiesDetails']}">
+					<input type="hidden" name="diabetes_boolean" value="${ocr['diabetesBoolean']}">
+					<input type="hidden" name="smooking_boolean" value="${ocr['smookingBoolean']}">
+					<input type="hidden" name="pregnant_boolean" value="${ocr['pregnantBoolean']}">
+					<input type="hidden" name="epilepsy_boolean" value="${ocr['epilepsyBoolean']}">
+					<input type="hidden" name="medication_boolean" value="${ocr['medicationBoolean']}">
+					<input type="hidden" name="medication_details" value="${ocr['medicationDetails']}">
+					<input type="hidden" name="hypertension_boolean" value="${ocr['hypertensionBoolean']}">
+					<input type="hidden" name="hiv_boolean" value="${ocr['hivBoolean']}">
+					<input type="hidden" name="hepatitis_boolean" value="${ocr['hepatitisBoolean']}">
+					<input type="hidden" name="hpv_boolean" value="${ocr['hpvBoolean']}">
+					<input type="hidden" name="syphilis_boolean" value="${ocr['syphilisBoolean']}">
+					
+					<input type="hidden" name="usuarioRol" value="Cliente">
+					
 					<div class="form-group">
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<label for="input-name">Nombre</label>
-								<form:input path="nombre" class="form-control" type="text" id="input-name" placeholder="Ingrese su nombre" required="required"/>
+								<form:input path="nombre" class="form-control" type="text" id="input-name" placeholder="Ingrese su nombre" required="required" value="${ocr['name']}"/>
 							</div>
-							
 							<div class="col-lg-6 col-md-6">
 								<label for="input-apellido">Apellido</label>
-								<form:input path="apellido" class="form-control" type="text" id="input-apellido" placeholder="Ingrese su apellido" required="required"/>
+								<form:input path="apellido" class="form-control" type="text" id="input-apellido" placeholder="Ingrese su apellido" required="required" value="${ocr['surname']}"/>
 							</div>
 						</div>
 					</div>
@@ -87,16 +110,23 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<label for="tipoUser">Seleccione el rol</label>
-								<select class="form-control" id="tipoUsuario" name="usuarioRol">
+								<select class="form-control" id="tipoUsuario" disabled="disabled">
 									<c:forEach items="${listaRoles}" var="rol">
-										<option>${rol.nombre}</option>
+										<c:choose>
+											<c:when test="${rol.nombre == 'Cliente'}">
+												<option selected>${rol.nombre}</option>
+											</c:when>
+											<c:otherwise>
+												<option>${rol.nombre}</option>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</select>
 							</div>
 							
 							<div class="col-lg-6 col-md-6">
 								<label for="inputAlias">Alias</label>
-								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias">
+								<input type="text" class="form-control" name="tatuadorAlias" id="inputAlias" placeholder="Ingrese el alias" disabled="disabled">
 							</div>
 						</div>
 					</div>
@@ -123,19 +153,19 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<label for="inputEmail">Correo electrónico</label>
-								<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
+								<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required" value="${ocr['mail']}"/>
 							</div>
 							
 							<div class="col-lg-6 col-md-6">
 								<label for="inputTel">Teléfono</label>
-								<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+								<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required" value="${ocr['phone']}"/>
 							</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="inputDomicilio">Domicilio</label>
-						<form:input path="domicilio" class="form-control" type="text" id="inputDomicilio" placeholder="Ingrese su domicilio" required="required"/>
+						<form:input path="domicilio" class="form-control" type="text" id="inputDomicilio" placeholder="Ingrese su domicilio" required="required" value="${ocr['address']}"/>
 					</div>
 					
 					<div class="form-group">
@@ -153,7 +183,7 @@
 						
 						<button type="submit" class="btn btn-danger" id="btnFichaClinica" name="action" value="ficha_clinica">
 							<span class="glyphicon glyphicon-tint"></span>
-							Agregar ficha clínica
+							Visualizar/Editar ficha clínica
 						</button>
 					</div>
 				</fieldset>
@@ -202,37 +232,7 @@
 		//# id
 		$(document).ready(function(){
 			//Comprobacion inicial
-   			if( $("#tipoUsuario").find(":selected").text().toUpperCase() === 'TATUADOR' ){
-   				$("#inputAlias").prop('required', true);
-   				$("#inputAlias").prop('disabled', false);
-   			} else {
-   				$("#inputAlias").prop('required', false);
-   				$("#inputAlias").prop('disabled', true);
-   			}
-
-   			if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
-   				$("#btnFichaClinica").prop('disabled', false);
-			} else {
-				$("#btnFichaClinica").prop('disabled', true);
-			}
-			
-			//Cuando el select cambia de estado, se evalua la condicion
-			$("#tipoUsuario").change(function(){
-				if($("#tipoUsuario option:selected").text().toUpperCase() === 'TATUADOR'){
-	   				$("#inputAlias").prop('required', true);
-	   				$("#inputAlias").prop('disabled', false);
-				} else {
-	   				$("#inputAlias").prop('required', false);
-	   				$("#inputAlias").prop('disabled', true);
-				}
-				
-				if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
-	   				$("#btnFichaClinica").prop('disabled', false);
-				} else {
-					$("#btnFichaClinica").prop('disabled', true);
-				}
-			})
-			
+   			
 			$("#fileSelected").change(function(){
 				var fileName = $("#fileSelected").val().split('\\').pop();
 				$(".name-file-selected").html(fileName);
