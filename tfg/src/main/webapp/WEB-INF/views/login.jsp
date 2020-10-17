@@ -78,7 +78,7 @@
 	</nav>
 	<br><br><br><br><br><br><br><br><br>
 	<div class="container col-lg-offset-5">
-		<form action="#" method="post">
+		<form action="${pageContext.request.contextPath}/login" method="POST">
 			<div class="row">
 				<div class="col-md-3 col-lg-3">
 					<div class="input-group">

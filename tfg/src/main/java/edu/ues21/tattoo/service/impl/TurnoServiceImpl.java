@@ -138,9 +138,13 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
-		String cx = "";	//Olof account
-											
-		String apiKey = "";//Olof account
+		//String cx = "894f345ef3f3a3b75";	//tattoo account
+		//String cx = "edd943531b4f48d93";	//personal account
+		String cx = "c9aae27fe30a49a01";	//Olof account
+													
+		//String apiKey = "AIzaSyAfhq46k96vn28gaGQ6G-UIikqBfZyyfXo";	//tattoo account
+		//String apiKey = "AIzaSyDuOJbprCbU_0xj2bQgFKjOM16fJ3LXVaU";	//personal account
+		String apiKey = "AIzaSyAg0lR2h1Jitrm5HWEWO6UIeDOSEx1XBYQ";		//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -195,9 +199,13 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		List<String> finalResult = new ArrayList<String>();
 
-		String cx = "";	//Olof account
-											
-		String apiKey = "";//Olof account
+		//String cx = "894f345ef3f3a3b75";	//tattoo account
+		//String cx = "edd943531b4f48d93";	//personal account
+		String cx = "c9aae27fe30a49a01";	//Olof account
+													
+		//String apiKey = "AIzaSyAfhq46k96vn28gaGQ6G-UIikqBfZyyfXo";	//tattoo account
+		//String apiKey = "AIzaSyDuOJbprCbU_0xj2bQgFKjOM16fJ3LXVaU";	//personal account
+		String apiKey = "AIzaSyAg0lR2h1Jitrm5HWEWO6UIeDOSEx1XBYQ";		//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -242,9 +250,13 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 
-		String cx = "";	//Olof account
-											
-		String apiKey = "";//Olof account
+		//String cx = "894f345ef3f3a3b75";	//tattoo account
+		//String cx = "edd943531b4f48d93";	//personal account
+		String cx = "c9aae27fe30a49a01";	//Olof account
+													
+		//String apiKey = "AIzaSyAfhq46k96vn28gaGQ6G-UIikqBfZyyfXo";	//tattoo account
+		//String apiKey = "AIzaSyDuOJbprCbU_0xj2bQgFKjOM16fJ3LXVaU";	//personal account
+		String apiKey = "AIzaSyAg0lR2h1Jitrm5HWEWO6UIeDOSEx1XBYQ";		//Olof account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.ues21.tattoo.service.TatuadorService;
-import edu.ues21.tattoo.util.UserUtil;
 
 @Controller
 public class HomeController {
@@ -17,8 +16,8 @@ public class HomeController {
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String welcome(Model model) {
-		//TODO: FIXME Linea 21: NullPointerExcecption
-		model.addAttribute("nombre", UserUtil.getUsuario(null).getNombre());
+		//TODO: Remove Clavito
+		model.addAttribute("nombre", "CLAVITO");
 		model.addAttribute("list", tatuadorService.getTattooistWithActualAppointments());
 
 		return "home";

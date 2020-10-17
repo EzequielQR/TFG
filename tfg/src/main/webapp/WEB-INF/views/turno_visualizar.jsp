@@ -61,7 +61,10 @@
 							<li><a href="#" data-toggle="modal" data-target="#modalChangePassword">Cambiar Contraseña</a></li>
 						</ul>
 					</li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+					<li>
+						<a href="javascript:;" onclick="document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Cerrar Sesión</a>
+						<form action="${pageContext.request.contextPath}/logout" method="POST" id="logout-form"></form>
+					</li>
 				</ul>
 			</div>
 		</div>
