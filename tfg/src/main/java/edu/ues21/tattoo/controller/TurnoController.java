@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +47,13 @@ public class TurnoController {
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String create(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("listTatuadores", tatuadorService.getAll());
 		return "turno_visualizar";
 	}
@@ -96,6 +106,13 @@ public class TurnoController {
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String createAppointment(@RequestParam(required = true, name = "fecha-elegida") String fechaElegida,
 									Model model){
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("fecha_hidden", fechaElegida);
 		model.addAttribute("listaPrioridades", categoriaService.getByTipo(2));
 		model.addAttribute("listaEstiloTatuajes", categoriaService.getByTipo(5));
@@ -188,6 +205,13 @@ public class TurnoController {
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment, 
 								  Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("turno", turnoService.getById(Integer.parseInt(idAppointment)));
 		
 		model.addAttribute("listaPrioridades", categoriaService.getByTipo(2));

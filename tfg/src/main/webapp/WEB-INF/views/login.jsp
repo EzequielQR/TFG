@@ -77,10 +77,34 @@
 		</div>
 	</nav>
 	<br><br><br><br><br><br><br><br><br>
-	<div class="container col-lg-offset-5">
+	
+	<div class="container col-lg-offset-5 col-md-offset-5">
+	
+		<c:if test="${status == 'logout-success'}">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					<div class="alert alert-success alert-dismissible fade in">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  			<strong>Éxito!</strong>&nbsp;La sesión ha sido cerrada con éxito.
+					</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${status == 'login-error'}">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					<div class="alert alert-danger alert-dismissible fade in">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  			<strong>Error!</strong>&nbsp;El nombre de usuario o contraseña son incorrectas.
+					</div>
+				</div>
+			</div>
+		</c:if>
+		
 		<form action="${pageContext.request.contextPath}/login" method="POST">
 			<div class="row">
-				<div class="col-md-3 col-lg-3">
+				<div class="col-lg-3 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
 					<div class="input-group">
 				        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 						<input id="inputUser" type="text" class="form-control" placeholder="Usuario" name="username">
@@ -89,7 +113,7 @@
 			</div>	
 			<br>
 			<div class="row">
-				<div class="col-md-3 col-lg-3">
+				<div class="col-lg-3 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
 					<div class="input-group">
      				    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 						<input id="inputPassword" type="password" class="form-control" placeholder="Contraseña" name="rawPassword">
@@ -97,7 +121,13 @@
 				</div>
 			</div>
 			<br>
-			<b><button type="submit" class="btn btn-success">Iniciar Sesión</button></b>
+			<div class="row">
+				<div class="col-lg-3 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+					<div class="input-group">
+						<b><button type="submit" class="btn btn-success">Iniciar Sesión</button></b>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 

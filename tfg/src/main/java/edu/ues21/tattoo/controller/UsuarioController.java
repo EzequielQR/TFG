@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,12 +67,26 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("personas", personaService.getAll());
 		return "usuario_visualizar";
 	}
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String create(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("nuevaPersona", new Persona());
 		model.addAttribute("listaTipoDocumentos", categoriaService.getByTipo(1));
 		model.addAttribute("listaRoles", categoriaService.getByTipo(4));
@@ -155,6 +172,13 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public String edit(@RequestParam("id") String idPersona, Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		int id = Integer.parseInt(idPersona);
 		Persona persona = personaService.getById(id);
 		
@@ -259,8 +283,16 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/ocr", method = RequestMethod.GET)
 	public String ocrDone(Model model) {
+
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
 		
 		if(model.containsAttribute("OCR")) {
+			
 			Map<String, String> map = (Map<String, String>) model.asMap().get("OCR");
 			model.addAttribute("ocr", map);
 			

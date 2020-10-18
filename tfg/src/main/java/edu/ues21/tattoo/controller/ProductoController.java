@@ -1,6 +1,9 @@
 package edu.ues21.tattoo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +26,26 @@ public class ProductoController {
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String mostrar(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("listaStock", productoService.getAll());
 		return "producto_visualizar";
 	}
 	
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String crear(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("listaMarcas", categoriaService.getByTipo(6));
 		model.addAttribute("listaProductos", categoriaService.getByTipo(7));
 		return "producto_crear";

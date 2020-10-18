@@ -1,6 +1,9 @@
 package edu.ues21.tattoo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,13 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(@RequestParam(required = true, name = "id-cliente") String idCliente,
 					   Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("cliente", clienteService.getById(Integer.parseInt(idCliente)));
 		return "fichaClinica_visualizar";	
 	}
@@ -37,6 +47,13 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public String create(@RequestParam(required = true, name = "id-cliente") String idCliente,
 						 Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
 		
 		model.addAttribute("nombre", cliente.getPersona().getNombre());
@@ -94,6 +111,13 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public String edit(@RequestParam(required = true, name = "id-cliente") String idCliente,
 					   Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		model.addAttribute("cliente", clienteService.getById(Integer.parseInt(idCliente)));
 		return "fichaClinica_editar";
 	}
