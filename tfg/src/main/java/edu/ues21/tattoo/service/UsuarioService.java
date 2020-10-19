@@ -7,5 +7,6 @@ public interface UsuarioService {
 	Usuario getById(String username);
 	void update(Usuario usuario);
 	void disable(String username);
-	Usuario check(String username, String password);
+	boolean check(String rawPassword, String hashedPassword);
+	String generateBCryptHash(String rawPassword);
 }

@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService{
 		// TODO Auto-generated method stub
 		edu.ues21.tattoo.domain.Usuario usuario = usuarioRepository.getById(username);
 		
-		//TODO: Remove this. Add logic.
+		//TODO FIXME: Remove this. Add logic.
 		GrantedAuthority granthedAuthority = new SimpleGrantedAuthority("ADMIN");
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

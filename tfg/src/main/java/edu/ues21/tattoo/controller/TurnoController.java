@@ -147,7 +147,7 @@ public class TurnoController {
 		}
 		//TODO: FIXME remove hardcoded userlogged
 		turno.setIniciadoPor(personaService.getById(11));
-		//TODO: Checkout null attribute in listaProductosUtilizados field
+		//TODO: FIXME Checkout null attribute in listaProductosUtilizados field
 		turno.setListaProductosUtilizados(null);
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
 		turno.setSenia(Integer.parseInt(senia));

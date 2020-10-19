@@ -292,9 +292,11 @@
 				
 			});
 			
-			//hide.bs.modal: This event is fired immediately when the hide instance method has been called.
+			//hide.bs.modal: This event is fired immediately when the hide instance method has been called. 
+			//				 When modal "hide" event starts.
 			//hidden.bs.modal: This event is fired when the modal has finished being hidden from the user (will 
 					           //wait for CSS transitions to complete).
+			//				When modala "hide" event finished.
 			
 			$('#createBrandModal').on('hide.bs.modal', function() {
 				$('#input-modal-marca').css('border', '');//Remove CSS property

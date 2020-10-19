@@ -48,6 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public void update(Usuario usuario) {
 		// TODO Auto-generated method stub
+		usuario.setUltimoCambio(new Date());
 		usuarioRepository.update(usuario);
 	}
 
@@ -58,14 +59,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public Usuario check(String username, String password) {
+	public boolean check(String rawPassword, String hashedPassword) {
 		// TODO Auto-generated method stub
-		Usuario user = usuarioRepository.getById(username);
-		
-		if(user != null && BCrypt.checkpw(password, user.getContraseniaHash()))
-			return user;
-		else
-			return null;
+		return BCrypt.checkpw(rawPassword, hashedPassword);
 	}
 	
 	private Usuario createUsuario(String username, String rawPassword) {
@@ -94,7 +90,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return sb.toString();
 	}
 	
-	private String generateBCryptHash(String rawPassword) {
+	@Override
+	public String generateBCryptHash(String rawPassword) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(rawPassword);
 		return hashedPassword;
@@ -124,7 +121,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	private void sendMail(String mailDestino, String username, String rawPassword) {
-		//TODO: Read both constants via external file.
+		//TODO FIXME: Read both constants via external file.
 		final String MAIL_ORIGEN = "noreply.tatuaje@gmail.com";
 		final String PASSWORD = "tfg108811";
 		

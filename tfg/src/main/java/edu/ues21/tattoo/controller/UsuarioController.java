@@ -466,5 +466,31 @@ public class UsuarioController {
 		}
 	
 	}
+
+	@RequestMapping(value = "/ajaxUpdatePassword", method = RequestMethod.GET)
+	public @ResponseBody String updatePassword(@RequestParam("old_password") String oldPasswordRaw,
+											   @RequestParam("new_password") String newPasswordRaw,
+											   @RequestParam("new_password_repeat") String newPasswordRepeat) {
+		
+		if(!newPasswordRaw.equals(newPasswordRepeat))
+			return "error";
+		
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Usuario usuario = usuarioService.getById(user.getUsername());
+
+			
+			if(usuario != null && usuarioService.check(oldPasswordRaw, usuario.getContraseniaHash())) {
+				usuario.setContraseniaHash(usuarioService.generateBCryptHash(newPasswordRaw));
+				usuarioService.update(usuario);
+				return "success";
+			}
+		} 
+		
+		return "error";
+		
+	}
 	
 }
