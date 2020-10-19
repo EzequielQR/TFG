@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-select-1.13.18/css/bootstrap-select.min.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/jquery-timepicker-1.3.5/css/jquery.timepicker.min.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/datatables/css/datatables.min.css"/>">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -71,23 +72,16 @@
 		</div>
 	</nav>
 	<div class="container">
-		<!-- /paginaAredirigir?search=T-->
-		<form action="paginaAredirigir">
-			<div class="input-group">
-				<!-- El atributo search se va a cocatenar a la URL cuando se le ponga submit-->
-				<input type="text" class="form-control" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera..." name="search">
-				<div class="input-group-btn">
-					<button class="btn btn-info" type="button" data-toggle="modal" data-target="#loginModal">
-						<i class="glyphicon glyphicon-cog"></i>
-					</button>
-					<button class="btn btn-success" type="submit">
-						<i class="glyphicon glyphicon-search"></i>
-					</button>
-				</div>
+		<div class="input-group">
+			<input type="text" class="form-control" id="myInputTextField" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera...">
+			<div class="input-group-btn">
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
 			</div>
-		</form>
-		<br><br>
-		<table class ="table table-bordered table-striped table-hover">
+		</div>
+		<br>
+		<table id="table_id" class ="table table-bordered table-striped table-hover">
 			<thead>
 			    <tr class="warning">
 			      <th class="col-md-1">Código Producto</th>
@@ -174,12 +168,23 @@
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
 	<script src="<c:url value="/resources/jquery-timepicker-1.3.5/js/jquery.timepicker.min.js"/>"></script>
+	<script src="<c:url value="/resources/datatables/js/datatables.min.js"/>"></script>
 	<script type="text/javascript">
 		//. class
 		//# id
 		$(document).ready(function(){
 			//Comprobacion inicial
+			$('#table_id').DataTable({
+				//default dom: 'lrtp'
+				dom: 't',			// t: hide the DEFAULT search input without disabling the search functionality.
+			});
+			
+			$('#myInputTextField').keyup(function(){
+				$('#table_id').DataTable().search($(this).val()).draw() ;
+			});
+			
 			$('.my-select').selectpicker();
+			
 			$('.input-timepicker').timepicker({
 			    timeFormat: 'HH:mm',
 			    interval: 30,

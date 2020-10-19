@@ -286,6 +286,8 @@
 	            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
 
 	            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+	            
+	            buttonText:	{today:'Mes actual'},
 		    	
 	            weekends : true, // will NOT hide Saturdays and Sundays
 	            

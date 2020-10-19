@@ -12,6 +12,7 @@
 	<title>9420 - Control Comercial</title>
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/datatables/css/datatables.min.css"/>">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -68,10 +69,19 @@
 			</div>
 		</div>
 	</nav>
-	<br><br>
+	<br>
 	<div class="container">
 		<section class="main row">
-			<table class ="table table-bordered table-striped table-hover">
+			<div class="input-group">
+				<input type="text" class="form-control" id="myInputTextField" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera...">
+					<div class="input-group-btn">
+						<button class="btn btn-success" type="submit">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</div>
+			</div>
+			<br>
+			<table id="table_id" class ="table table-bordered table-striped table-hover">
 				<thead>
 				    <tr class="warning">
 				      <th class="col-md-1">Código</th>
@@ -224,10 +234,21 @@
 	</div><!-- End modal root -->
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/resources/datatables/js/datatables.min.js"/>"></script>
 	<script type="text/javascript">
 	//. class
 	//# id
     $(document).ready(function(){
+    	
+		$('#table_id').DataTable({
+			//default dom: 'lrtp'
+			dom: 't',			// t: hide the DEFAULT search input without disabling the search functionality.
+		});
+		
+		$('#myInputTextField').keyup(function(){
+			$('#table_id').DataTable().search($(this).val()).draw() ;
+		});
+    	
 		$('.view_modal').click(function(){
 		//Obtengo valor
 		var person_id_obtained = $(this).attr("data-id");
