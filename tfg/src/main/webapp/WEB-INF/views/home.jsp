@@ -149,7 +149,7 @@
 	        	<span class="glyphicon glyphicon-remove"></span>
 	        	Cerrar
 	        </button>
-	        <button type="submit" class="btn btn-success" id="btnSubmitUploadPassword" name="action" value="updatePassword">
+	        <button type="button" class="btn btn-success" id="btnSubmitUploadPassword" name="action" value="updatePassword">
 	        	<span class="glyphicon glyphicon-ok"></span>
 	        	Cambiar Contraseña
 	        </button>
