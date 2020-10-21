@@ -242,7 +242,17 @@
     	
 		$('#table_id').DataTable({
 			//default dom: 'lrtp'
-			dom: 't',			// t: hide the DEFAULT search input without disabling the search functionality.
+			//l: "Show [10/25/50/100] entries"
+			//p: "Pagination"
+			//t: hide the DEFAULT search input without disabling the search functionality.
+			dom: 'rtp',
+			language: {
+                zeroRecords		:	"Ningún registro concuerda con la búsqueda",
+                paginate		:	{
+                	next		:	"Siguiente",
+                	previous	:	"Anterior"
+                }
+            }
 		});
 		
 		$('#myInputTextField').keyup(function(){

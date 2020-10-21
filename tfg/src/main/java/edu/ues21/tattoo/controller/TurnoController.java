@@ -27,6 +27,7 @@ import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
 import edu.ues21.tattoo.service.PersonaService;
+import edu.ues21.tattoo.service.ProductoService;
 import edu.ues21.tattoo.service.TatuadorService;
 import edu.ues21.tattoo.service.TurnoService;
 
@@ -44,6 +45,8 @@ public class TurnoController {
 	private CategoriaService categoriaService;
 	@Autowired
 	private PersonaService personaService;
+	@Autowired
+	private ProductoService productoService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String create(Model model) {
@@ -54,6 +57,7 @@ public class TurnoController {
 			model.addAttribute("nombre", user.getUsername());
 		}
 		
+		model.addAttribute("listaProductos", productoService.getAll());
 		model.addAttribute("listTatuadores", tatuadorService.getAll());
 		return "turno_visualizar";
 	}

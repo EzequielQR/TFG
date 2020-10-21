@@ -72,6 +72,11 @@
 		</div>
 	</nav>
 	<div class="container">
+		<div class="alert alert-info alert-dismissible fade in">
+    		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    		<strong>Información!</strong> Se va a visualizar en rojo los productos con stock bajo: Cantidad menor o igual a 5 unidades.
+  		</div>
+	
 		<div class="input-group">
 			<input type="text" class="form-control" id="myInputTextField" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera...">
 			<div class="input-group-btn">
@@ -96,16 +101,32 @@
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${listaStock}" var="producto">
-			  		<tr>
-			  			<th>${producto.id}</th>
-			  			<td>${producto.marca.nombre}</td>
-			  			<td>${producto.tipoProducto.nombre}</td>
-			  			<td>${producto.caracteristica}</td>
-			  			<td>${producto.cantidad}</td>
-						<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-			      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
-			      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
-			  		</tr>
+			  		<c:choose>
+			  			<c:when test="${producto.cantidad <= 5}">
+			  				<tr class="danger">
+			  					<th>${producto.id}</th>
+						  			<td>${producto.marca.nombre}</td>
+						  			<td>${producto.tipoProducto.nombre}</td>
+						  			<td>${producto.caracteristica}</td>
+						  			<td>${producto.cantidad}</td>
+									<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+						      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+			  				</tr>
+			  			</c:when>
+			  			<c:otherwise>
+			  				<tr>
+				  				<th>${producto.id}</th>
+					  			<td>${producto.marca.nombre}</td>
+					  			<td>${producto.tipoProducto.nombre}</td>
+					  			<td>${producto.caracteristica}</td>
+					  			<td>${producto.cantidad}</td>
+								<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+					      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
+					      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+				  			</tr>
+			  			</c:otherwise>
+			  		</c:choose>
 			  	</c:forEach>
 			  </tbody>			
 		</table>
@@ -176,7 +197,17 @@
 			//Comprobacion inicial
 			$('#table_id').DataTable({
 				//default dom: 'lrtp'
-				dom: 't',			// t: hide the DEFAULT search input without disabling the search functionality.
+				//l: "Show [10/25/50/100] entries"
+				//p: "Pagination"
+				//t: hide the DEFAULT search input without disabling the search functionality.
+				dom: 'rtp',
+				language: {
+	                zeroRecords		:	"Ningún registro concuerda con la búsqueda",
+	                paginate		:	{
+	                	next		:	"Siguiente",
+	                	previous	:	"Anterior"
+	                }
+	            }
 			});
 			
 			$('#myInputTextField').keyup(function(){

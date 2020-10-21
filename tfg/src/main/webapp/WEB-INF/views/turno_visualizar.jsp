@@ -123,66 +123,112 @@
 			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Detalles del turno</h4>
+					<h4 class="modal-title" id="title-modal-appointment">Detalles del turno</h4>
 				</div>
 				
-				<div class="modal-body" id="modal_detail">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<tr>
-								<td><b>ID</b></td>
-								<td class="id_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Fecha</b></td>
-								<td class="date_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Hora Inicio - Hora Fin</b></td>
-								<td class="hour_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Prioridad</b></td>
-								<td class="priority_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Tatuador</b></td>
-								<td class="tatuador_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Cliente</b></td>
-								<td class="customer_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Teléfono Cliente</b></td>
-								<td class="customer_phone_number_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Seña</b></td>
-								<td class="advance_payment_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Tipo Tatuaje</b></td>
-								<td class="style_tattoo_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Descripción</b></td>
-								<td class="description_modal"></td>
-							</tr>
-							<tr>
-								<td><b>Imagen</b></td>
-								<td class="reference_image_modal"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
+				<ul class="nav nav-tabs" id="tabContent">
+    				<li class="active"><a href="#details-tab" data-toggle="tab" id="tab-details"><strong>Detalles</strong></a></li>
+    				<li><a href="#add-supplies-tab" data-toggle="tab" id="tab-add-supplies"><strong>Añadir Insumos Utilizados</strong></a></li>
+				</ul>
+				
+				<div class="modal-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="details-tab">
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<tr>
+										<td><b>ID</b></td>
+										<td class="id_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Fecha</b></td>
+										<td class="date_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Hora Inicio - Hora Fin</b></td>
+										<td class="hour_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Prioridad</b></td>
+										<td class="priority_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Tatuador</b></td>
+										<td class="tatuador_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Cliente</b></td>
+										<td class="customer_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Teléfono Cliente</b></td>
+										<td class="customer_phone_number_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Seña</b></td>
+										<td class="advance_payment_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Tipo Tatuaje</b></td>
+										<td class="style_tattoo_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Descripción</b></td>
+										<td class="description_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Imagen</b></td>
+										<td class="reference_image_modal"></td>
+									</tr>
+									<tr>
+										<td><b>Insumos Utilizados</b></td>
+										<td class="used_products_modal"></td>
+									</tr>
+								</table>
+							</div>
+						</div><!-- Tab 1: Details -->
+						<div class="tab-pane" id="add-supplies-tab">
+						
+							<div class="form-group">
+								<div class="row">
+									<div class="form-group">
+										<h4 style="text-align:center;">Insumos disponibles</h4>
+										<table id="table_id" class ="table table-condensed table-bordered table-striped table-hover" style="width:100%;">
+											<thead>
+											    <tr class="warning">
+											      <th class="col-md-2">Marca</th>
+											      <th class="col-md-4">Tipo de Producto</th>
+											      <th class="col-md-3">Detalle</th>
+											      <th class="col-md-1">Cantidad</th>
+											      <th class="col-md-1">Añadir Producto</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											  	<c:forEach items="${listaProductos}" var="producto">
+											  		<tr>
+														<td>${producto.marca.nombre}</td>
+														<td>${producto.tipoProducto.nombre}</td>
+														<td>${producto.caracteristica}</td>
+														<td>${producto.cantidad}</td>
+														<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></td>
+											  		</tr>
+											  	</c:forEach>
+											  </tbody>			
+										</table>
+								    </div>
+								</div>
+							</div>
+							
+						</div><!-- Tab 2: Add supplies -->
+					</div><!-- Tab content root -->
+				</div><!-- Modal body -->
 				
 				<div class="modal-footer">
-					<form:form method="POST" action="actionDetailsAppointment">
+					<form:form method="POST" action="actionDetailsAppointment" id="form-details-appointment">
 						<input type="hidden" id="appointmentHiddenId" name="id-appointment"/>
 					    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					    <button type="submit" class="btn btn-info" id="editButton" name="btn-action" value="edit">Editar</button>
-						<button type="submit" class="btn btn-warning" id="deleteButton" name="btn-action" value="delete">Borrar</button>
+					    <button type="submit" class="btn btn-info" id="editButton" name="btn-action" value="edit">Editar Turno</button>
+						<button type="submit" class="btn btn-warning" id="deleteButton" name="btn-action" value="delete">Borrar Turno</button>
 					</form:form>
 				</div>
 				
@@ -276,6 +322,17 @@
 	<!-- # id -->
 	<script type="text/javascript">
 		$(document).ready(function() {
+			
+			$('#tab-details').click(function(){
+				$('#editButton').show();
+				$('#deleteButton').show();
+			});
+			
+			$('#tab-add-supplies').click(function(){
+				$('#editButton').hide();
+				$('#deleteButton').hide();
+			});
+			
 		    // Page is now ready, initialize the calendar with JS Code.
 		    $('#calendar').fullCalendar({
 		    	
@@ -400,6 +457,12 @@
 								$('.reference_image_modal').html("El turno seleccionado no dispone de una imagen de referencia.");
 							else
 								$('.reference_image_modal').html("<a href='" + obj.imagenURL+ "' class='btn btn-block btn-success' target='_blank'><span class='glyphicon glyphicon-picture'></span>&nbsp;Ver imagen de referencia</a>");
+							
+							if(!obj.listaProductosUtilizados || obj.listaProductosUtilizados.length == 0)
+								$('.used_products_modal').html("El turno seleccionado no registra insumos utilizados.");
+							else
+								$('.used_products_modal').html("");
+								
 							
 							$('#detailsAppointmentModal').modal("show");							
 				    	}
