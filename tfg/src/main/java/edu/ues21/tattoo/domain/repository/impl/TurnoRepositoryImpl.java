@@ -3,6 +3,7 @@ package edu.ues21.tattoo.domain.repository.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -91,6 +92,18 @@ public class TurnoRepositoryImpl implements TurnoRepository{
 		Session session = HibernateUtil.beginTransaction();
 		Query query = session.createQuery("delete Turno where id = :id");
 		query.setInteger("id", id);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+	
+	@Override
+	public void insertTurnosHASproductos(int turnoId, int productoId) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		SQLQuery query = session.createSQLQuery("INSERT INTO turnos_has_productos VALUES(:turno_id, :prod_id)");
+		query.setInteger("turno_id", turnoId);
+		query.setInteger("prod_id", productoId);
+		
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}

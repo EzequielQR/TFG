@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -55,8 +58,13 @@ public class Turno implements Serializable{
 	@OneToOne
 	@JoinColumn(name="categorias_id_tipo_tatuaje")
 	private Categoria tipoTatuaje;
-	@ManyToMany(mappedBy = "listaTurnos", fetch = FetchType.EAGER, targetEntity = Producto.class)
-	@Fetch(value = FetchMode.SUBSELECT)
+	//@ManyToMany(mappedBy = "listaTurnos", fetch = FetchType.EAGER, targetEntity = Producto.class)
+	@ManyToMany(cascade = CascadeType.ALL, 	fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "turnos_has_productos",
+			joinColumns = @JoinColumn(name = "turnos_id"),
+			inverseJoinColumns = @JoinColumn(name = "productos_id"))
+	//@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
 	private List<Producto> listaProductosUtilizados;
 	@Column(name="seña")

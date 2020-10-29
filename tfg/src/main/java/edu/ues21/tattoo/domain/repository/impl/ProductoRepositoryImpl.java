@@ -89,5 +89,30 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 		
 		session.getTransaction().commit();
 	}
+
+	@Override
+	public List<Producto> getByBrand(int brandId) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Producto p WHERE p.marca.id = :brandId");
+		query.setInteger("brandId", brandId);
+		List<Producto> list = query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+
+	@Override
+	public List<Integer> getAvailableProductsByAppointment(int appointmentId) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		SQLQuery sqlQuery = session.createSQLQuery("SELECT productos.id FROM productos "
+				+ "WHERE productos.id NOT IN (SELECT turnos_has_productos.productos_id FROM turnos_has_productos "
+										   + "WHERE turnos_has_productos.turnos_id = :idAppo) "
+				+ "AND productos.cantidad > 0;");
+		sqlQuery.setInteger("idAppo", appointmentId);
+		List<Integer> list = sqlQuery.list();
+		session.getTransaction().commit();
+		return list;
+	}
 	
 }

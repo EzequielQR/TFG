@@ -13,4 +13,5 @@ public interface CategoriaRepository {
 	void update(Categoria categoria);
 	void delete(Categoria categoria);
 	void delete(int id);
+	int giveIdByName(String name);
 }

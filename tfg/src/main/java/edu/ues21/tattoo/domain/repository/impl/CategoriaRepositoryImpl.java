@@ -90,4 +90,15 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public int giveIdByName(String name) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("SELECT c.id FROM Categoria c WHERE c.nombre = :name");
+		query.setString("name", name);
+		Integer id = (Integer) query.uniqueResult();
+		session.getTransaction().commit();
+		return id;
+	}
+
 }

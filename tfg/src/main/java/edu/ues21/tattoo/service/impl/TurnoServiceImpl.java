@@ -242,9 +242,9 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 
-		String cx = "";	//Olof account
+		String cx = "c9aae27fe30a49a01";	//Olof account
 																							
-		String apiKey = "";		//Olof account
+		String apiKey = "AIzaSyAg0lR2h1Jitrm5HWEWO6UIeDOSEx1XBYQ";		//Olof account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {
@@ -288,5 +288,13 @@ public class TurnoServiceImpl implements TurnoService{
 		
 		return null;
 	}
+
+	@Override
+	public void insertTurnosHASproductos(int idTurno, int idProducto) {
+		// TODO Auto-generated method stub
+		turnoRepository.insertTurnosHASproductos(idTurno, idProducto);
+	}
+	
+	
 
 }

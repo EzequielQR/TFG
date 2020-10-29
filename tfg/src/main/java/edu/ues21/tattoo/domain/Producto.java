@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -34,11 +38,13 @@ public class Producto implements Serializable{
 	private Categoria tipoProducto;
 	@Column(name="caracteristica")
 	private String caracteristica;
-	@ManyToMany
-	@JoinTable(
-			name = "turnos_has_productos",
-			joinColumns = @JoinColumn(name = "productos_id"),
-			inverseJoinColumns = @JoinColumn(name = "turnos_id"))
+	//@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "listaProductosUtilizados", fetch = FetchType.EAGER, targetEntity = Turno.class)
+	@Fetch(value = FetchMode.SUBSELECT)
+//	@JoinTable(
+//			name = "turnos_has_productos",
+//			joinColumns = @JoinColumn(name = "productos_id"),
+//			inverseJoinColumns = @JoinColumn(name = "turnos_id"))
 	@JsonBackReference
 	private List<Turno> listaTurnos;
 	
@@ -86,4 +92,12 @@ public class Producto implements Serializable{
 		this.caracteristica = caracteristica;
 	}
 
+	public List<Turno> getListaTurnos() {
+		return listaTurnos;
+	}
+
+	public void setListaTurnos(List<Turno> listaTurnos) {
+		this.listaTurnos = listaTurnos;
+	}
+	
 }

@@ -2,6 +2,7 @@ package edu.ues21.tattoo.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 import edu.ues21.tattoo.domain.EventDTO;
+import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.service.CategoriaService;
 import edu.ues21.tattoo.service.ClienteService;
@@ -56,8 +58,6 @@ public class TurnoController {
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			model.addAttribute("nombre", user.getUsername());
 		}
-		
-		model.addAttribute("listaProductos", productoService.getAll());
 		model.addAttribute("listTatuadores", tatuadorService.getAll());
 		return "turno_visualizar";
 	}
@@ -206,6 +206,39 @@ public class TurnoController {
 		}
 	}
 	
+	@RequestMapping(value = "/actionAddproductsToAppointment", method = RequestMethod.POST)
+	public String addProductsToAppointment(
+								@RequestParam(required = true, name = "id-appointment") int idAppointment,
+								@RequestParam(required = true, name = "prodId[]") int[] idProducts) {
+		
+		Turno turno = turnoService.getById(idAppointment);
+		List<Producto> list = productoService.getListByArray(idProducts);
+			
+		//Se hace merge
+		list.addAll(turno.getListaProductosUtilizados());
+		
+		turno.setListaProductosUtilizados(list);
+		turnoService.update(turno);
+		
+		return "redirect:/turno/mostrar";
+	}
+	
+	@RequestMapping(value = "/actionDeleteproductsToAppointment", method = RequestMethod.POST)
+	public String deleteProductsToAppointment(
+							@RequestParam(required = true, name = "id-appointment") int idAppointment,
+							@RequestParam(required = true, name = "prodId[]") int[] idProducts) {
+		
+		Turno turno = turnoService.getById(idAppointment);
+		
+		List<Producto> root = turno.getListaProductosUtilizados();
+		
+		turno.setListaProductosUtilizados(productoService.removeElements(turno.getListaProductosUtilizados(),
+																		 idProducts));
+		turnoService.update(turno);
+		
+		return "redirect:/turno/mostrar";
+	}
+	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public String editAppointment(@RequestParam(required = true, name = "id-turno") String idAppointment, 
 								  Model model) {
@@ -306,6 +339,31 @@ public class TurnoController {
 			return "parse-error";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxCreateTableTab2", method = RequestMethod.GET)
+	public String createTableTab2AvailableProducts(@RequestParam("id_appointment") int idAppointment) {
+		
+		List<Integer> listId = productoService.getAvailableProductsByAppointment(idAppointment);
+		
+		if(listId != null && !listId.isEmpty()) {
+			List<Producto> listProducto = new ArrayList<Producto>();
+			
+			for(int i = 0; i < listId.size(); i ++)
+				listProducto.add(productoService.getById(listId.get(i)));
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			try {
+				return mapper.writeValueAsString(listProducto);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return "not-found-available-products";
 	}
 
 }

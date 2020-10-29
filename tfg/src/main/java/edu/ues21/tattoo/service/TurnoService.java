@@ -17,4 +17,5 @@ public interface TurnoService {
 	boolean tattoistHasAvailableSlot(int idTattoist, Date dateStart, Date dateEnd);
 	String getImagesJSON(String query);
 	List<String> getImagesList(String query);
+	void insertTurnosHASproductos(int idTurno, int idProducto);
 }

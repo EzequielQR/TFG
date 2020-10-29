@@ -13,4 +13,5 @@ public interface TurnoRepository {
 	void update(Turno turno);
 	void delete(Turno turno);
 	void delete(int id);
+	void insertTurnosHASproductos(int turnoId, int productoId);
 }
