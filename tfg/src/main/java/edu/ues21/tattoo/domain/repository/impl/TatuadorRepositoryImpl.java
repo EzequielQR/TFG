@@ -55,6 +55,18 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		session.getTransaction().commit();
 		return tatuador;
 	}
+
+	@Override
+	public Tatuador getByUsername(String username) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Tatuador where usuario.nombre = :user");
+		query.setString("user", username);
+		Tatuador tatuador = (Tatuador) query.uniqueResult();
+		session.getTransaction().commit();
+		return tatuador;
+	}
+	
 	
 	@Override
 	public void update(Tatuador tatuador) {
@@ -95,5 +107,4 @@ public class TatuadorRepositoryImpl implements TatuadorRepository{
 		
 		return list;
 	}
-	
 }

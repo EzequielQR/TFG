@@ -33,8 +33,8 @@ public class Turno implements Serializable{
 	@GeneratedValue
 	private int id;
 	@OneToOne
-	@JoinColumn(name="personas_id_iniciado_por")
-	private Persona iniciadoPor;
+	@JoinColumn(name="usuarios_nombre_iniciado_por")
+	private Usuario usuario;
 	@ManyToOne
 	@JoinColumn(name="tatuadores_id")
 	@JsonManagedReference
@@ -84,12 +84,12 @@ public class Turno implements Serializable{
 		this.id = id;
 	}
 
-	public Persona getIniciadoPor() {
-		return iniciadoPor;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setIniciadoPor(Persona iniciadoPor) {
-		this.iniciadoPor = iniciadoPor;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Tatuador getTatuador() {

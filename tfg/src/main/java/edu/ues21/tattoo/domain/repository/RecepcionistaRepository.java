@@ -9,6 +9,7 @@ public interface RecepcionistaRepository {
 	List<Recepcionista> getAll();
 	Recepcionista getById(int id);
 	Recepcionista getByPersonId(int idPerson);
+	Recepcionista getByUsername(String username);
 	void update(Recepcionista recepcionista);
 	void delete(Recepcionista recepcionista);
 	void delete(int id);

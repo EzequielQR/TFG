@@ -51,6 +51,17 @@ public class EncargadoComprasRepositoryImpl implements EncargadoComprasRepositor
 		session.getTransaction().commit();
 		return encargadoCompras;
 	}
+
+	@Override
+	public EncargadoCompras getByUsername(String username) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from EncargadoCompras where usuario.nombre = :user");
+		query.setString("user", username);
+		EncargadoCompras encargadoCompras = (EncargadoCompras) query.uniqueResult();
+		session.getTransaction().commit();
+		return encargadoCompras;
+	}
 	
 	@Override
 	public void update(EncargadoCompras encargadoCompras) {

@@ -9,6 +9,7 @@ public interface TatuadorRepository {
 	List<Tatuador> getAll();
 	Tatuador getById(int id);
 	Tatuador getByPersonId(int idPerson);
+	Tatuador getByUsername(String username);
 	void update(Tatuador tatuador);
 	void delete(Tatuador tatuador);
 	void delete(int id);

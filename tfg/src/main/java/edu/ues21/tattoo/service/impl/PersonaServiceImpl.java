@@ -5,8 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.ues21.tattoo.domain.EncargadoCompras;
 import edu.ues21.tattoo.domain.Persona;
+import edu.ues21.tattoo.domain.Recepcionista;
+import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.repository.EncargadoComprasRepository;
 import edu.ues21.tattoo.domain.repository.PersonaRepository;
+import edu.ues21.tattoo.domain.repository.RecepcionistaRepository;
+import edu.ues21.tattoo.domain.repository.TatuadorRepository;
 import edu.ues21.tattoo.service.PersonaService;
 
 @Service
@@ -14,6 +20,12 @@ public class PersonaServiceImpl implements PersonaService{
 
 	@Autowired
 	private PersonaRepository personaRepository;
+	@Autowired
+	private TatuadorRepository tatuadorRepository;
+	@Autowired
+	private EncargadoComprasRepository encargadoComprasRepository;
+	@Autowired
+	private RecepcionistaRepository recepcionistaRepository;
 	
 	@Override
 	public int add(Persona persona) {
@@ -49,6 +61,30 @@ public class PersonaServiceImpl implements PersonaService{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		personaRepository.delete(id);
+	}
+
+	@Override
+	public Persona getByUsername(String username) {
+		// TODO Auto-generated method stub
+		Tatuador tatuador = tatuadorRepository.getByUsername(username);
+		
+		if(tatuador != null)
+			return tatuador.getPersona();
+		else {
+			EncargadoCompras encargadoCompras = encargadoComprasRepository.getByUsername(username);
+			
+			if(encargadoCompras != null)
+				return encargadoCompras.getPersona();
+			else {
+				Recepcionista recepcionista = recepcionistaRepository.getByUsername(username);
+				
+				if(recepcionista != null)
+					return recepcionistaRepository.getByUsername(username).getPersona();
+				else
+					return null;
+			}
+			
+		}
 	}
 
 }

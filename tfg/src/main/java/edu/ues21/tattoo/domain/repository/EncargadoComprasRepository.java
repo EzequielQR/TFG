@@ -9,6 +9,7 @@ public interface EncargadoComprasRepository {
 	List<EncargadoCompras> getAll();
 	EncargadoCompras getById(int id);
 	EncargadoCompras getByPersonId(int idPerson);
+	EncargadoCompras getByUsername(String username);
 	void update(EncargadoCompras encargadoCompras);
 	void delete(EncargadoCompras encargadoCompras);
 	void delete(int id);

@@ -32,6 +32,7 @@ import edu.ues21.tattoo.service.PersonaService;
 import edu.ues21.tattoo.service.ProductoService;
 import edu.ues21.tattoo.service.TatuadorService;
 import edu.ues21.tattoo.service.TurnoService;
+import edu.ues21.tattoo.service.UsuarioService;
 
 @Controller
 @RequestMapping(value = "/turno")
@@ -49,6 +50,8 @@ public class TurnoController {
 	private PersonaService personaService;
 	@Autowired
 	private ProductoService productoService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String create(Model model) {
@@ -149,8 +152,14 @@ public class TurnoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO: FIXME remove hardcoded userlogged
-		turno.setIniciadoPor(personaService.getById(11));
+		
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			turno.setUsuario(usuarioService.getById(user.getUsername()));
+		}
+		
 		//TODO: FIXME Checkout null attribute in listaProductosUtilizados field
 		turno.setListaProductosUtilizados(null);
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
@@ -285,8 +294,6 @@ public class TurnoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO: FIXME remove hardcoded userlogged
-		turno.setIniciadoPor(personaService.getById(11));
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
 		turno.setSenia(Integer.parseInt(senia));
 		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));

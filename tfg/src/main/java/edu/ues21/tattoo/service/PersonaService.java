@@ -11,4 +11,5 @@ public interface PersonaService {
 	void update(Persona persona);
 	void delete(Persona persona);
 	void delete(int id);
+	Persona getByUsername(String username);
 }

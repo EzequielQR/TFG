@@ -53,6 +53,17 @@ public class RecepcionistaRepositoryImpl implements RecepcionistaRepository{
 	}
 
 	@Override
+	public Recepcionista getByUsername(String username) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Recepcionista where usuario.nombre = :user");
+		query.setString("user", username);
+		Recepcionista recepcionista = (Recepcionista) query.uniqueResult();
+		session.getTransaction().commit();
+		return recepcionista;
+	}
+	
+	@Override
 	public void update(Recepcionista recepcionista) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();

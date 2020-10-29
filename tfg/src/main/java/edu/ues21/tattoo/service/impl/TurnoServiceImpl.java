@@ -138,9 +138,10 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
+		
 		String cx = "";	//Olof account
-																							
-		String apiKey = "";		//Olof account
+																									
+		String apiKey = "";	//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -196,8 +197,8 @@ public class TurnoServiceImpl implements TurnoService{
 		List<String> finalResult = new ArrayList<String>();
 
 		String cx = "";	//Olof account
-																							
-		String apiKey = "";		//Olof account
+																									
+		String apiKey = "";	//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -242,9 +243,9 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 
-		String cx = "c9aae27fe30a49a01";	//Olof account
-																							
-		String apiKey = "AIzaSyAg0lR2h1Jitrm5HWEWO6UIeDOSEx1XBYQ";		//Olof account
+		String cx = "";	//Olof account
+																									
+		String apiKey = "";	//Olof account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
 				new HttpRequestInitializer() {
