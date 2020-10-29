@@ -140,7 +140,7 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		
 		String cx = "";	//Olof account
-																									
+																											
 		String apiKey = "";	//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
@@ -197,7 +197,7 @@ public class TurnoServiceImpl implements TurnoService{
 		List<String> finalResult = new ArrayList<String>();
 
 		String cx = "";	//Olof account
-																									
+																											
 		String apiKey = "";	//Olof account
 		
 		List<Result> resultList = new ArrayList<Result>();
@@ -244,7 +244,7 @@ public class TurnoServiceImpl implements TurnoService{
 	private String auxiliarGetImagesJSON(String query) {
 
 		String cx = "";	//Olof account
-																									
+																											
 		String apiKey = "";	//Olof account
 		
 		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 

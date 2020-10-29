@@ -160,7 +160,6 @@ public class TurnoController {
 			turno.setUsuario(usuarioService.getById(user.getUsername()));
 		}
 		
-		//TODO: FIXME Checkout null attribute in listaProductosUtilizados field
 		turno.setListaProductosUtilizados(null);
 		turno.setPrioridad(categoriaService.getById(Integer.parseInt(prioridadId)));
 		turno.setSenia(Integer.parseInt(senia));
