@@ -5,14 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.ues21.tattoo.domain.Cliente;
 import edu.ues21.tattoo.domain.EncargadoCompras;
 import edu.ues21.tattoo.domain.Persona;
 import edu.ues21.tattoo.domain.Recepcionista;
 import edu.ues21.tattoo.domain.Tatuador;
+import edu.ues21.tattoo.domain.repository.ClienteRepository;
 import edu.ues21.tattoo.domain.repository.EncargadoComprasRepository;
+import edu.ues21.tattoo.domain.repository.FichaClinicaDetalleEtsRepository;
+import edu.ues21.tattoo.domain.repository.FichaClinicaDetallePielRepository;
+import edu.ues21.tattoo.domain.repository.FichaClinicaRepository;
 import edu.ues21.tattoo.domain.repository.PersonaRepository;
 import edu.ues21.tattoo.domain.repository.RecepcionistaRepository;
 import edu.ues21.tattoo.domain.repository.TatuadorRepository;
+import edu.ues21.tattoo.domain.repository.TurnoRepository;
+import edu.ues21.tattoo.domain.repository.UsuarioRepository;
 import edu.ues21.tattoo.service.PersonaService;
 
 @Service
@@ -26,6 +33,18 @@ public class PersonaServiceImpl implements PersonaService{
 	private EncargadoComprasRepository encargadoComprasRepository;
 	@Autowired
 	private RecepcionistaRepository recepcionistaRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private FichaClinicaRepository fichaClinicaRepository;
+	@Autowired
+	private FichaClinicaDetalleEtsRepository fichaClinicaDetalleEtsRepository;
+	@Autowired
+	private FichaClinicaDetallePielRepository fichaClinicaDetallePielRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private TurnoRepository turnoRepository;
 	
 	@Override
 	public int add(Persona persona) {
@@ -58,8 +77,40 @@ public class PersonaServiceImpl implements PersonaService{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id, String role) {
 		// TODO Auto-generated method stub
+		if(role.equalsIgnoreCase("cliente")) {
+			Cliente cliente = clienteRepository.getByPersonId(id);
+
+			turnoRepository.deleteAllByCustomerId(cliente.getId());
+			
+			fichaClinicaDetallePielRepository.delete(cliente.getFichaClinica().getFichaClinicaDetallePiel().getId());
+			fichaClinicaDetalleEtsRepository.delete(cliente.getFichaClinica().getFichaClinicaDetalleEts().getId());
+			fichaClinicaRepository.delete(cliente.getFichaClinica().getId());
+			
+			clienteRepository.delete(cliente.getId());
+		}
+		else if(role.equalsIgnoreCase("tatuador")) {
+			Tatuador tatuador = tatuadorRepository.getByPersonId(id);
+			
+			turnoRepository.deleteAllByTattoistId(tatuador.getId());
+			
+			usuarioRepository.disable(tatuador.getUsuario().getNombre());
+			tatuadorRepository.delete(tatuador.getId());
+		}
+		else if(role.equalsIgnoreCase("recepcionista")) {
+			Recepcionista recepcionista = recepcionistaRepository.getByPersonId(id);
+			
+			usuarioRepository.disable(recepcionista.getUsuario().getNombre());
+			recepcionistaRepository.delete(recepcionista.getId());
+		}
+		else {
+			EncargadoCompras encargado = encargadoComprasRepository.getByPersonId(id);
+			
+			usuarioRepository.disable(encargado.getUsuario().getNombre());
+			encargadoComprasRepository.delete(encargado.getId());
+		}
+		
 		personaRepository.delete(id);
 	}
 

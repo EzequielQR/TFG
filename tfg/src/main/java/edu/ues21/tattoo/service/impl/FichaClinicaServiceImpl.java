@@ -1,7 +1,11 @@
 package edu.ues21.tattoo.service.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import com.google.api.gax.core.FixedCredentialsProvider;
+import com.google.auth.Credentials;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
@@ -21,12 +31,15 @@ import com.google.cloud.vision.v1.EntityAnnotation;
 import com.google.cloud.vision.v1.Feature;
 import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
+import com.google.cloud.vision.v1.ImageAnnotatorSettings;
 import com.google.cloud.vision.v1.Feature.Type;
 import com.google.protobuf.ByteString;
 
 import edu.ues21.tattoo.domain.FichaClinica;
 import edu.ues21.tattoo.domain.repository.FichaClinicaRepository;
 import edu.ues21.tattoo.service.FichaClinicaService;
+import io.grpc.Channel;
+import io.grpc.Grpc;
 
 @Service
 public class FichaClinicaServiceImpl implements FichaClinicaService{
@@ -157,12 +170,21 @@ public class FichaClinicaServiceImpl implements FichaClinicaService{
 
     }
 	
-	//C:\\Users\\eezeq\\Pictures\\ficha clinica\\j\\ms-font.jpeg
 	private String detectTextGoogle(byte[] data) throws Exception, IOException {
 		// Initialize client that will be used to send requests. This client only needs to be created
 	    // once, and can be reused for multiple requests. After completing all of your requests, call
 	    // the "close" method on the client to safely clean up any remaining background resources.
-	    try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
+		
+		String j = "";
+		
+		InputStream fileInput = new ByteArrayInputStream(j.getBytes());
+		
+		Credentials c = ServiceAccountCredentials.fromStream(fileInput);
+		
+		ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder()
+				.setCredentialsProvider(FixedCredentialsProvider.create(c)).build();
+		
+	    try (ImageAnnotatorClient vision = ImageAnnotatorClient.create(settings)) {
 
 	      // Reads the image file into memory
 	      ByteString imgBytes = ByteString.copyFrom(data);

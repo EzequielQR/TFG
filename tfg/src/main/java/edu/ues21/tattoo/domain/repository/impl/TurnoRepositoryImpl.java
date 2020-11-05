@@ -108,4 +108,24 @@ public class TurnoRepositoryImpl implements TurnoRepository{
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public void deleteAllByCustomerId(int id) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("delete Turno where cliente.id = :id");
+		query.setInteger("id", id);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+
+	@Override
+	public void deleteAllByTattoistId(int id) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("delete Turno where tatuador.id = :id");
+		query.setInteger("id", id);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+
 }

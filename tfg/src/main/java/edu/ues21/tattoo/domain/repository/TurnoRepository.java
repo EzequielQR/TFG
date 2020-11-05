@@ -14,4 +14,6 @@ public interface TurnoRepository {
 	void delete(Turno turno);
 	void delete(int id);
 	void insertTurnosHASproductos(int turnoId, int productoId);
+	void deleteAllByCustomerId(int id);
+	void deleteAllByTattoistId(int id);
 }

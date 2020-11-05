@@ -109,8 +109,8 @@
 						  			<td>${producto.tipoProducto.nombre}</td>
 						  			<td>${producto.caracteristica}</td>
 						  			<td>${producto.cantidad}</td>
-									<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-						      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
+									<td><a href="#" class="btn btn-default view_modal" data-id="${producto.id}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+						      		<td><a href="<spring:url value="/stock/editar?id=${producto.id}"/>" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
 			  				</tr>
 			  			</c:when>
@@ -121,15 +121,63 @@
 					  			<td>${producto.tipoProducto.nombre}</td>
 					  			<td>${producto.caracteristica}</td>
 					  			<td>${producto.cantidad}</td>
-								<td><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-					      		<td><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
-					      		<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+					  			<td><a href="#" class="btn btn-default view_modal" data-id="${producto.id}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+						      	<td><a href="<spring:url value="/stock/editar?id=${producto.id}"/>" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						      	<td><a href="<spring:url value="/stock/eliminar?id-producto=${producto.id}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
 				  			</tr>
 			  			</c:otherwise>
 			  		</c:choose>
 			  	</c:forEach>
 			  </tbody>			
 		</table>
+	</div>
+	
+	<div class="modal fade" id ="dataModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Información Adicional</h4>
+				</div>
+				<br>
+				<div class="modal-body" id="modal_detail">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td><b>ID</b></td>
+								<td class="id_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Marca</b></td>
+								<td class="brand_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Tipo de Producto</b></td>
+								<td class="type_product_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Detalle</b></td>
+								<td class="detail_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Cantidad Disponible</b></td>
+								<td class="quantity_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Usado en Turnos</b></td>
+								<td class="product_has_appointments_modal"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">
+						<span class="glyphicon glyphicon-remove"></span>
+						Cerrar
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Modal -->
@@ -279,6 +327,41 @@
 				$("#input-modal-new-password").val("");
 				$("#input-modal-new-password-repeat").val("");
 			});
+			
+			$('.view_modal').click(function(){
+				//Obtengo valor
+				var product_id_obtained = $(this).attr("data-id");
+					
+					$.ajax({
+						url: "ajaxcallprod",
+						method: "get",
+						//{key : value}
+						data: {product_id : product_id_obtained},
+						success: function(result){
+							//The JSON you are receiving is in string. You have to convert it into JSON object.
+							//Alert() only can display Strings.
+							//For debug proposes, use console.log(data);
+							
+							var obj1 = JSON.parse(result);
+							console.log(obj1);
+							
+							$('.id_modal').html(obj1[0].id);
+							$('.brand_modal').html(obj1[0].marca.nombre);
+							$('.type_product_modal').html(obj1[0].tipoProducto.nombre);
+							$('.detail_modal').html(obj1[0].caracteristica);
+							$('.quantity_modal').html(obj1[0].cantidad);
+							
+							if(obj1[1] === undefined || obj1[1].length == 0){
+								$('.product_has_appointments_modal').html("0");
+							}
+							else{
+								$('.product_has_appointments_modal').html(">1");
+							}
+							//Trigger modal via Javascript:
+							$('#dataModal').modal("show");
+						}
+					});			
+				});
 			
     	});
 	</script>

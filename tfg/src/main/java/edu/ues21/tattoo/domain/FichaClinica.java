@@ -27,10 +27,10 @@ public class FichaClinica implements Serializable{
 	private String alergias;
 	@Column(name="problemas_cardiacos")
 	private String problemasCardiacos;
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name="fichas_clinica_ets_id")
 	private FichaClinicaDetallePiel fichaClinicaDetallePiel;
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name="fichas_clinica_piel_id")
 	private FichaClinicaDetalleEts fichaClinicaDetalleEts;
 	@Column(name="comentarios")

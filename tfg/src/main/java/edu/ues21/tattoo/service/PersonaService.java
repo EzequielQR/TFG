@@ -10,6 +10,6 @@ public interface PersonaService {
 	Persona getById(int id);
 	void update(Persona persona);
 	void delete(Persona persona);
-	void delete(int id);
+	void delete(int id, String role);
 	Persona getByUsername(String username);
 }

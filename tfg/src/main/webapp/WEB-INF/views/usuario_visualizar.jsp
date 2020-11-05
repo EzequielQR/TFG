@@ -73,7 +73,7 @@
 	<div class="container">
 		<section class="main row">
 			<div class="input-group">
-				<input type="text" class="form-control" id="myInputTextField" placeholder="Buscar palabras claves. Ej.: Tinta, aguja, puntera...">
+				<input type="text" class="form-control" id="myInputTextField" placeholder="Buscar palabras claves. Ej.: nombre, apellido, rol...">
 					<div class="input-group-btn">
 						<button class="btn btn-success" type="submit">
 							<span class="glyphicon glyphicon-search"></span>
@@ -102,7 +102,7 @@
 					      <td>${persona.telefono}</td>
 					      <td><a href="#" class="btn btn-default view_modal" data-id="${persona.id}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
 					      <td><a href="<spring:url value="/usuario/editar?id=${persona.id}"/>" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a></td>
-					      <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+					      <td><a href="<c:url value="/usuario/eliminar?id=${persona.id}&role=${persona.rol.nombre}"/>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
 					    </tr>
 				 	 </c:forEach>
 				  </tbody>

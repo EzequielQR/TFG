@@ -493,4 +493,11 @@ public class UsuarioController {
 		
 	}
 	
+	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
+	public String delete(@RequestParam(required = true, name = "id") int idPerson,
+						 @RequestParam(required = true, name = "role") String rol) {
+		personaService.delete(idPerson, rol);
+		return "redirect:/usuario/mostrar";
+	}
+	
 }

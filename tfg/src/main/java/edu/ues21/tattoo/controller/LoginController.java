@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+		return "redirect:/login";
+	}
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login(Model model,
 						@RequestParam(required = false, name = "status") String status) {
