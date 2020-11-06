@@ -185,6 +185,10 @@
 										<td><b>Insumos Utilizados</b></td>
 										<td class="used_products_modal"></td>
 									</tr>
+									<tr>
+										<td><b>Turno Iniciado Por</b></td>
+										<td class="appointment_created_by"></td>
+									</tr>
 								</table>
 							</div>
 						</div><!-- Tab 1: Details -->
@@ -702,6 +706,7 @@
 							$('.advance_payment_modal').html('$ ' + obj.senia);
 							$('.style_tattoo_modal').html(obj.tipoTatuaje.nombre);
 							$('.description_modal').html(obj.descripcion);
+							$('.appointment_created_by').html(obj.usuario.nombre);
 							
 							if(!obj.imagenURL)	
 								$('.reference_image_modal').html("El turno seleccionado no dispone de una imagen de referencia.");

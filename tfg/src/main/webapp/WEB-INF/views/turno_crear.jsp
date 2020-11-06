@@ -82,7 +82,7 @@
 				            <div class="col-lg-6 col-md-6">
 				                <label for="input-name">Turno iniciado:</label>
 				                <input type="text" class="form-control" id="input-name"
-				                placeholder="Ezequiel Quispe Reyes" disabled="disabled"/>
+				                placeholder="${nombre}" disabled="disabled"/>
 				            </div>
 				            
 				            <div class="col-lg-6 col-md-6">

@@ -54,7 +54,7 @@ public class TurnoController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
-	public String create(Model model) {
+	public String showCalendar(Model model) {
 		if(SecurityContextHolder.getContext().getAuthentication() != null && 
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
 			
