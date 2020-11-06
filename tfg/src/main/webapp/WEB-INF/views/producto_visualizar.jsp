@@ -233,6 +233,7 @@
 	  </div>
 	</div><!-- End modal root -->
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/moment-2.27.0/js/moment.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
@@ -307,9 +308,9 @@
 							$("#modal-body-change-password").prepend(
 									'<div class="alert alert-danger alert-dismissible fade in" id="alert-modal-change-password">'
 					    				+ '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-					    				+ '<strong>Error:<br>'
+					    				+ '<strong>Se ha producido un error por algunos de estos motivos:</strong><br>'
 					    				+ '<ul><li>Su actual contraseña es incorrecta.</li>'
-					    				+ '<li>La nueva contraseña no coincide.</li></ul></strong>'
+					    				+ '<li>La nueva contraseña no coincide.</li></ul>'
 					  				+ '</div>');
 						}
 						
@@ -342,6 +343,14 @@
 							//Alert() only can display Strings.
 							//For debug proposes, use console.log(data);
 							
+							moment.locale('es', {
+								  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+								  monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+								  weekdays: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
+								  weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+								  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')							
+							});
+							
 							var obj1 = JSON.parse(result);
 							console.log(obj1);
 							
@@ -352,10 +361,24 @@
 							$('.quantity_modal').html(obj1[0].cantidad);
 							
 							if(obj1[1] === undefined || obj1[1].length == 0){
-								$('.product_has_appointments_modal').html("0");
+								$('.product_has_appointments_modal').html("El producto seleccionado no fue usado en ningun turno");
 							}
 							else{
-								$('.product_has_appointments_modal').html(">1");
+								var html = "<ul>";
+								var index;
+								
+								for(index = 0; index < obj1[1].length; index++){
+									html += "<li>" +
+												moment(obj1[1][index].fechaInicio).format('dddd, DD/MMMM/YYYY, [Hora: ] HH:mm')
+												+ " - "
+												+ moment(obj1[1][index].fechaFin).format('HH:mm')
+												+ "<br>" 
+												+ obj1[1][index].descripcion
+											"</li>";
+								}
+								
+								html += "</ul>";
+								$('.product_has_appointments_modal').html(html);
 							}
 							//Trigger modal via Javascript:
 							$('#dataModal').modal("show");

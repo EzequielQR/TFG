@@ -875,9 +875,9 @@
 							$("#modal-body-change-password").prepend(
 									'<div class="alert alert-danger alert-dismissible fade in" id="alert-modal-change-password">'
 					    				+ '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-					    				+ '<strong>Error:<br>'
+					    				+ '<strong>Se ha producido un error por algunos de estos motivos:</strong><br>'
 					    				+ '<ul><li>Su actual contraseña es incorrecta.</li>'
-					    				+ '<li>La nueva contraseña no coincide.</li></ul></strong>'
+					    				+ '<li>La nueva contraseña no coincide.</li></ul>'
 					  				+ '</div>');
 						}
 						

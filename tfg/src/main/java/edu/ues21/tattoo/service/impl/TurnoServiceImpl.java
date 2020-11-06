@@ -28,6 +28,7 @@ import com.google.api.services.customsearch.CustomsearchRequestInitializer;
 import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 
+import edu.ues21.tattoo.domain.Cx_Key;
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.domain.repository.TurnoRepository;
@@ -139,55 +140,57 @@ public class TurnoServiceImpl implements TurnoService{
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
 		
-		String cx = "";	//Olof account
-																													
-		String apiKey = "";	//Olof account
-		
-		List<Result> resultList = new ArrayList<Result>();
-		ObjectMapper mapper = new ObjectMapper();
-		ArrayNode arrayNodeFilteredResults = mapper.createArrayNode();
-		
-		try {
-			Customsearch customSearch = new Customsearch.Builder
-					(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
-							null).setApplicationName("TFG")
-								 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
-								 .build();
+		for(Cx_Key cred : Cx_Key.values()) {
 			
-			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
-			listCustomSearch.setCx(cx);
-			listCustomSearch.setNum(10L);
+			String cx = cred.getCx();
+			String apiKey = cred.getApiKey();
 			
-			for(long index = 1; index <= 41; index += 10){
-				listCustomSearch.setStart(index);
-				Search results = listCustomSearch.execute();
-				java.util.List<Result> listQuery = results.getItems();
-				resultList.addAll(listQuery);
-			}
-			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
+			List<Result> resultList = new ArrayList<Result>();
+			ObjectMapper mapper = new ObjectMapper();
+			ArrayNode arrayNodeFilteredResults = mapper.createArrayNode();
 			
-			ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
-			Iterator<JsonNode> itr = arrayNodeResults.iterator();
-			
-			while (itr.hasNext()) {
-				JsonNode inmutableJSONnode = (JsonNode) itr.next();
-				String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
-			
-				ObjectNode auxNode = mapper.createObjectNode();
-				auxNode.put("img-url", URL);
+			try {
+				Customsearch customSearch = new Customsearch.Builder
+						(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
+								null).setApplicationName("TFG")
+									 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
+									 .build();
 				
-				arrayNodeFilteredResults.add(auxNode);
+				Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
+				listCustomSearch.setCx(cx);
+				listCustomSearch.setNum(10L);
+				
+				for(long index = 1; index <= 41; index += 10){
+					listCustomSearch.setStart(index);
+					Search results = listCustomSearch.execute();
+					java.util.List<Result> listQuery = results.getItems();
+					resultList.addAll(listQuery);
+				}
+				System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
+				
+				ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
+				Iterator<JsonNode> itr = arrayNodeResults.iterator();
+				
+				while (itr.hasNext()) {
+					JsonNode inmutableJSONnode = (JsonNode) itr.next();
+					String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
+				
+					ObjectNode auxNode = mapper.createObjectNode();
+					auxNode.put("img-url", URL);
+					
+					arrayNodeFilteredResults.add(auxNode);
+				}
+				
+				System.out.println(arrayNodeFilteredResults);
+				
+				return arrayNodeFilteredResults.toString();
+				
+			} catch (GeneralSecurityException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			System.out.println(arrayNodeFilteredResults);
-			
-			return arrayNodeFilteredResults.toString();
-			
-		} catch (GeneralSecurityException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		}
 		return null;
 	}
 	
@@ -196,46 +199,49 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		List<String> finalResult = new ArrayList<String>();
 
-		String cx = "";	//Olof account
-																													
-		String apiKey = "";	//Olof account
-		
-		List<Result> resultList = new ArrayList<Result>();
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			Customsearch customSearch = new Customsearch.Builder
-					(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
-							null).setApplicationName("TFG")
-								 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
-								 .build();
+		for(Cx_Key cred : Cx_Key.values()) {
 			
-			Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
-			listCustomSearch.setCx(cx);
-			listCustomSearch.setNum(10L);
+			String cx = cred.getCx();
+			String apiKey = cred.getApiKey();
 			
-			for(long index = 1; index <= 41; index += 10){
-				listCustomSearch.setStart(index);
-				Search results = listCustomSearch.execute();
-				java.util.List<Result> listQuery = results.getItems();
-				resultList.addAll(listQuery);
+			List<Result> resultList = new ArrayList<Result>();
+			ObjectMapper mapper = new ObjectMapper();
+			
+			try {
+				Customsearch customSearch = new Customsearch.Builder
+						(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), 
+								null).setApplicationName("TFG")
+									 .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apiKey))
+									 .build();
+				
+				Customsearch.Cse.List listCustomSearch = customSearch.cse().list(query);
+				listCustomSearch.setCx(cx);
+				listCustomSearch.setNum(10L);
+				
+				for(long index = 1; index <= 41; index += 10){
+					listCustomSearch.setStart(index);
+					Search results = listCustomSearch.execute();
+					java.util.List<Result> listQuery = results.getItems();
+					resultList.addAll(listQuery);
+				}
+				System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
+				
+				ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
+				Iterator<JsonNode> itr = arrayNodeResults.iterator();
+				
+				while (itr.hasNext()) {
+					JsonNode inmutableJSONnode = (JsonNode) itr.next();
+					String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
+					finalResult.add(URL);
+				}
+				
+				return finalResult;
+				
+			} catch (GeneralSecurityException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList));
-			
-			ArrayNode arrayNodeResults = mapper.valueToTree(resultList);
-			Iterator<JsonNode> itr = arrayNodeResults.iterator();
-			
-			while (itr.hasNext()) {
-				JsonNode inmutableJSONnode = (JsonNode) itr.next();
-				String URL = inmutableJSONnode.get("pagemap").get("metatags").get(0).get("og:image").toString().replace("\"", "");
-				finalResult.add(URL);
-			}
-			
-			return finalResult;
-			
-		} catch (GeneralSecurityException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 		
 		return null;
@@ -243,48 +249,51 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 
-		String cx = "";	//Olof account
-																													
-		String apiKey = "";	//Olof account
-		
-		Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
-				new HttpRequestInitializer() {
-					public void initialize(HttpRequest httpRequest) {
-						// set connect and read timeouts //7000
-						httpRequest.setConnectTimeout(3 * 600000);
-						httpRequest.setReadTimeout(3 * 600000);
-					}
-		});
-		
-		try {
-			Customsearch.Cse.List list = customsearch.cse().list(query);
-			list.setKey(apiKey);
-			//The Programmable Search Engine ID to use for this request.
-			list.setCx(cx);
-			//Number of search results to return. Valid values are integers between 1 and 10, inclusive.
-			//Maximum value for num is 10.
-			list.setNum(10L);
-			//The index of the first result to return. The default number of results per page is 10, so,
-			//&start=11 would start at the top of the second page of results. 
-			//Note: The JSON API will never return more than 100 results, even if more than 100 documents
-			//match the query, so setting the sum of start + num to a number greater than 100 will produce 
-			//an error.
-			//0L AND 1L will produce the same results.
-			//11L: Second page.
-			//21L: Third page.
-			//91L: Last page.
-			//92L: Error
-			list.setStart(1L);
-			Search results = list.execute();
-			java.util.List<Result> resultList = results.getItems();
+		for(Cx_Key cred : Cx_Key.values()) {
 			
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList);
+			String cx = cred.getCx();
+			String apiKey = cred.getApiKey();
 			
-			return json;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Customsearch customsearch = new Customsearch(new NetHttpTransport(),new JacksonFactory(), 
+					new HttpRequestInitializer() {
+						public void initialize(HttpRequest httpRequest) {
+							// set connect and read timeouts //7000
+							httpRequest.setConnectTimeout(3 * 600000);
+							httpRequest.setReadTimeout(3 * 600000);
+						}
+			});
+			
+			try {
+				Customsearch.Cse.List list = customsearch.cse().list(query);
+				list.setKey(apiKey);
+				//The Programmable Search Engine ID to use for this request.
+				list.setCx(cx);
+				//Number of search results to return. Valid values are integers between 1 and 10, inclusive.
+				//Maximum value for num is 10.
+				list.setNum(10L);
+				//The index of the first result to return. The default number of results per page is 10, so,
+				//&start=11 would start at the top of the second page of results. 
+				//Note: The JSON API will never return more than 100 results, even if more than 100 documents
+				//match the query, so setting the sum of start + num to a number greater than 100 will produce 
+				//an error.
+				//0L AND 1L will produce the same results.
+				//11L: Second page.
+				//21L: Third page.
+				//91L: Last page.
+				//92L: Error
+				list.setStart(1L);
+				Search results = list.execute();
+				java.util.List<Result> resultList = results.getItems();
+				
+				ObjectMapper mapper = new ObjectMapper();
+				String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultList);
+				
+				return json;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 		
 		return null;
@@ -295,7 +304,5 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		turnoRepository.insertTurnosHASproductos(idTurno, idProducto);
 	}
-	
-	
 
 }

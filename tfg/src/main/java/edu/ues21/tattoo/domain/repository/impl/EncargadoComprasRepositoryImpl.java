@@ -83,7 +83,7 @@ public class EncargadoComprasRepositoryImpl implements EncargadoComprasRepositor
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();
-		Query query = session.createQuery("from EncargadoCompras where id = :id");
+		Query query = session.createQuery("delete EncargadoCompras where id = :id");
 		query.setInteger("id", id);
 		query.executeUpdate();
 		session.getTransaction().commit();
