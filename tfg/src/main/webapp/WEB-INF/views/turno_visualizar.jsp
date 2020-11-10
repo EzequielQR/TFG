@@ -178,7 +178,7 @@
 										<td class="description_modal"></td>
 									</tr>
 									<tr>
-										<td><b>Imagen</b></td>
+										<td><b>Imagen de Referencia</b></td>
 										<td class="reference_image_modal"></td>
 									</tr>
 									<tr>
@@ -188,6 +188,10 @@
 									<tr>
 										<td><b>Turno Iniciado Por</b></td>
 										<td class="appointment_created_by"></td>
+									</tr>
+									<tr>
+										<td><b>Foto Post-Sesión</b></td>
+										<td class="photo_post"></td>
 									</tr>
 								</table>
 							</div>
@@ -401,6 +405,31 @@
 			$('#editButtonTab3').hide();
 			
 			$('#form-delete-products-appointment').hide();
+			
+			$(document).on('click', '.remove-photo', function eventDeletePhotoPostSession(){
+				var idAppointment = $('.id_modal').text();
+				
+				$.ajax({
+					url			:	"ajaxDeletePhotoPostSession",
+					method		:	"GET",
+					//{key : value}
+					data		:	{id_appointment	: idAppointment}, 
+					success		:	function(result){
+						
+						console.log(result);
+
+						if("success" === result){
+							$('.photo_post').html('El turno seleccionado no dispone de una foto post-sesión.<br>'
+								    + 'Puede agregar la foto, al editar el turno.');
+						}
+						else{
+							console.log(result);
+						}
+						
+					}//End success
+					
+				}); //End AJAX
+			});
 			
 			$(document).on('click', '.row-add-product', function eventClickRowAdd(){
 				
@@ -734,6 +763,19 @@
 								$('.used_products_modal').html(htmlUsedProducts);
 							}
 							
+							if(obj.publicId)
+								$('.photo_post').html('<a href="' + obj.publicId + '" class="btn btn-success" target="_blank">'
+											+ '<span class="glyphicon glyphicon-picture"></span>&nbsp;Ver Imagen Post-Sesión'
+											+ '</a>'
+											+ '&nbsp;'
+											+ '<button type="button" class="btn btn-danger remove-photo">'
+											+ '<span class="glyphicon glyphicon-remove"></span>&nbsp;Eliminar Imagen'
+											+ '</button>');
+							else
+								$('.photo_post').html('El turno seleccionado no dispone de una foto post-sesión.<br>'
+												    + 'Puede agregar la foto, al editar el turno.');
+							
+							
 							var tab3Index;
 							var htmlTab3 = "<tr>";
 							
@@ -918,7 +960,6 @@
 			    
 			    $("#tab-details").trigger("click");
 			});
-		    
 			
 		});
 	</script>

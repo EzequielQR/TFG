@@ -72,7 +72,7 @@
 	</nav>
 	<div class="container">
 		<div class="main row">
-			<form:form method="POST" id="myForm">
+			<form:form method="POST" id="myForm" enctype="multipart/form-data">
 				<fieldset>
 					<legend>Editar Turno</legend>
 					
@@ -217,6 +217,12 @@
 					<div class="form-group">
 		  			 	<label for="input-descripcion">Descripción:</label>
 						<textarea class="form-control" rows="5" id="input-descripcion" placeholder="Inserte la descripción" name="description">${turno.descripcion}</textarea>
+					</div>
+					
+					<div class="form-group">
+							<label for="fileSelected">Foto Post-Sesión:</label>
+							<input type="file" name="selected-file" id="fileSelected">
+							<p class="help-block">Máximo: 20MB</p>
 					</div>
 					
 					<div class="form-group">

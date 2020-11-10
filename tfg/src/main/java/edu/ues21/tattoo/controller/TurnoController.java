@@ -1,10 +1,12 @@
 package edu.ues21.tattoo.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
+import edu.ues21.tattoo.domain.CloudinaryCred;
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.domain.Turno;
@@ -193,6 +199,21 @@ public class TurnoController {
 			mapper.setDateFormat(stdDateFormat);
 			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(turno));
 			
+			if(turno.getPublicId() != null && !turno.getPublicId().trim().isEmpty()){
+				try {
+					Cloudinary c = new Cloudinary(ObjectUtils.asMap(
+							"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
+							"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
+							"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+					
+					Map result = c.api().resource(turno.getPublicId(), ObjectUtils.emptyMap());
+					turno.setPublicId(result.get("url").toString());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			return mapper.writeValueAsString(turno);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -279,6 +300,7 @@ public class TurnoController {
 								  @RequestParam(required = true, name = "customer_id") String clienteId,
 								  @RequestParam(required = false, name = "description")String descripcion,
 								  @RequestParam(required = true, name = "action") String btnPressed,
+								  @RequestParam(required = false, name = "selected-file") MultipartFile selectedFile,
 								  Model model) {
 		Turno turno = turnoService.getById(Integer.parseInt(idAppointment));
 		
@@ -297,6 +319,24 @@ public class TurnoController {
 		turno.setSenia(Integer.parseInt(senia));
 		turno.setTatuador(tatuadorService.getById(Integer.parseInt(tatuadorId)));
 		turno.setTipoTatuaje(categoriaService.getById(Integer.parseInt(estiloTatuajeId)));
+		
+		if(selectedFile != null && !selectedFile.isEmpty()) {
+			try {
+				byte[] bytes = selectedFile.getBytes();
+				
+				Cloudinary c = new Cloudinary(ObjectUtils.asMap(
+						"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
+						"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
+						"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+				
+				Map result = c.uploader().upload(bytes, ObjectUtils.emptyMap());
+				turno.setPublicId(result.get("public_id").toString());
+			} catch (IOException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+				
+		}
 		
 		turnoService.update(turno);
 		
@@ -372,4 +412,29 @@ public class TurnoController {
 		return "not-found-available-products";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/ajaxDeletePhotoPostSession", method = RequestMethod.GET)
+	public String deletePhotoPostSession(@RequestParam("id_appointment") int idAppointment) {
+
+		Turno turno = turnoService.getById(idAppointment);
+		
+		try {
+			Cloudinary c = new Cloudinary(ObjectUtils.asMap(
+					"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
+					"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
+					"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+			
+			c.uploader().destroy(turno.getPublicId(), ObjectUtils.emptyMap());
+			
+			turno.setPublicId(null);
+			turnoService.update(turno);
+
+			return "success";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "error";
+	}
 }

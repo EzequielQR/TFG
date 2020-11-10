@@ -71,6 +71,8 @@ public class Turno implements Serializable{
 	private int senia;
 	@Column(name = "imagen_referencia")
 	private String imagenURL;
+	@Column(name = "public_id_cloudinary")
+	private String publicId;
 
 	public Turno() {
 		super();
@@ -178,6 +180,14 @@ public class Turno implements Serializable{
 
 	public void setImagenURL(String imagenURL) {
 		this.imagenURL = imagenURL;
+	}
+
+	public String getPublicId() {
+		return publicId;
+	}
+
+	public void setPublicId(String publicId) {
+		this.publicId = publicId;
 	}
 	
 }
