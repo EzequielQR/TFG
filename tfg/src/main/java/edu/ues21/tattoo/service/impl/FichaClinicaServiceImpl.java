@@ -35,6 +35,7 @@ import com.google.cloud.vision.v1.ImageAnnotatorSettings;
 import com.google.cloud.vision.v1.Feature.Type;
 import com.google.protobuf.ByteString;
 
+import edu.ues21.tattoo.domain.CredGoogleVision;
 import edu.ues21.tattoo.domain.FichaClinica;
 import edu.ues21.tattoo.domain.repository.FichaClinicaRepository;
 import edu.ues21.tattoo.service.FichaClinicaService;
@@ -175,18 +176,7 @@ public class FichaClinicaServiceImpl implements FichaClinicaService{
 	    // once, and can be reused for multiple requests. After completing all of your requests, call
 	    // the "close" method on the client to safely clean up any remaining background resources.
 		
-		String j = "{\r\n" + 
-				"  \"type\": \"service_account\",\r\n" + 
-				"  \"project_id\": \"my-project-1601784728368\",\r\n" + 
-				"  \"private_key_id\": \"a3e4da1424e00671ca056590722e62ed4580875f\",\r\n" + 
-				"  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDb5/VEkb9Aby80\\nQ0j0cp2ED+xpRxr50AkBET/3pIRmNWVUWH1k5RcslO1eYaYtDCuWOpdZ+RFdrJUf\\nPt+813FgMlxJmMSQFC5VrJRa14htHyUY+6cN3lf6CVstTmqOoxwc2l8+MX5ATKcc\\n+rQvhcaGb36MjKsJIUrAn0yGQcbQroyDRM8O8ZYp0bVN2ZJjcfaOX7tozSuV9E84\\nFxd2twmMZlAgOJK8NPlSik6AzxU79ysAt0y0nN8I46foWz52DIm8yc3wnaHYdv6U\\npzCc3znJMd4oDZzvB136j4jVfiHkLrzduPoj48/RqoQvNRAMQhqq64BQxhvEqYRE\\nuyC2a6whAgMBAAECggEABYly/l+dlUefZIVbr0T6BJbajOGMkzTq3x8iMU/wAftO\\n8ndaa+mNQnL7AYz7oEd9yvXtdOddqbJEXHGqtEBn80Q9WOCK9XY+nuteHmXuIlI+\\nDsGaWJHsPOhSpoLCkdYXSX4xlvkrzL5pWERTOF2ZzK1+vhb2IQAYt94i8P/zu7IX\\nbpVo5YG+jdx/LgX7UuUIgGSZeN1wZ3Uf66Us3ls/5uoB2NH0SRIXWB/EJ+fgOoLm\\nbxEDETZENfFtYB6ou40xG0iXDr3hHtHhZdhvWjdR3ITk1JMV23oIqWn6GReCVQMU\\nspQs2lbzquUs9kmQsgIb5sHKElL0wCVkt1c/E3RDGQKBgQD/GJ7QWutS6HtjThRq\\n7b9KL8aQuZTyXuvi77M+YFpxrIwso6qBCvsrMTgrdwxMgi+GuIyhXXCRT5owHh09\\nONqINcFlzlPqhmDaf+SmXi83BSapzEo9hzDOtDCigDMjcFVC5JXKeedf26HXCPvZ\\nGjuIiOfJ+39pqDQThrRdFf156QKBgQDcr2tV9n/YE3dR5iWi0KbDV3cxUnqts8LD\\nx0yER3boU+kljK56GPS0IVetr98xTrGttjozibJlJ/opVxWYLT8+8n6q1NMnDG24\\n7ArS54fMVjQ5OxmVMNG1nzSaV8IxHy0Vavi6Lp9BYntE66dsuo4FmNdjZLBajsZA\\nNJQSE6+FeQKBgQDesSOTSIu+qO1uV69DWaFwphx2I0x/+ZV7Wz3i6kKKkdMc9RPX\\n6zoxDpq2dwrpj4zl0x4RkHzAnflAoEluNL+xwRvAQErJpd3PYW6+PeKB6aFDAfCd\\nnfNhv7PlaH08JsiHyP1q8NinuhiinFkfweLO4pVWopMsLYaotSOnT5ckYQKBgHmy\\n70FHn3bcPUfX4FdqMxy0ZlG3x1l1MWnfxU2JT4SNiZwgebNxgbi4Tm7E9xNs70T5\\nohz7yXpJUoZrtMfn4+Hlvn6cwRjenL+Gw+1MqzG/NCt/cPs6IdvDwTGAReHq7GTM\\nSf/6Z+6ZzZrTTdADDQD/KYBxbWNzKtcLZ8CURI4ZAoGANLF3RLOL8pP9j0vg861L\\nDCVmarNSHq5J6mVgmKqOPO/sgP+ERHTQzgCMj8ZfcJx5mJompEVXwFSBBX74wRr+\\nJx+D31DowuLplj6y2Jog08jJSSAoGAg7VBTtycxOWM9jU6e3icrGVGsf9enqmRDy\\n/GGQQ+Dpj28naPL+GMQyr4U=\\n-----END PRIVATE KEY-----\\n\",\r\n" + 
-				"  \"client_email\": \"tfg-241@my-project-1601784728368.iam.gserviceaccount.com\",\r\n" + 
-				"  \"client_id\": \"110913763640910028348\",\r\n" + 
-				"  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\r\n" + 
-				"  \"token_uri\": \"https://oauth2.googleapis.com/token\",\r\n" + 
-				"  \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\r\n" + 
-				"  \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/tfg-241%40my-project-1601784728368.iam.gserviceaccount.com\"\r\n" + 
-				"}\r\n";
+		String j = CredGoogleVision.ACCOUNT.getCred();
 		
 		InputStream fileInput = new ByteArrayInputStream(j.getBytes());
 		

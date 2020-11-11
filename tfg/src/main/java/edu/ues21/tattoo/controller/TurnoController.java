@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
-import edu.ues21.tattoo.domain.CloudinaryCred;
+import edu.ues21.tattoo.domain.CredCloudinary;
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.domain.Turno;
@@ -202,9 +202,9 @@ public class TurnoController {
 			if(turno.getPublicId() != null && !turno.getPublicId().trim().isEmpty()){
 				try {
 					Cloudinary c = new Cloudinary(ObjectUtils.asMap(
-							"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
-							"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
-							"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+							"cloud_name", CredCloudinary.ACCOUNT.getCloudName(),
+							"api_key", CredCloudinary.ACCOUNT.getApiKey(),
+							"api_secret", CredCloudinary.ACCOUNT.getApiSecret()));
 					
 					Map result = c.api().resource(turno.getPublicId(), ObjectUtils.emptyMap());
 					turno.setPublicId(result.get("url").toString());
@@ -325,9 +325,9 @@ public class TurnoController {
 				byte[] bytes = selectedFile.getBytes();
 				
 				Cloudinary c = new Cloudinary(ObjectUtils.asMap(
-						"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
-						"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
-						"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+						"cloud_name", CredCloudinary.ACCOUNT.getCloudName(),
+						"api_key", CredCloudinary.ACCOUNT.getApiKey(),
+						"api_secret", CredCloudinary.ACCOUNT.getApiSecret()));
 				
 				Map result = c.uploader().upload(bytes, ObjectUtils.emptyMap());
 				turno.setPublicId(result.get("public_id").toString());
@@ -420,9 +420,9 @@ public class TurnoController {
 		
 		try {
 			Cloudinary c = new Cloudinary(ObjectUtils.asMap(
-					"cloud_name", CloudinaryCred.ACCOUNT.getCloudName(),
-					"api_key", CloudinaryCred.ACCOUNT.getApiKey(),
-					"api_secret", CloudinaryCred.ACCOUNT.getApiSecret()));
+					"cloud_name", CredCloudinary.ACCOUNT.getCloudName(),
+					"api_key", CredCloudinary.ACCOUNT.getApiKey(),
+					"api_secret", CredCloudinary.ACCOUNT.getApiSecret()));
 			
 			c.uploader().destroy(turno.getPublicId(), ObjectUtils.emptyMap());
 			

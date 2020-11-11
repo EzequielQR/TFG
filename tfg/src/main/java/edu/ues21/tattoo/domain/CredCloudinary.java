@@ -1,6 +1,6 @@
 package edu.ues21.tattoo.domain;
 
-public enum CloudinaryCred {
+public enum CredCloudinary {
 
 	ACCOUNT("", 
 			"", 
@@ -10,7 +10,7 @@ public enum CloudinaryCred {
 	private String apiKey;
 	private String apiSecret;
 	
-	private CloudinaryCred(String cloudName, String apiKey, String apiSecret) {
+	private CredCloudinary(String cloudName, String apiKey, String apiSecret) {
 		this.cloudName = cloudName;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
