@@ -191,19 +191,97 @@
 							Agregar
 						</button>
 						
-						<button type="submit" class="btn btn-success" id="btnAssistant" name="action" value="assistant">
+						<button type="button" class="btn btn-success" id="btnAssistantModal" data-toggle="modal" data-target="#modalAssistant">
 							<span class="glyphicon glyphicon-search"></span>
 							Usar asistente de diseño
 						</button>
 					
 					</div>
 					
+					<input type="hidden" id="hide-query" name="query"> 
+					<input type="hidden" id="hide-place-tattoo" name="place_tattoo">
+					<input type="hidden" id="hide-skin-color" name="skin_color">
+					<input type="hidden" id="hide-size-tattoo" name="size_tattoo">
+					
 				</fieldset>
 			</form:form>
 		</div>
 	</div>
 	
-	<!-- Modal -->
+	<!-- Modal Assistant-->
+	<div id="modalAssistant" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Asistente Virtual de Diseño de Tatuajes</h4>
+	      </div>
+	      <div class="modal-body" id="modal-body-assistant">
+	      
+	      	<form:form method="POST" id="form-modal-assistant">
+	      		<legend>Filtros</legend>
+	      		
+	      		<div class="form-group">
+	      			<label for="query">Palabras Claves</label>
+	      			
+	      			<input type="text" class="form-control" id="query" 
+			     	placeholder="Ingresar palabras claves separadas por espacios. Ejemplo: Pez Koi Color">
+	      		</div>
+	      		
+	      		<div class="form-group">
+  					<label for="place-tattoo">Zona a Tatuar:</label>
+	  				<select class="form-control selectpicker" id="place-tattoo" data-live-search="true">
+						<option selected value="">Todos</option>
+						<option value="head">Cabeza</option>
+						<option value="neck">Cuello</option>
+						<option value="chest">Pecho</option>
+						<option value="back">Espalda</option>
+						<option value="arm sleeve">Brazo</option>
+						<option value="leg">Pierna</option>
+						<option value="feet">Pie</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+  					<label for="skin-color">Piel:</label>
+	  				<select class="form-control selectpicker" id="skin-color" data-live-search="true">
+						<option selected value="">Todos</option>
+						<option value="white skin">Blanca</option>
+						<option value="brown dark skin">Morena</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+  					<label for="size-tattoo">Tamaño del tatuaje:</label>
+	  				<select class="form-control selectpicker" id="size-tattoo" data-live-search="true">
+						<option selected value="">Todos</option>
+						<option value="small">Pequeño</option>
+						<option value="medium">Mediano</option>
+						<option value="big">Grande</option>
+					</select>
+				</div>
+				
+	      	</form:form>
+	      	
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">
+	        	<span class="glyphicon glyphicon-remove"></span>
+	        	Cerrar
+	        </button>
+	        <button type="button" class="btn btn-success" id="btnSubmitAssistant">
+	        	<span class="glyphicon glyphicon-search"></span>
+	        	 Buscar
+	        </button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+	
+	<!-- Modal Change Password-->
 	<div id="modalChangePassword" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 	
@@ -328,6 +406,26 @@
 				$("#input-modal-old-password").val("");
 				$("#input-modal-new-password").val("");
 				$("#input-modal-new-password-repeat").val("");
+			});
+			
+			$("#btnSubmitAssistant").click(function(){
+				$("#btnSubmit").attr('value', 'assistant');
+				$("#btnSubmit").prop('value', 'assistant');
+				
+				$("#hide-query").attr('value', $("#query").val());
+				$("#hide-query").prop('value', $("#query").val());
+				
+				$("#hide-place-tattoo").attr('value', $("#place-tattoo").val());
+				$("#hide-place-tattoo").prop('value', $("#place-tattoo").val());
+				
+				$("#hide-skin-color").attr('value', $("#skin-color").val());
+				$("#hide-skin-color").prop('value', $("#skin-color").val());
+				
+				$("#hide-size-tattoo").attr('value', $("#size-tattoo").val());
+				$("#hide-size-tattoo").prop('value', $("#size-tattoo").val());
+				
+				
+				$("#btnSubmit").click();
 			});
 			
     	});

@@ -17,8 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonError;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -303,6 +301,32 @@ public class TurnoServiceImpl implements TurnoService{
 	public void insertTurnosHASproductos(int idTurno, int idProducto) {
 		// TODO Auto-generated method stub
 		turnoRepository.insertTurnosHASproductos(idTurno, idProducto);
+	}
+
+	@Override
+	public String translateStyleTattoo(String style) {
+		// TODO Auto-generated method stub
+		switch (style) {
+			case "Acuarela (Watercolor)" 			: return "watercolor acuarela";
+			case "Anime (Manga Comic)"   			: return "anime manga comic";
+			case "Biomechanical"		 			: return "biomechanical";
+			case "Blackwork"			 			: return "blackwork";
+			case "Celta (Celtic)"				 	: return "celtic celta";
+			case "Chicano"				 			: return "chicano chicanos";
+			case "Japones (Oriental)"	 			: return "japanese oriental japan";
+			case "Lettering"			 			: return "lettering";
+			case "Maori"			     			: return "maori polynesian";
+			case "Neotradicional (Neotraditional)"	: return "neotraditional neo traditional neotradi";
+			case "New School"						: return "new school";
+			case "Old School (Traditional)"			: return "old school";
+			case "Puntillismo (Dotwork)"			: return "dotwork dot work puntillismo";
+			case "Realismo (Black and Grey)"		: return "realistic realism black and grey";
+			case "Realismo (Color)"					: return "realistic realism color";
+			case "Sketch"							: return "sketch";
+			case "Trash Polka"						: return "trash polka";
+			case "Tribal"							: return "tribal";
+			default 								: return "";
+		}
 	}
 
 }

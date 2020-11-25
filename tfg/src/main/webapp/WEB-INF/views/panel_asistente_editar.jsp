@@ -86,12 +86,20 @@
 			
 			<div class="form-group">
 				<label for="input-search" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Búsqueda:</label>
-			    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+			    <div class="col-lg-7 col-md-6 col-sm-6 col-xs-5">
 			     <input type="text" class="form-control" id="input-search" 
 			     placeholder="Ingresar palabras claves separadas por espacios. Ejemplo: Pez Koi Color"
 			     name="query">
 			    </div>
-			    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+			    
+			    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+			    	<button type="button" class="btn btn-info" id="btnFilter" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-cog"></span>
+						Filtros
+					</button>
+			    </div>
+			    
+			    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-1">
 			    	<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="search">
 						<span class="glyphicon glyphicon-search"></span>
 						Buscar
@@ -197,6 +205,90 @@
 	
 	  </div>
 	</div><!-- End modal root -->
+	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+	    
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Filtros de Búsqueda</h4>
+	        </div>
+	        
+	        <div class="modal-body">
+	        	<form:form method="GET" id="form-modal-assistant">
+		      		<legend>Filtros</legend>
+		      		
+		      		<input type="hidden" name="id-turno" value="${idTurno}">
+					<input type="hidden" name="estilo" value="${estilo}">
+					<input type="hidden" name="img" value="${imgTurno}">
+		      		
+		      		<div class="form-group">
+		      			<label for="style-tattoo-picked">Estilo elegido:</label>
+		      			<select class="form-control selectpicker" disabled="disabled">
+		      				<option selected>${estilo}</option>
+		      			</select>
+		      		</div>
+		      		
+		      		<div class="form-group">
+		      			<label for="query">Palabras Claves</label>
+		      			
+		      			<input type="text" class="form-control" name="query" 
+				     	placeholder="Ingresar palabras claves separadas por espacios. Ejemplo: Pez Koi Color">
+		      		</div>
+		      		
+		      		<div class="form-group">
+	  					<label for="place-tattoo">Zona a Tatuar:</label>
+		  				<select class="form-control selectpicker" id="place-tattoo" name="place_tattoo" data-live-search="true">
+							<option selected value="">Todos</option>
+							<option value="head">Cabeza</option>
+							<option value="neck">Cuello</option>
+							<option value="chest">Pecho</option>
+							<option value="back">Espalda</option>
+							<option value="arm sleeve">Brazo</option>
+							<option value="leg">Pierna</option>
+							<option value="feet">Pie</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+	  					<label for="skin-color">Piel:</label>
+		  				<select class="form-control selectpicker" id="skin-color" name="skin_color" data-live-search="true">
+							<option selected value="">Todos</option>
+							<option value="white skin">Blanca</option>
+							<option value="brown dark skin">Morena</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+	  					<label for="size-tattoo">Tamaño del tatuaje:</label>
+		  				<select class="form-control selectpicker" id="size-tattoo" name="size_tattoo" data-live-search="true">
+							<option selected value="">Todos</option>
+							<option value="small">Pequeño</option>
+							<option value="medium">Mediano</option>
+							<option value="big">Grande</option>
+						</select>
+					</div>
+				
+	      		</form:form>
+	        </div>
+	        
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">
+	          		<span class="glyphicon glyphicon-remove"></span>
+	          		Cerrar
+	          	</button>
+	          	<button type="button" class="btn btn-success" id="btnSubmitAssistant">
+	        		<span class="glyphicon glyphicon-search"></span>
+	        		Buscar
+	        	</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+	
 	<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/bootstrap-select.min.js"/>"></script>
@@ -259,6 +351,10 @@
 				$("#input-modal-old-password").val("");
 				$("#input-modal-new-password").val("");
 				$("#input-modal-new-password-repeat").val("");
+			});
+			
+			$("#btnSubmitAssistant").click(function(){
+				$("#form-modal-assistant").submit();
 			});
 			
    		});

@@ -18,4 +18,5 @@ public interface TurnoService {
 	String getImagesJSON(String query);
 	List<String> getImagesList(String query);
 	void insertTurnosHASproductos(int idTurno, int idProducto);
+	String translateStyleTattoo(String style);
 }

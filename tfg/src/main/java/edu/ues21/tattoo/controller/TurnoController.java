@@ -146,6 +146,10 @@ public class TurnoController {
 									@RequestParam(required = true, name = "customer_id") String clienteId,
 									@RequestParam(required = false, name = "description")String descripcion,
 									@RequestParam(required = true, name = "action") String btnPressed,
+									@RequestParam(required = false, name = "query") String query,
+									@RequestParam(required = false, name = "place_tattoo") String placeTattoo,
+									@RequestParam(required = false, name = "skin_color") String skinColor,
+									@RequestParam(required = false, name = "size_tattoo") String sizeTattoo,
 									Model model){
 		Turno turno = new Turno();
 		turno.setCliente(clienteService.getById(Integer.parseInt(clienteId)));
@@ -178,7 +182,11 @@ public class TurnoController {
 			return "redirect:/turno/mostrar";
 		else
 			return "redirect:/panel-asistente/opciones?id-turno=" + idTurno + 
-					"&estilo=" + turno.getTipoTatuaje().getNombre();
+					"&estilo=" + turno.getTipoTatuaje().getNombre() + 
+					"&query="  + query +
+					"&place_tattoo=" + (placeTattoo != null && !placeTattoo.trim().isEmpty() ? placeTattoo : "") +
+					"&skin_color=" + (skinColor != null && !skinColor.trim().isEmpty() ? skinColor : "") +
+					"&size_tattoo=" + (sizeTattoo != null && !sizeTattoo.trim().isEmpty() ? sizeTattoo : "");
 	}
 	
 	@ResponseBody
@@ -301,6 +309,10 @@ public class TurnoController {
 								  @RequestParam(required = false, name = "description")String descripcion,
 								  @RequestParam(required = true, name = "action") String btnPressed,
 								  @RequestParam(required = false, name = "selected-file") MultipartFile selectedFile,
+								  @RequestParam(required = false, name = "query") String query,
+								  @RequestParam(required = false, name = "place_tattoo") String placeTattoo,
+								  @RequestParam(required = false, name = "skin_color") String skinColor,
+								  @RequestParam(required = false, name = "size_tattoo") String sizeTattoo,
 								  Model model) {
 		Turno turno = turnoService.getById(Integer.parseInt(idAppointment));
 		
@@ -340,12 +352,20 @@ public class TurnoController {
 		
 		turnoService.update(turno);
 		
+		String params = (placeTattoo != null && !placeTattoo.trim().isEmpty() ? placeTattoo : "")
+				+ " " 
+				+ (skinColor != null && !skinColor.trim().isEmpty() ? skinColor : "")
+				+ " "
+				+ (sizeTattoo != null && !sizeTattoo.trim().isEmpty() ? sizeTattoo : "");
+		
 		if(btnPressed.equalsIgnoreCase("edit"))
 			return "redirect:/turno/mostrar";
 		else
 			return "redirect:/panel-asistente/editar?id-turno=" + turno.getId() +
 					"&estilo=" + turno.getTipoTatuaje().getNombre() + 
-					"&img=" + turno.getImagenURL();
+					"&img=" + turno.getImagenURL() +
+					"&query=" + query +
+					"&params=" + params.trim();
 	}
 	
 	@ResponseBody

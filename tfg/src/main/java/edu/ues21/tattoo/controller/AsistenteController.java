@@ -24,6 +24,9 @@ public class AsistenteController {
 	public String asistente(@RequestParam(required = true, name = "id-turno") String idAppointment,
 							@RequestParam(required = true, name = "estilo") String estilo,
 							@RequestParam(required = false, name = "query") String query,
+							@RequestParam(required = false, name = "place_tattoo") String placeTattoo,
+							@RequestParam(required = false, name = "skin_color") String skinColor,
+							@RequestParam(required = false, name = "size_tattoo") String sizeTattoo,
 							Model model) {
 		if(SecurityContextHolder.getContext().getAuthentication() != null && 
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
@@ -32,7 +35,14 @@ public class AsistenteController {
 			model.addAttribute("nombre", user.getUsername());
 		}
 		
-		model.addAttribute("listImg", turnoService.getImagesList(estilo + " " + query));
+		String params = (placeTattoo != null && !placeTattoo.trim().isEmpty() ? placeTattoo : "")
+				+ " " 
+				+ (skinColor != null && !skinColor.trim().isEmpty() ? skinColor : "")
+				+ " "
+				+ (sizeTattoo != null && !sizeTattoo.trim().isEmpty() ? sizeTattoo : "");
+		
+		model.addAttribute("listImg", 
+				turnoService.getImagesList(turnoService.translateStyleTattoo(estilo) + " " + query + " " + params));
 		model.addAttribute("idTurno", idAppointment);
 		model.addAttribute("estilo", estilo);
 		model.addAttribute("query", query);
@@ -55,6 +65,9 @@ public class AsistenteController {
 						 @RequestParam(required = true, name = "estilo") String estilo,
 						 @RequestParam(required = true, name = "img") String image,
 						 @RequestParam(required = false, name = "query") String query,
+						 @RequestParam(required = false, name = "place_tattoo") String placeTattoo,
+						 @RequestParam(required = false, name = "skin_color") String skinColor,
+						 @RequestParam(required = false, name = "size_tattoo") String sizeTattoo,
 						 Model model) {
 		if(SecurityContextHolder.getContext().getAuthentication() != null && 
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
@@ -63,7 +76,15 @@ public class AsistenteController {
 			model.addAttribute("nombre", user.getUsername());
 		}
 		
-		model.addAttribute("listImg", turnoService.getImagesList(estilo + " " + query));
+		String params = (placeTattoo != null && !placeTattoo.trim().isEmpty() ? placeTattoo : "")
+				+ " " 
+				+ (skinColor != null && !skinColor.trim().isEmpty() ? skinColor : "")
+				+ " "
+				+ (sizeTattoo != null && !sizeTattoo.trim().isEmpty() ? sizeTattoo : "");
+		
+		model.addAttribute("listImg", 
+				turnoService.getImagesList(turnoService.translateStyleTattoo(estilo) + " " + query + " " + params));
+		
 		model.addAttribute("idTurno", idAppointment);
 		model.addAttribute("imgTurno", image);
 		model.addAttribute("estilo", estilo);
