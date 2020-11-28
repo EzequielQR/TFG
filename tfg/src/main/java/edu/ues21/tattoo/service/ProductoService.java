@@ -16,4 +16,5 @@ public interface ProductoService {
 	List<Producto> getListByArray(int[] id);
 	List<Integer> getAvailableProductsByAppointment(int appointmentId);
 	List<Producto> removeElements(List<Producto> listaProductosUtilizados, int[] idProducts);
+	void notificationLowStock();
 }

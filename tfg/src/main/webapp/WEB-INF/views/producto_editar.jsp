@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -141,12 +142,12 @@
 							<div class="form-group">
 							 	<div class="row">
 								 	<div class="col-lg-9 col-md-9 col-sm-7 col-xs-5">
-							  			 <label for="input-cantidad">Cantidad:</label>
+							  			 <label for="input-cantidad">Cantidad Actual:</label>
 							  			 <input type="number" class="form-control" id="input-cantidad" placeholder="Inserte la cantidad de productos ingresada al local (solo números)" name="quantity" required="required" autocomplete="off" value="${product.cantidad}">
 									</div>
 									
-									<div class="col-lg-3 col-md-3 col-sm-1 col-xs-1">
-							  			 <label for="input-color-ink">Color tinta:</label>
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+							  			 <label for="input-color-ink">Color Tinta:</label>
 							  			 <input type="text" class="form-control" id="input-color-ink" placeholder="Inserte el color de la tinta" name="color-ink" autocomplete="on" value="${product.tipoProducto.nombre == 'Tinta' ? product.caracteristica : 'No'}">
 									</div>
 								</div>
@@ -155,13 +156,20 @@
   							<div class="form-group">
   								<div class="row">
   									<div class="col-lg-9 col-md-9 col-sm-7 col-xs-5">
+										<label for="input-cantidad-minima">Cantidad Mínima Aceptable:</label>
+										<input type="number" class="form-control" id="input-cantidad-minima" placeholder="Inserte la cantidad minima aceptable (solo números)" name="quantity_min" required="required" autocomplete="off" value="${product.cantidadMinima}">						
+  									</div>
+  								</div>
+  							</div>
+  							
+  							<div class="form-group">
+  								<div class="row">
+  									<div class="col-lg-9 col-md-9 col-sm-7 col-xs-5">
 				  			 			<label for="input-descripcion">Descripción:</label>
-										<textarea class="form-control" rows="3" id="input-descripcion" placeholder="Inserte la descripción" name="description"><c:if test="${product.tipoProducto.nombre != 'Tinta'}">${product.caracteristica}</c:if>
-										</textarea>
+										<textarea class="form-control" rows="3" id="input-descripcion" placeholder="Inserte la descripción" name="description"><c:if test="${product.tipoProducto.nombre != 'Tinta'}"><c:out value='${fn:trim(product.caracteristica)}'></c:out></c:if></textarea>
 									</div>
 								</div>
 							</div>
-  							
   							<div class="form-group">
   								<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="save">
 									<span class="glyphicon glyphicon-pencil"></span>

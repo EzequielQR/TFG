@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import edu.ues21.tattoo.domain.Categoria;
 import edu.ues21.tattoo.domain.Producto;
 import edu.ues21.tattoo.service.CategoriaService;
+import edu.ues21.tattoo.service.EncargadoComprasService;
 import edu.ues21.tattoo.service.ProductoService;
 
 @Controller
@@ -33,6 +34,8 @@ public class ProductoController {
 	private ProductoService productoService;
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private EncargadoComprasService encargadoComprasService;
 	
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String mostrar(Model model) {
@@ -42,7 +45,7 @@ public class ProductoController {
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			model.addAttribute("nombre", user.getUsername());
 		}
-		
+		model.addAttribute("listaEncargadoCompras", encargadoComprasService.getAll());
 		model.addAttribute("listaStock", productoService.getAll());
 		return "producto_visualizar";
 	}
@@ -65,11 +68,13 @@ public class ProductoController {
 	public String crear(@RequestParam(required = true, name = "brand-id") String marcaId,
 						@RequestParam(required = true, name = "product-id") String productoId,
 						@RequestParam(required = true, name = "quantity") String cantidad,
+						@RequestParam(required = true, name = "quantity_min") String cantidadMinima,
 						@RequestParam(required = false, name = "color-ink") String colorTinta,
 						@RequestParam(required = false, name = "description") String caracteristica) {
 		
 		Producto producto = new Producto();
 		producto.setCantidad(Integer.parseInt(cantidad));
+		producto.setCantidadMinima(Integer.parseInt(cantidadMinima));
 		producto.setMarca(categoriaService.getById(Integer.parseInt(marcaId)));
 		producto.setTipoProducto(categoriaService.getById(Integer.parseInt(productoId)));
 
@@ -84,12 +89,15 @@ public class ProductoController {
 														 Integer.parseInt(productoId), 
 														 producto.getCaracteristica());
 		
-		if (existentProduct == null) {
+		if(existentProduct == null) {
 			productoService.add(producto);
 		} else {
 			existentProduct.setCantidad(existentProduct.getCantidad() + Integer.parseInt(cantidad));
 			productoService.update(existentProduct);
 		}
+		
+		if(producto.getCantidad() <= producto.getCantidadMinima())
+			productoService.notificationLowStock();
 		
 		return "redirect:/stock/mostrar";
 	}
@@ -149,11 +157,13 @@ public class ProductoController {
 					   @RequestParam(required = true, name = "brand-id") String marcaId,
 					   @RequestParam(required = true, name = "product-id") String productoId,
 					   @RequestParam(required = true, name = "quantity") String cantidad,
+					   @RequestParam(required = true, name = "quantity_min") String cantidadMinima,
 					   @RequestParam(required = false, name = "color-ink") String colorTinta,
 					   @RequestParam(required = false, name = "description") String caracteristica) {
 		Producto producto = productoService.getById(idProduct);
 		
 		producto.setCantidad(Integer.parseInt(cantidad));
+		producto.setCantidadMinima(Integer.parseInt(cantidadMinima));
 		producto.setMarca(categoriaService.getById(Integer.parseInt(marcaId)));
 		producto.setTipoProducto(categoriaService.getById(Integer.parseInt(productoId)));
 
@@ -165,6 +175,8 @@ public class ProductoController {
 			producto.setCaracteristica(caracteristica);
 		
 		productoService.update(producto);
+		
+		productoService.notificationLowStock();
 		
 		return "redirect:/stock/mostrar";
 	}

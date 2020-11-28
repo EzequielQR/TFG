@@ -108,9 +108,19 @@ public class ProductoRepositoryImpl implements ProductoRepository{
 		SQLQuery sqlQuery = session.createSQLQuery("SELECT productos.id FROM productos "
 				+ "WHERE productos.id NOT IN (SELECT turnos_has_productos.productos_id FROM turnos_has_productos "
 										   + "WHERE turnos_has_productos.turnos_id = :idAppo) "
-				+ "AND productos.cantidad > 0;");
+				+ "AND productos.cantidad_actual > 0;");
 		sqlQuery.setInteger("idAppo", appointmentId);
 		List<Integer> list = sqlQuery.list();
+		session.getTransaction().commit();
+		return list;
+	}
+
+	@Override
+	public List<Producto> getProductsLowStock() {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Producto p WHERE p.cantidad <= p.cantidadMinima");
+		List<Producto> list = query.list();
 		session.getTransaction().commit();
 		return list;
 	}

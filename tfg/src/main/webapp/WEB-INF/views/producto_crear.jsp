@@ -130,12 +130,21 @@
 							  			 <input type="number" class="form-control" id="input-cantidad" placeholder="Inserte la cantidad de productos ingresada al local (solo números)" name="quantity" required="required" autocomplete="off">
 									</div>
 									
-									<div class="col-lg-3 col-md-3 col-sm-1 col-xs-1">
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 							  			 <label for="input-color-ink">Color tinta:</label>
 							  			 <input type="text" class="form-control" id="input-color-ink" placeholder="Inserte el color de la tinta" name="color-ink" autocomplete="on">
 									</div>
 								</div>
 							</div>
+  							
+  							<div class="form-group">
+  								<div class="row">
+  									<div class="col-lg-9 col-md-9 col-sm-7 col-xs-5">
+										<label for="input-cantidad-minima">Cantidad Mínima Aceptable:</label>
+										<input type="number" class="form-control" id="input-cantidad-minima" placeholder="Inserte la cantidad minima aceptable (solo números)" name="quantity_min" required="required" autocomplete="off" value="${product.cantidadMinima}">						
+  									</div>
+  								</div>
+  							</div>
   							
   							<div class="form-group">
   								<div class="row">

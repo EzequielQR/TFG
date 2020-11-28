@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -28,8 +27,10 @@ public class Producto implements Serializable{
 	@Id
 	@GeneratedValue
 	private int id;
-	@Column(name = "cantidad")
+	@Column(name = "cantidad_actual")
 	private int cantidad;
+	@Column(name = "cantidad_minima")
+	private int cantidadMinima;
 	@OneToOne
 	@JoinColumn(name="categorias_id_marca")
 	private Categoria marca;
@@ -68,6 +69,14 @@ public class Producto implements Serializable{
 		this.cantidad = cantidad;
 	}
 
+	public int getCantidadMinima() {
+		return cantidadMinima;
+	}
+
+	public void setCantidadMinima(int cantidadMinima) {
+		this.cantidadMinima = cantidadMinima;
+	}
+	
 	public Categoria getMarca() {
 		return marca;
 	}

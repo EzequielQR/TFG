@@ -1,6 +1,6 @@
 package edu.ues21.tattoo.domain;
 
-public enum Cx_Key {
+public enum CredGoogleCustomSearch {
 
 	OLOF_ACCOUNT("", ""),
 	TATTOO_ACCOUNT("", ""), 
@@ -9,7 +9,7 @@ public enum Cx_Key {
 	private String cx;
 	private String apiKey;
 	
-	private Cx_Key(String cx, String apiKey) {
+	private CredGoogleCustomSearch(String cx, String apiKey) {
 		this.cx = cx;
 		this.apiKey = apiKey;
 	}

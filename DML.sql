@@ -120,16 +120,19 @@ INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('
 
 -- Password: Admin1234
 -- Password: Gabriel1234
--- Password: Javier1234
+-- Password: Adam1234
 -- Password: Ludmila1234
 -- Password: Marcelo1234
 -- Password: Nahuel1234
+-- Password: Francisco1234
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('admin', '$2a$10$IM5zqoWQ50rYA9Sjh/xak.WPBA4XfxjZbb5qwK.nbrT.21GS2rfJa', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('gdroguett', '$2a$10$0nJjqyoX0R9YkWykagQx1OwxESSCYYhbp7vGyzm9Fhlso/U4dG5Iy', '2020-07-20 11:13:15', '1');
-INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('jmilei', '$2a$10$RrH9b663dggUe2tQC.XK6.YRTYz8GLRrxsGNMENmiTj2iCRoZ4qti', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('asmith', '$2a$10$zMdT7Zm9Zotrc.unDh.vNuBznpBZxSJBixiKnAV/qAIiwbTtTYev6', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('lserra', '$2a$10$TQJ49CYqxdFkHH9aRnSwHO9uQy7fzkuV2qX2.WjZarOIC78uEEfFi', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('mrenzo', '$2a$10$z7IUjpUhz2iaBI4exkhYd.4T64sjN4Ms07BWY4w21HgcROux2WkQy', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ndroguett', '$2a$10$uTsoYZIN1mRLzBzwke9sye/GB26cX39hEYRukdm82ea6/YN5yunIC', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('freyes', '$2a$10$Gif/KkgWHiJ0.AKMbYeXP.MkqmhOvioUv4Lr4JBhLKP42lVTjL9FW', '2020-07-20 11:13:15', '1');
+
 
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('1', '35933000', 'Ezequiel', 'Reyes', '388-3432000', 'Parana 487', 'eezequielq@micorreo.com' ,'1', '9');
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('2', '35000000', 'Charles', 'Ramonda', '351-5908312', 'Bv. Illia 444', 'cramonda@micorreo.com' ,'1', '9');
@@ -139,12 +142,14 @@ INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `t
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('6', '31123456', 'Paul', 'Godino', '351-6567700', 'Av. Pueyrredon 144', 'pgodino@micorreo.com' ,'1', '9');
 
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('7', '38123456', 'Gaby', 'Droguett', '351-4108811', 'Rondeau 587', 'gabydroguett@micorreo.com' ,'1', '8');
-INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('8', '37300200', 'Javier', 'Milei', '351-5961099', 'Obispo Salguero 300', 'javimilei@micorreo.com' ,'1', '10');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('8', '37300200', 'Adam', 'Smith', '351-5961099', 'Obispo Salguero 300', 'asmith@micorreo.com' ,'1', '10');
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('9', '39222333', 'Lu', 'Serra', '351-6672201', 'Balcarce 222', 'luserra@micorreo.com' ,'1', '11');
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('10', '38123456', 'Marcelo', 'Renzo', '351-3267541', 'San Lorenzo 756', 'marrenzo@micorreo.com' ,'1', '8');
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('11', '35123123', 'Nahuel', 'Droguett', '351-6989044', 'Ituzaingo 484', 'nahudroguett@micorreo.com' ,'1', '8');
+INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('12', '35933999', 'Francisco', 'Reyes', '388-4108811', 'Independencia 555', 'eezequielq@gmail.com' ,'1', '10');
 
-INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'jmilei', '8');
+INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'asmith', '8');
+INSERT INTO `tfg`.`encargados_compras` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('2', 'freyes', '12');
 
 INSERT INTO `tfg`.`recepcionistas` (`id`, `usuarios_nombre`, `personas_id`) VALUES ('1', 'lserra', '9');
 
@@ -189,15 +194,15 @@ INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `s
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('4', 'Realismo en pierna.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 5 HOUR), '800', 'https://i.pinimg.com/736x/71/ab/d0/71abd0141dcfe0f11868d3971d31c1b6.jpg', '6', '4', '25', '2', '3', 'lserra');
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('5', 'Trash Polka en muslo.', DATE_ADD(current_timestamp(), INTERVAL 1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 4 HOUR), '1500', 'https://i.pinimg.com/736x/bf/94/d3/bf94d3c88b71156a39751509cc298cb4.jpg', '6', '4', '28', '2', '4', 'lserra');
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('6', 'Lettering en antebrazo.', DATE_ADD(current_timestamp(), INTERVAL -1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 5 HOUR), '1200', 'https://i.pinimg.com/564x/64/2c/57/642c579b1f334d48acaa85017fea66f0.jpg', '6', '4', '19', '3', '5', 'mrenzo');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('7', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 2 DAY), INTERVAL 3 HOUR), '2500', 'https://i.pinimg.com/originals/e4/a0/34/e4a0346b8c61f2a4ea896477aa23caf6.jpg', '6', '4', '22', '3', '6', 'jmilei');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('7', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 2 DAY), INTERVAL 3 HOUR), '2500', 'https://i.pinimg.com/originals/e4/a0/34/e4a0346b8c61f2a4ea896477aa23caf6.jpg', '6', '4', '22', '3', '6', 'asmith');
 INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('8', 'Old School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 3 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 3 DAY), INTERVAL 5 HOUR), '6000', 'https://i.pinimg.com/originals/80/d4/7b/80d47b9f8fe0e07aa92713ffd4766bc4.jpg', '7', '4', '23', '3', '1', 'mrenzo');
 
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('1', '1', 'Crema no apta para líneas', '38', '114');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('2', '7', 'Color: Solid Black', '30', '117');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('3', '9', 'Color: Fresh Red', '31', '117');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('4', '5', 'No aplica', '34', '94');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('5', '10', 'No aplica', '37', '95');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('6', '10', 'Edición: Hidratación extrema', '39', '115');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('7', '2', 'No aplica', '37', '67');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('8', '3', 'No aplica', '37', '85');
-INSERT INTO `tfg`.`productos` (`id`, `cantidad`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('9', '15', 'No aplica', '36', '100');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('1', '1', '5', 'Crema no apta para líneas', '38', '114');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('2', '70', '50', 'Color: Solid Black', '30', '117');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('3', '90', '50', 'Color: Fresh Red', '31', '117');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('4', '5', '125', 'No aplica', '34', '94');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('5', '10', '155', 'No aplica', '37', '95');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('6', '1', '5', 'Edición: Hidratación extrema', '39', '115');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('7', '200', '50', 'No aplica', '37', '67');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('8', '300', '75', 'No aplica', '37', '85');
+INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('9', '150', '90', 'No aplica', '36', '100');

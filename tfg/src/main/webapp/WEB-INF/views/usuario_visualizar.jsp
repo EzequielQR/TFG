@@ -240,6 +240,55 @@
 	//# id
     $(document).ready(function(){
     	
+    	$(document).on('click', '.view_modal', function eventClickButtonInsideTableUser(){
+    		//Obtengo valor
+    		var person_id_obtained = $(this).attr("data-id");
+    			
+    			$.ajax({
+    				url: "ajaxcall",
+    				method: "get",
+    				//{key : value}
+    				data: {person_id : person_id_obtained},
+    				success: function(result){
+    					//The JSON you are receiving is in string. You have to convert it into JSON object.
+    					//Alert() only can display Strings.
+    					//For debug proposes, use console.log(data);
+    					
+    					var obj1 = JSON.parse(result);
+    					console.log(obj1);
+    					
+    					$('.id_modal').html(obj1.id);
+    					$('.rol_modal').html(obj1.persona.rol.nombre);
+
+    					if(obj1.persona.rol.nombre.toUpperCase() === "CLIENTE"){
+    						$('.usuario_modal').html("El rol actual no admite usuarios.");
+    						$('#btnFichaClinica').val(obj1.id);
+    						$('#btnFichaClinica').prop('disabled', false);
+    					} else {
+    						$('.usuario_modal').html(obj1.usuario.nombre);
+    						$('#btnFichaClinica').val(0);
+    						$('#btnFichaClinica').prop('disabled', true);
+    					}
+    					
+    					if(obj1.persona.rol.nombre.toUpperCase() === "TATUADOR"){
+    						$('.pseudonimo_modal').html(obj1.pseudonimo);
+    					} else {
+    						$('.pseudonimo_modal').html("El rol actual no admite pseudónimos.");
+    					}
+    					
+    					$('.apellido_modal').html(obj1.persona.apellido);
+    					$('.nombre_modal').html(obj1.persona.nombre);
+    					$('.tipo_doc_modal').html(obj1.persona.tipoDocumento.nombre);
+    					$('.num_doc_modal').html(obj1.persona.numeroDocumento);
+    					$('.domicilio_modal').html(obj1.persona.domicilio);
+    					$('.tel_modal').html(obj1.persona.telefono);
+    					$('.correo_modal').html(obj1.persona.correoElectronico);
+    					//Trigger modal via Javascript:
+    					$('#dataModal').modal("show");
+    				}
+    			});
+    	});
+    	
 		$('#table_id').DataTable({
 			//default dom: 'lrtp'
 			//l: "Show [10/25/50/100] entries"
@@ -252,66 +301,14 @@
                 	next		:	"Siguiente",
                 	previous	:	"Anterior"
                 }
-            }
+            },
+         	//Number of rows to display on a single page when using pagination.
+            pageLength: '10'
 		});
 		
 		$('#myInputTextField').keyup(function(){
 			$('#table_id').DataTable().search($(this).val()).draw() ;
 		});
-    	
-		$('.view_modal').click(function(){
-		//Obtengo valor
-		var person_id_obtained = $(this).attr("data-id");
-			
-			$.ajax({
-				url: "ajaxcall",
-				method: "get",
-				//{key : value}
-				data: {person_id : person_id_obtained},
-				success: function(result){
-					//The JSON you are receiving is in string. You have to convert it into JSON object.
-					//Alert() only can display Strings.
-					//For debug proposes, use console.log(data);
-					
-					var obj1 = JSON.parse(result);
-					console.log(obj1);
-					
-					$('.id_modal').html(obj1.id);
-					$('.rol_modal').html(obj1.persona.rol.nombre);
-
-					if(obj1.persona.rol.nombre.toUpperCase() === "CLIENTE"){
-						$('.usuario_modal').html("El rol actual no admite usuarios.");
-						$('#btnFichaClinica').val(obj1.id);
-						$('#btnFichaClinica').prop('disabled', false);
-					} else {
-						$('.usuario_modal').html(obj1.usuario.nombre);
-						$('#btnFichaClinica').val(0);
-						$('#btnFichaClinica').prop('disabled', true);
-					}
-					
-					if(obj1.persona.rol.nombre.toUpperCase() === "TATUADOR"){
-						$('.pseudonimo_modal').html(obj1.pseudonimo);
-					} else {
-						$('.pseudonimo_modal').html("El rol actual no admite pseudónimos.");
-					}
-					
-					$('.apellido_modal').html(obj1.persona.apellido);
-					$('.nombre_modal').html(obj1.persona.nombre);
-					$('.tipo_doc_modal').html(obj1.persona.tipoDocumento.nombre);
-					$('.num_doc_modal').html(obj1.persona.numeroDocumento);
-					$('.domicilio_modal').html(obj1.persona.domicilio);
-					$('.tel_modal').html(obj1.persona.telefono);
-					$('.correo_modal').html(obj1.persona.correoElectronico);
-					//Trigger modal via Javascript:
-					$('#dataModal').modal("show");
-				}
-			});			
-		});
-		
-		//$('#btnFichaClinica').click(function() {
-		//	var id_cliente = $('#btnFichaClinica').val();
-		//	$(location).attr('href', '/tfg/ficha-clinica/mostrar?id_cliente=' + id_cliente);
-		//});
 		
 		$("#btnSubmitUploadPassword").click(function(){
 			

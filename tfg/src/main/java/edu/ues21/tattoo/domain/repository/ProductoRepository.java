@@ -14,4 +14,5 @@ public interface ProductoRepository {
 	void delete(Producto producto);
 	void delete(int id);
 	List<Integer> getAvailableProductsByAppointment(int appointmentId);
+	List<Producto> getProductsLowStock();
 }

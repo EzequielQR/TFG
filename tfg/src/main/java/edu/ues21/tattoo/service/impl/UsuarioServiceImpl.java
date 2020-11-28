@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import edu.ues21.tattoo.domain.CredMail;
 import edu.ues21.tattoo.domain.Usuario;
 import edu.ues21.tattoo.domain.repository.UsuarioRepository;
 import edu.ues21.tattoo.service.UsuarioService;
@@ -122,8 +123,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	private void sendMail(String mailDestino, String username, String rawPassword) {
 		//TODO FIXME: Read both constants via external file.
-		final String MAIL_ORIGEN = "noreply.tatuaje@gmail.com";
-		final String PASSWORD = "tfg108811";
+		final String MAIL_ORIGEN = CredMail.ACCOUNT.getMail();
+		final String PASSWORD = CredMail.ACCOUNT.getPassword();
 		
 		Properties properties = new Properties();
 		

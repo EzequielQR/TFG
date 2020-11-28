@@ -142,7 +142,7 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalConfirmation">
+						<button type="button" id="btnOCR" class="btn btn-info" data-toggle="modal" data-target="#modalConfirmation">
 							<span class="glyphicon glyphicon-eye-open"></span>
 							OCR
 						</button>
@@ -268,8 +268,10 @@
 
    			if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
    				$("#btnFichaClinica").prop('disabled', false);
+   				$("#btnOCR").prop('disabled', false);
 			} else {
 				$("#btnFichaClinica").prop('disabled', true);
+				$("#btnOCR").prop('disabled', true);
 			}
 			
 			//Cuando el select cambia de estado, se evalua la condicion
@@ -284,8 +286,10 @@
 				
 				if($("#tipoUsuario option:selected").text().toUpperCase() === 'CLIENTE'){
 	   				$("#btnFichaClinica").prop('disabled', false);
+	   				$("#btnOCR").prop('disabled', false);
 				} else {
 					$("#btnFichaClinica").prop('disabled', true);
+					$("#btnOCR").prop('disabled', true);
 				}
 			})
 			

@@ -26,7 +26,7 @@ import com.google.api.services.customsearch.CustomsearchRequestInitializer;
 import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 
-import edu.ues21.tattoo.domain.Cx_Key;
+import edu.ues21.tattoo.domain.CredGoogleCustomSearch;
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Turno;
 import edu.ues21.tattoo.domain.repository.TurnoRepository;
@@ -138,7 +138,7 @@ public class TurnoServiceImpl implements TurnoService{
 	public String getImagesJSON(String query) {
 		// TODO Auto-generated method stub
 		
-		for(Cx_Key cred : Cx_Key.values()) {
+		for(CredGoogleCustomSearch cred : CredGoogleCustomSearch.values()) {
 			
 			String cx = cred.getCx();
 			String apiKey = cred.getApiKey();
@@ -197,7 +197,7 @@ public class TurnoServiceImpl implements TurnoService{
 		// TODO Auto-generated method stub
 		List<String> finalResult = new ArrayList<String>();
 
-		for(Cx_Key cred : Cx_Key.values()) {
+		for(CredGoogleCustomSearch cred : CredGoogleCustomSearch.values()) {
 			
 			String cx = cred.getCx();
 			String apiKey = cred.getApiKey();
@@ -247,7 +247,7 @@ public class TurnoServiceImpl implements TurnoService{
 	
 	private String auxiliarGetImagesJSON(String query) {
 
-		for(Cx_Key cred : Cx_Key.values()) {
+		for(CredGoogleCustomSearch cred : CredGoogleCustomSearch.values()) {
 			
 			String cx = cred.getCx();
 			String apiKey = cred.getApiKey();

@@ -74,7 +74,18 @@
 	<div class="container">
 		<div class="alert alert-info alert-dismissible fade in">
     		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    		<strong>Información!</strong> Se va a visualizar en rojo los productos con stock bajo: Cantidad menor o igual a 5 unidades.
+    		<strong>Información!</strong> Se va a visualizar en <span style="color: #ff0000">rojo</span> los productos en estado crítico.
+  		</div>
+  		
+  		<div class="alert alert-info alert-dismissible fade in">
+    		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    		<strong>Información!</strong> Al detectar stock bajo, automáticamente se envia una notificación a el/los siguiente/s correos electrónicos de las personas cuyo rol es "Encargado de Compras":
+	  		<br>
+	  		<ul>
+	  			<c:forEach items="${listaEncargadoCompras}" var="element">
+	  				<li>${element.persona.apellido}, ${element.persona.nombre}: ${element.persona.correoElectronico}</li>
+	  			</c:forEach>
+	  		</ul>
   		</div>
 	
 		<div class="input-group">
@@ -102,7 +113,7 @@
 			  <tbody>
 			  	<c:forEach items="${listaStock}" var="producto">
 			  		<c:choose>
-			  			<c:when test="${producto.cantidad <= 5}">
+			  			<c:when test="${producto.cantidad <= producto.cantidadMinima}">
 			  				<tr class="danger">
 			  					<th>${producto.id}</th>
 						  			<td>${producto.marca.nombre}</td>
@@ -162,6 +173,10 @@
 							<tr>
 								<td><b>Cantidad Disponible</b></td>
 								<td class="quantity_modal"></td>
+							</tr>
+							<tr>
+								<td><b>Cantidad Mínima Aceptable</b></td>
+								<td class="quantity_min_modal"></td>
 							</tr>
 							<tr>
 								<td><b>Usado en Turnos</b></td>
@@ -243,7 +258,65 @@
 		//. class
 		//# id
 		$(document).ready(function(){
-			//Comprobacion inicial
+			
+			$(document).on('click', '.view_modal', function eventClickButtonInsideTableProduct(){
+				//Obtengo valor
+				var product_id_obtained = $(this).attr("data-id");
+					
+					$.ajax({
+						url: "ajaxcallprod",
+						method: "get",
+						//{key : value}
+						data: {product_id : product_id_obtained},
+						success: function(result){
+							//The JSON you are receiving is in string. You have to convert it into JSON object.
+							//Alert() only can display Strings.
+							//For debug proposes, use console.log(data);
+							
+							moment.locale('es', {
+								  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+								  monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+								  weekdays: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
+								  weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+								  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')							
+							});
+							
+							var obj1 = JSON.parse(result);
+							console.log(obj1);
+							
+							$('.id_modal').html(obj1[0].id);
+							$('.brand_modal').html(obj1[0].marca.nombre);
+							$('.type_product_modal').html(obj1[0].tipoProducto.nombre);
+							$('.detail_modal').html(obj1[0].caracteristica);
+							$('.quantity_modal').html(obj1[0].cantidad);
+							$('.quantity_min_modal').html(obj1[0].cantidadMinima);
+							
+							if(obj1[1] === undefined || obj1[1].length == 0){
+								$('.product_has_appointments_modal').html("El producto seleccionado no fue usado en ningun turno.");
+							}
+							else{
+								var html = "<ul>";
+								var index;
+								
+								for(index = 0; index < obj1[1].length; index++){
+									html += "<li>" +
+												moment(obj1[1][index].fechaInicio).format('dddd, DD/MMMM/YYYY, [Hora: ] HH:mm')
+												+ " - "
+												+ moment(obj1[1][index].fechaFin).format('HH:mm')
+												+ "<br>" 
+												+ obj1[1][index].descripcion
+											"</li>";
+								}
+								
+								html += "</ul>";
+								$('.product_has_appointments_modal').html(html);
+							}
+							//Trigger modal via Javascript:
+							$('#dataModal').modal("show");
+						}
+					});
+			});
+			
 			$('#table_id').DataTable({
 				//default dom: 'lrtp'
 				//l: "Show [10/25/50/100] entries"
@@ -256,7 +329,9 @@
 	                	next		:	"Siguiente",
 	                	previous	:	"Anterior"
 	                }
-	            }
+	            },
+	            //Number of rows to display on a single page when using pagination.
+	            pageLength: '10'
 			});
 			
 			$('#myInputTextField').keyup(function(){
@@ -328,63 +403,6 @@
 				$("#input-modal-new-password").val("");
 				$("#input-modal-new-password-repeat").val("");
 			});
-			
-			$('.view_modal').click(function(){
-				//Obtengo valor
-				var product_id_obtained = $(this).attr("data-id");
-					
-					$.ajax({
-						url: "ajaxcallprod",
-						method: "get",
-						//{key : value}
-						data: {product_id : product_id_obtained},
-						success: function(result){
-							//The JSON you are receiving is in string. You have to convert it into JSON object.
-							//Alert() only can display Strings.
-							//For debug proposes, use console.log(data);
-							
-							moment.locale('es', {
-								  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
-								  monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
-								  weekdays: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
-								  weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
-								  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')							
-							});
-							
-							var obj1 = JSON.parse(result);
-							console.log(obj1);
-							
-							$('.id_modal').html(obj1[0].id);
-							$('.brand_modal').html(obj1[0].marca.nombre);
-							$('.type_product_modal').html(obj1[0].tipoProducto.nombre);
-							$('.detail_modal').html(obj1[0].caracteristica);
-							$('.quantity_modal').html(obj1[0].cantidad);
-							
-							if(obj1[1] === undefined || obj1[1].length == 0){
-								$('.product_has_appointments_modal').html("El producto seleccionado no fue usado en ningun turno");
-							}
-							else{
-								var html = "<ul>";
-								var index;
-								
-								for(index = 0; index < obj1[1].length; index++){
-									html += "<li>" +
-												moment(obj1[1][index].fechaInicio).format('dddd, DD/MMMM/YYYY, [Hora: ] HH:mm')
-												+ " - "
-												+ moment(obj1[1][index].fechaFin).format('HH:mm')
-												+ "<br>" 
-												+ obj1[1][index].descripcion
-											"</li>";
-								}
-								
-								html += "</ul>";
-								$('.product_has_appointments_modal').html(html);
-							}
-							//Trigger modal via Javascript:
-							$('#dataModal').modal("show");
-						}
-					});			
-				});
 			
     	});
 	</script>
