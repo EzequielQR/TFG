@@ -254,6 +254,7 @@
 	<script src="<c:url value="/resources/bootstrap-select-1.13.18/js/i18n/defaults-es_ES.min.js"/>"></script>
 	<script src="<c:url value="/resources/jquery-timepicker-1.3.5/js/jquery.timepicker.min.js"/>"></script>
 	<script src="<c:url value="/resources/datatables/js/datatables.min.js"/>"></script>
+	
 	<script type="text/javascript">
 		//. class
 		//# id
@@ -299,11 +300,11 @@
 								var index;
 								
 								for(index = 0; index < obj1[1].length; index++){
-									html += "<li>" +
-												moment(obj1[1][index].fechaInicio).format('dddd, DD/MMMM/YYYY, [Hora: ] HH:mm')
+									html += "<li>" 
+												+ moment(obj1[1][index].fechaInicio).format('dddd, DD/MMMM/YYYY, [Hora: ] HH:mm')
 												+ " - "
 												+ moment(obj1[1][index].fechaFin).format('HH:mm')
-												+ "<br>" 
+												+ ".&nbsp;"
 												+ obj1[1][index].descripcion
 											"</li>";
 								}

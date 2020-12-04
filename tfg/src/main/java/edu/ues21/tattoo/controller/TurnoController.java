@@ -178,6 +178,11 @@ public class TurnoController {
 
 		int idTurno = turnoService.add(turno);
 		
+		clienteService.sendMailAppointment(turno.getCliente().getPersona().getApellido() 
+				+ ", " + turno.getCliente().getPersona().getNombre(),
+				turno.getFechaInicio(),
+				turno.getCliente().getPersona().getCorreoElectronico());
+		
 		if(btnPressed.equalsIgnoreCase("save"))
 			return "redirect:/turno/mostrar";
 		else

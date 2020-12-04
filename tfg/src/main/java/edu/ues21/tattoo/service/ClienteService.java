@@ -1,5 +1,6 @@
 package edu.ues21.tattoo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.ues21.tattoo.domain.Cliente;
@@ -12,4 +13,5 @@ public interface ClienteService {
 	void update(Cliente cliente);
 	void delete(Cliente cliente);
 	void delete(int id);
+	void sendMailAppointment(String fullName, Date fecha, String correoElectronico);
 }
