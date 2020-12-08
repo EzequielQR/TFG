@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 </head>
 <body>
-	<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
+	<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER', 'RECEPTIONIST')">
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -316,7 +316,7 @@
 	   		});
 		</script>
 	</sec:authorize>
-	<sec:authorize access="hasRole('RECEPTIONIST')">
+	<sec:authorize access="hasRole('CUSTOMER')">
 		<% response.sendRedirect(request.getContextPath() + "/error403"); %>
 	</sec:authorize>
 </body>

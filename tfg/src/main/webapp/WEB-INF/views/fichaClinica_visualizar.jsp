@@ -28,8 +28,8 @@
 				<a class="navbar-left" href="${pageContext.request.contextPath}/home"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
-				<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
-					<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav">
+					<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER', 'RECEPTIONIST')">
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 								<ul class="dropdown-menu">
@@ -50,8 +50,8 @@
 									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 								</ul>
 						</li>
-					</ul>
-				</sec:authorize>
+					</sec:authorize>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -77,7 +77,7 @@
 			<span class="glyphicon glyphicon-pencil"></span>
 			Editar Ficha Clínica
 		</a>
-		<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
+		<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER', 'RECEPTIONIST')">
 			<a href="<spring:url value="/ficha-clinica/eliminar?id-cliente=${cliente.id}"/>" class="btn btn-danger" role="button">
 				<span class="glyphicon glyphicon-trash"></span>
 				Eliminar Ficha Clínica
