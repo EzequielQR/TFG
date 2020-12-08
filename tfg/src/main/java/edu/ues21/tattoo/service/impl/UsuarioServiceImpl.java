@@ -68,7 +68,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private Usuario createUsuario(String username, String rawPassword) {
 		Usuario u = new Usuario();
 		u.setActivo(true);
-		u.setUltimoCambio(new Date());
 		u.setNombre(username);
 		u.setContraseniaHash(generateBCryptHash(rawPassword));
 		return u;

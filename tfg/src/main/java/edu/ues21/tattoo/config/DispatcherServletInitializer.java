@@ -6,12 +6,13 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[]{};
+		return new Class[]{WebApplicationContextConfig.class};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[]{WebApplicationContextConfig.class};
+		//return new Class[]{WebApplicationContextConfig.class};
+		return null;
 	}
 
 	@Override

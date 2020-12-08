@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,28 +27,30 @@
 				<a class="navbar-left" href="${pageContext.request.contextPath}/home"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
-							</ul>
-					</li>
-					<li class="dropdown active">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/usuario/crear">Crear Usuario</a></li>
-								<li><a href="${pageContext.request.contextPath}/usuario/mostrar">Visualizar Usuarios</a></li>
-							</ul>
-					</li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
-								<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
-							</ul>
-					</li>
-				</ul>
+				<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
+								</ul>
+						</li>
+						<li class="dropdown active">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/usuario/crear">Crear Usuario</a></li>
+									<li><a href="${pageContext.request.contextPath}/usuario/mostrar">Visualizar Usuarios</a></li>
+								</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
+									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
+								</ul>
+						</li>
+					</ul>
+				</sec:authorize>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">

@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 	<link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css"/>">
 </head>
-<body>
+<body data-lastChangeUser="${fechaUltimoCambio}">
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -28,28 +28,30 @@
 				<a class="navbar-left" href="#"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
-							</ul>
-					</li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/usuario/crear">Crear Usuario</a></li>
-								<li><a href="${pageContext.request.contextPath}/usuario/mostrar">Visualizar Usuarios</a></li>
-							</ul>
-					</li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
-								<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
-							</ul>
-					</li>
-				</ul>
+				<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
+								</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/usuario/crear">Crear Usuario</a></li>
+									<li><a href="${pageContext.request.contextPath}/usuario/mostrar">Visualizar Usuarios</a></li>
+								</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
+									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
+								</ul>
+						</li>
+					</ul>
+				</sec:authorize>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -69,44 +71,44 @@
 			</div>
 		</div>
 	</nav>
+	<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER')">
+		<div class="container">
+			<section class="main row">
 	
-	<div class="container">
-		<section class="main row">
-
-			<h1 style="text-align:center">Turnos asignados para hoy:</h1>
-			<br>
-
-			<c:forEach items="${list}" var="item">
-				<div class="col-md-4 col-lg-4">
-					<div class = "panel panel-primary">
-					   
-					   <div class ="panel-heading">
-					   		<h3 style="text-align:center;">${item.pseudonimo}</h3>
-					   </div>
+				<h1 style="text-align:center">Turnos asignados para hoy:</h1>
+				<br>
 	
-					   <div class = "panel-body">
-					   		<p style="text-align:center;">Turnos confirmados:</p>
-	
-							<c:forEach items="${item.turnos}" var="turnos">
-							    <ul class = "list-group list-group-flush">
-							   		<li class="list-group-item">
-							   			<i class="glyphicon glyphicon-calendar"></i>
-							   			&nbsp;<fmt:formatDate type="time" value="${turnos.fechaInicio}"
-							   			timeStyle="short"/>
-							   			<b>-&nbsp;${turnos.cliente.persona.apellido},&nbsp;${turnos.cliente.persona.nombre}:</b>
-							   			${turnos.descripcion}
-							   		</li>
-							  	</ul>
-						  	</c:forEach>
-					   </div>
-					   
+				<c:forEach items="${list}" var="item">
+					<div class="col-md-4 col-lg-4">
+						<div class = "panel panel-primary">
+						   
+						   <div class ="panel-heading">
+						   		<h3 style="text-align:center;">${item.pseudonimo}</h3>
+						   </div>
+		
+						   <div class = "panel-body">
+						   		<p style="text-align:center;">Turnos confirmados:</p>
+		
+								<c:forEach items="${item.turnos}" var="turnos">
+								    <ul class = "list-group list-group-flush">
+								   		<li class="list-group-item">
+								   			<i class="glyphicon glyphicon-calendar"></i>
+								   			&nbsp;<fmt:formatDate type="time" value="${turnos.fechaInicio}"
+								   			timeStyle="short"/>
+								   			<b>-&nbsp;${turnos.cliente.persona.apellido},&nbsp;${turnos.cliente.persona.nombre}:</b>
+								   			${turnos.descripcion}
+								   		</li>
+								  	</ul>
+							  	</c:forEach>
+						   </div>
+						   
+						</div>
 					</div>
-				</div>
-			</c:forEach>
-			
-		</section>
-	</div>
-	
+				</c:forEach>
+				
+			</section>
+		</div>
+	</sec:authorize>
 	<!-- Modal -->
 	<div id="modalChangePassword" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
@@ -115,7 +117,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Cambiar contraseña</h4>
+	        <h4 class="modal-title" id="title-modal-change-password">Cambiar Contraseña</h4>
 	      </div>
 	      <div class="modal-body" id="modal-body-change-password">
 	      	<form:form method="POST" action="${pageContext.request.contextPath}/usuario/ajaxUpdatePassword" id="formModalPassword">
@@ -201,7 +203,7 @@
 					    				+ '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
 					    				+ '<strong>Se ha producido un error por algunos de estos motivos:</strong><br>'
 					    				+ '<ul><li>Su actual contraseña es incorrecta.</li>'
-					    				+ '<li>La nueva contraseña no coincide.</li></ul>'
+					    				+ '<li>Las nuevas contraseñas no coinciden.</li></ul>'
 					  				+ '</div>');
 						}
 						
@@ -218,7 +220,26 @@
 				$("#input-modal-old-password").val("");
 				$("#input-modal-new-password").val("");
 				$("#input-modal-new-password-repeat").val("");
+				$('#modalChangePassword').data('bs.modal',null);// this clears the BS modal data
+				$("#title-modal-change-password").text("Cambiar contraseña");
 			});
+			
+			if($("body").attr("data-lastChangeUser")){
+				console.log("No es necesario blanquear la contraseña");
+			}
+			else{
+				$('#modalChangePassword').modal({
+				    backdrop: 'static',
+				    keyboard: false,
+				    show: true,
+				});
+				$("#title-modal-change-password").text("Primer Inicio de Sesión: Cambio de Contraseña");
+				$("#modal-body-change-password").prepend(
+						'<div class="alert alert-danger alert-dismissible fade in" id="alert-modal-change-password">'
+		    				+ '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+		    				+ '<strong>Por razones de seguridad, debe cambiar su contraseña.</strong>'
+		  				+ '</div>');	
+			}
 			
    		});
 	</script>
