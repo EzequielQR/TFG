@@ -72,7 +72,9 @@
 	</nav>
 	<div class="container">
 		<div class="main row">
-			<form:form method="POST" modelAttribute="persona" id="myForm">
+			<form:form method="POST" id="myForm">
+				<input type="hidden" name="id" value="${persona.id}">
+				<input type="hidden" name="customerBoolean" value="${customer}">
 				<fieldset>
 					<legend>Editar Usuario</legend>
 					
@@ -80,12 +82,12 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<label for="inputName">Nombre</label>
-								<form:input path="nombre" class="form-control" type="text" id="inputName" placeholder="Ingrese su nombre" required="required"/>
+								<input name="nombre" class="form-control" type="text" id="inputName" placeholder="Ingrese su nombre" required="required" value="${persona.nombre}"/>
 							</div>
 							
 							<div class="col-lg-6 col-md-6">
 								<label for="inputApellido">Apellido</label>
-								<form:input path="apellido" class="form-control" type="text" id="inputApellido" placeholder="Ingrese su apellido" required="required"/>
+								<input name="apellido" class="form-control" type="text" id="inputApellido" placeholder="Ingrese su apellido" required="required" value="${persona.apellido}"/>
 							</div>
 						</div>
 					</div>
@@ -136,7 +138,7 @@
 							
 							<div class="col-lg-6 col-md-6">
 								<label for="inputNumDoc">Documento</label>
-								<form:input path="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required"/>
+								<input name="numeroDocumento" class="form-control" type="text" id="inputNumDoc" placeholder="Ingrese el número de documento" required="required" value="${persona.numeroDocumento}"/>
 							</div>
 						</div>
 					</div>
@@ -145,19 +147,19 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6">
 								<label for="inputEmail">Correo electrónico</label>
-								<form:input path="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required"/>
+								<input name="correoElectronico" class="form-control" type="email" id="inputEmail" placeholder="Ingrese su correo electrónico" required="required" value="${persona.correoElectronico}"/>
 							</div>
 							
 							<div class="col-lg-6 col-md-6">
 								<label for="inputTel">Teléfono</label>
-								<form:input path="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required"/>
+								<input name="telefono" class="form-control" type="text" id="inputTel" placeholder="Ingrese su teléfono" required="required" value="${persona.telefono}"/>
 							</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="inputDomicilio">Domicilio</label>
-						<form:input path="domicilio" class="form-control" type="text" id="inputDomicilio" placeholder="Ingrese su domicilio" required="required"/>
+						<input name="domicilio" class="form-control" type="text" id="inputDomicilio" placeholder="Ingrese su domicilio" required="required" value="${persona.domicilio}"/>
 					</div>
 					
 					<div class="form-group">

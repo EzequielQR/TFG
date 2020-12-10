@@ -2,7 +2,6 @@ package edu.ues21.tattoo.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -10,9 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -63,6 +59,12 @@ public class ClienteServiceImpl implements ClienteService{
 		// TODO Auto-generated method stub
 		return clienteRepository.getByPersonId(idPerson);
 	}
+
+	@Override
+	public Cliente getByUsername(String username) {
+		// TODO Auto-generated method stub
+		return clienteRepository.getByUsername(username);
+	}	
 	
 	@Override
 	public void update(Cliente cliente) {
@@ -140,7 +142,7 @@ public class ClienteServiceImpl implements ClienteService{
 			}
 		}		
 	}
-	
+
 	private Message prepareMesage(Session session, String mailOrigen, String mailDestino, 
 			String fullName, String fecha) {
 		// TODO Auto-generated method stub
@@ -192,6 +194,6 @@ public class ClienteServiceImpl implements ClienteService{
 		}
 		
 		return null;
-	}	
+	}
 	
 }

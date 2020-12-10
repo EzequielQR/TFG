@@ -37,6 +37,9 @@ public class Cliente implements Serializable{
 	@OneToOne
 	@JoinColumn(name="personas_id")
 	private Persona persona;
+	@OneToOne
+	@JoinColumn(name="usuarios_nombre")
+	private Usuario usuario;
 	
 	public Cliente() {
 		super();
@@ -59,12 +62,17 @@ public class Cliente implements Serializable{
 	public void setFichaClinica(FichaClinica fichaClinica) {
 		this.fichaClinica = fichaClinica;
 	}
-
 	public Persona getPersona() {
 		return persona;
 	}
 	public void setPersona(Persona persona) {
 		this.persona = persona;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

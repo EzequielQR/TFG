@@ -27,6 +27,7 @@ public class HomeController {
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
 			
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
 			model.addAttribute("nombre", user.getUsername());
 			model.addAttribute("fechaUltimoCambio", usuarioService.getById(user.getUsername()).getUltimoCambio());
 		}
@@ -37,6 +38,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "/error403", method = RequestMethod.GET)
 	public String error403(Model model) {
+		
+		if(SecurityContextHolder.getContext().getAuthentication() != null && 
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nombre", user.getUsername());
+		}
+		
 		return "error403";
 	}
 	

@@ -1,10 +1,13 @@
 package edu.ues21.tattoo.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -171,33 +174,74 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
-	public String edit(@RequestParam("id") String idPersona, Model model) {
+	public String edit(@RequestParam(required = false, name = "id") String idPersona,
+			           Model model) {
+		String username = "";
+		boolean isCustomer = false;
+		
 		if(SecurityContextHolder.getContext().getAuthentication() != null && 
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
 			
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			model.addAttribute("nombre", user.getUsername());
+			username = user.getUsername();
+			
+			Iterator<? extends GrantedAuthority> itr = user.getAuthorities().iterator();
+			
+			while(itr.hasNext()) {
+				GrantedAuthority authority = itr.next();
+				
+				if(authority.getAuthority().equalsIgnoreCase("customer")) 
+					isCustomer = true;
+			}
+			model.addAttribute("nombre", username);
 		}
 		
-		int id = Integer.parseInt(idPersona);
-		Persona persona = personaService.getById(id);
+		int idPerson;
+		
+		if(idPersona != null && isCustomer == false) {
+			idPerson = Integer.parseInt(idPersona);
+			model.addAttribute("customer", false);
+		}
+		else {
+			idPerson = clienteService.getByUsername(username).getPersona().getId();
+			model.addAttribute("customer", true);
+		}
+		
+		Persona persona = personaService.getById(idPerson);
 		
 		model.addAttribute("persona", persona);
 		model.addAttribute("listaTipoDocumentos", categoriaService.getByTipo(1));
 		
 		if(persona.getRol().getNombre().equalsIgnoreCase("TATUADOR")) {
-			model.addAttribute("alias", tatuadorService.getByPersonId(id).getPseudonimo());
+			model.addAttribute("alias", tatuadorService.getByPersonId(idPerson).getPseudonimo());
 		}
 		
 		return "usuario_editar";
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("persona") Persona persona,
+	public String edit(@RequestParam(required = true, name = "id") int id,
+					   @RequestParam(required = true, name = "nombre") String nombre,
+					   @RequestParam(required = true, name = "apellido") String apellido,
+					   @RequestParam(required = true, name = "numeroDocumento") String numeroDocumento,
+					   @RequestParam(required = true, name = "correoElectronico") String correoElectronico,
+					   @RequestParam(required = true, name = "telefono") String telefono,
+					   @RequestParam(required = true, name = "domicilio") String domicilio,
 					   @RequestParam(required = true, name = "usuarioRol") String tipoRol,
 					   @RequestParam(required = true, name = "usuarioDocumento") String tipoDocumento,
 					   @RequestParam(required = true, name = "action") String btnPressed,
-					   @RequestParam(required = false, name = "tatuadorAlias") String aliasTatuador) {
+					   @RequestParam(required = false, name = "tatuadorAlias") String aliasTatuador,
+					   @RequestParam(required = true, name = "customerBoolean") boolean customer) {
+		Persona persona = new Persona();
+
+		persona.setId(id);
+		persona.setNombre(nombre);
+		persona.setApellido(apellido);
+		persona.setNumeroDocumento(numeroDocumento);
+		persona.setCorreoElectronico(correoElectronico);
+		persona.setTelefono(telefono);
+		persona.setDomicilio(domicilio);
+		
 		persona.setTipoDocumento(categoriaService.getByName(tipoDocumento));
 		persona.setRol(categoriaService.getByName(tipoRol));
 		personaService.update(persona);
@@ -212,8 +256,10 @@ public class UsuarioController {
 			Cliente cliente = clienteService.getByPersonId(persona.getId());
 			return "redirect:/ficha-clinica/editar?id-cliente=" + cliente.getId();
 		}
-		else
+		else if(customer == false)
 			return "redirect:/usuario/mostrar";
+		else
+			return "redirect:/usuario/editar";
 	}
 	
 	@ResponseBody

@@ -53,6 +53,17 @@ public class ClienteRepositoryImpl implements ClienteRepository{
 	}
 	
 	@Override
+	public Cliente getByUsername(String username) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("from Cliente where usuario.nombre = :name");
+		query.setString("name", username);
+		Cliente cliente = (Cliente) query.uniqueResult();
+		session.getTransaction().commit();
+		return cliente;
+	}
+	
+	@Override
 	public void update(Cliente cliente) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.beginTransaction();

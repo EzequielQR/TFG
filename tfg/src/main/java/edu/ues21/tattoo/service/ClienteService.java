@@ -14,4 +14,5 @@ public interface ClienteService {
 	void delete(Cliente cliente);
 	void delete(int id);
 	void sendMailAppointment(String fullName, Date fecha, String correoElectronico);
+	Cliente getByUsername(String username);
 }

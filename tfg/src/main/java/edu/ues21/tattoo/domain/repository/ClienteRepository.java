@@ -12,4 +12,5 @@ public interface ClienteRepository {
 	void update(Cliente cliente);
 	void delete(Cliente cliente);
 	void delete(int id);
+	Cliente getByUsername(String username);
 }

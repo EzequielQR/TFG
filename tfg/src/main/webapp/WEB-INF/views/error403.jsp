@@ -71,10 +71,33 @@
 			</div>
 		</div>
 	</nav>
-
 	<div class="container">
-		<section class="main row">
-					
+		<br>
+		<section class="main row" style="background: #f2f2f2;">
+			<article class="col-lg-8 col-md-9 col-sm-8 col-xs-12">
+				<h3 style="text-align: center;">
+					<span class="glyphicon glyphicon-eye-close"></span>
+					&nbsp;Acceso Prohibido&nbsp;
+					<span class="glyphicon glyphicon-eye-close"></span>
+				</h3>
+				<p style="text-align: center;">
+					<strong>No es posible acceder a la dirección pretendida.</strong>
+					<br>
+					Si crees que ocurrió un error, deberías ponerte en contacto con el administrador.
+				</p>
+			</article>
+
+			<aside class="col-lg-4 col-md-3 col-sm-4 col-xs-12" style="background: #c0392b;color: #fff;">
+				<h3 style="text-align: center;">
+					<span class="glyphicon glyphicon-info-sign"></span>
+					&nbsp;ERROR 403&nbsp;
+					<span class="glyphicon glyphicon-info-sign"></span>
+				</h3>
+				<p>
+					El error 403 denota que no tenés los permisos suficentes para acceder a la dirección solicitada,
+					ergo, se te ha denegado el acceso. 
+				</p>
+			</aside>
 		</section>
 	</div>
 	<!-- Modal -->
