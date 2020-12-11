@@ -36,14 +36,40 @@ public class FichaClinicaController {
 	@RequestMapping(value = "/mostrar", method = RequestMethod.GET)
 	public String show(@RequestParam(required = true, name = "id-cliente") String idCliente,
 					   Model model) {
+		boolean isCustomer = false;
+		String username = "";
+		
 		if(SecurityContextHolder.getContext().getAuthentication() != null && 
 				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
 			
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			model.addAttribute("nombre", user.getUsername());
+			username = user.getUsername();
+			
+			model.addAttribute("nombre", username);
+			
+			Iterator<? extends GrantedAuthority> itr = user.getAuthorities().iterator();
+			
+			while(itr.hasNext()) {
+				GrantedAuthority authority = itr.next();
+				
+				if(authority.getAuthority().equalsIgnoreCase("customer")) 
+					isCustomer = true;
+			}
 		}
 		
-		model.addAttribute("cliente", clienteService.getById(Integer.parseInt(idCliente)));
+		Cliente cliente = clienteService.getById(Integer.parseInt(idCliente));
+		
+		if(isCustomer == true) {
+			Cliente clienteLogged = clienteService.getByUsername(username);
+			
+			if(clienteLogged.getId() != cliente.getId()) {
+				model.asMap().clear();
+				return "redirect:/error403";
+			}
+			
+		}
+		
+		model.addAttribute("cliente", cliente);
 		return "fichaClinica_visualizar";	
 	}
 	
@@ -143,6 +169,7 @@ public class FichaClinicaController {
 				model.asMap().clear();
 				return "redirect:/error403";
 			}
+			
 		}
 		
 		model.addAttribute("cliente", cliente);

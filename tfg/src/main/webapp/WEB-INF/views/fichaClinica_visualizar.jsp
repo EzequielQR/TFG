@@ -25,7 +25,12 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-left" href="${pageContext.request.contextPath}/home"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
+				<sec:authorize access="hasAnyRole('ADMIN', 'TATTOOIST', 'MANAGER', 'RECEPTIONIST')">
+					<a class="navbar-left" href="${pageContext.request.contextPath}/home"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
+				</sec:authorize>
+				<sec:authorize access="hasRole('CUSTOMER')">
+					<a class="navbar-left" href="#"><img src="<c:url value="/resources/img/img-snowflake48x48.png"/>"></a>
+				</sec:authorize>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavBar">
 				<ul class="nav navbar-nav">
@@ -49,6 +54,16 @@
 									<li><a href="${pageContext.request.contextPath}/stock/crear">Registrar Producto</a></li>
 									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 								</ul>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('CUSTOMER')">
+						<li><a href="${pageContext.request.contextPath}/usuario/editar">Datos Personales</a></li>
+						<li class="dropdown active">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ficha Clínica<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Visualizar</a></li>
+										<li><a href="${pageContext.request.contextPath}/ficha-clinica/editar?id-cliente=${param['id-cliente']}">Editar</a></li>
+									</ul>
 						</li>
 					</sec:authorize>
 				</ul>
