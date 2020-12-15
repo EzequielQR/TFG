@@ -81,6 +81,16 @@
 	  				</c:forEach>
 				</div>
 				
+				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+					<label for="school_selector">Filtrar por Tatuador:</label>
+					<select class="form-control" id="school_selector">
+	  					<option value="all">Todos</option>
+	  					<c:forEach items="${listTatuadores}" var="tattooist">
+	  						<option value="${tattooist.color}">${tattooist.pseudonimo}</option>
+	  					</c:forEach>
+					</select>
+				</div>
+				<br>
 				<section class="main row">
 					<div id="calendar"></div>
 				</section>
@@ -619,6 +629,12 @@
 			    // Page is now ready, initialize the calendar with JS Code.
 			    $('#calendar').fullCalendar({
 			    	
+			    	header : {
+			    				left: '',
+			            		center: 'title',
+			            		right: 'today prev,next'
+			       			 },
+			    	
 			    	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 	
 		            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
@@ -887,8 +903,11 @@
 	  							}
 	  						});
 	  					}
+	  				},
+	  				eventRender: function eventRender( event, element, view ) {
+	  					return $('#school_selector').val() === 'all' || 
+	  							[event.color].indexOf($('#school_selector').val()) >= 0;
 	  				}
-	  				
 			    })
 			    
 				$("#btnSubmitUploadPassword").click(function(){
@@ -961,6 +980,10 @@
 				    $('#editButtonTab3').hide();
 				    
 				    $("#tab-details").trigger("click");
+				});
+				
+				$('#school_selector').on('change',function(){
+				    $('#calendar').fullCalendar('rerenderEvents');
 				});
 				
 			});
