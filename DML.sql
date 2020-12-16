@@ -118,13 +118,20 @@ INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('116', '7', 'Puntera', 'Tipos de Productos');
 INSERT INTO `tfg`.`categorias` (`id`, `tipo`, `nombre`, `descripcion`) VALUES ('117', '7', 'Tinta', 'Tipos de Productos');
 
--- Password: Admin1234
--- Password: Gabriel1234
--- Password: Adam1234
--- Password: Ludmila1234
--- Password: Marcelo1234
--- Password: Nahuel1234
--- Password: Francisco1234
+-- Password: Admin1234		Role: Admin
+-- Password: Gabriel1234	Role: Tattooist
+-- Password: Adam1234		Role: Manager
+-- Password: Ludmila1234	Role: Receptionist
+-- Password: Marcelo1234	Role: Tattooist
+-- Password: Nahuel1234		Role: Tattooist
+-- Password: Francisco1234	Role: Manager
+
+-- Password: Ezequiel1234	Role: Customer
+-- Password: Charles1234	Role: Customer
+-- Password: Leonard1234	Role: Customer
+-- Password: Ferdinand1234	Role: Customer
+-- Password: Callixtus1234	Role: Customer
+-- Password: Paul1234		Role: Customer
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('admin', '$2a$10$IM5zqoWQ50rYA9Sjh/xak.WPBA4XfxjZbb5qwK.nbrT.21GS2rfJa', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('gdroguett', '$2a$10$0nJjqyoX0R9YkWykagQx1OwxESSCYYhbp7vGyzm9Fhlso/U4dG5Iy', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('asmith', '$2a$10$zMdT7Zm9Zotrc.unDh.vNuBznpBZxSJBixiKnAV/qAIiwbTtTYev6', '2020-07-20 11:13:15', '1');
@@ -132,6 +139,12 @@ INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `ac
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('mrenzo', '$2a$10$z7IUjpUhz2iaBI4exkhYd.4T64sjN4Ms07BWY4w21HgcROux2WkQy', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ndroguett', '$2a$10$uTsoYZIN1mRLzBzwke9sye/GB26cX39hEYRukdm82ea6/YN5yunIC', '2020-07-20 11:13:15', '1');
 INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('freyes', '$2a$10$Gif/KkgWHiJ0.AKMbYeXP.MkqmhOvioUv4Lr4JBhLKP42lVTjL9FW', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ereyes', '$2a$10$9iZuW4z7hzlPT2i28vH0ueHBdEWYH8Ge1g6ZgiXdXu2bBeUAqge.m', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('cramonda', '$2a$10$ZIX.XuDGrDTLnfiiQYS9fOP.vqb7uqGlxGott6v.7t81m7zpzWgte', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ldiprinzio', '$2a$10$NKbiyUSXGHZt8j94HXdC0O9xNP5y3Qcf6xwQODBavbmsspQbxbM0K', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('ffrias', '$2a$10$UNO5DRiDzXyfKwY80neW3eR.cijSajrWNA3/xsxZGgN5kEhrFGW9e', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('cmaldonado', '$2a$10$XSVl/jYD13Ys0rHfZ9NHKu4hYdn8qtgS7bC.RFROAz6qiFNg0rtcS', '2020-07-20 11:13:15', '1');
+INSERT INTO `tfg`.`usuarios` (`nombre`, `contrasenia_hash`, `ultimo_cambio`, `activo`) VALUES ('pgodino', '$2a$10$UQw1ZP6gEiM8.bbFII3lau1rxSV0Lv40XSsPxHZxMz3UDLV7082cq', '2020-07-20 11:13:15', '1');
 
 
 INSERT INTO `tfg`.`personas` (`id`, `numero_documento`, `nombre`, `apellido`, `telefono`, `domicilio`, `correo_electronico` ,`categorias_id_tipo_documento`, `categorias_id_rol`) VALUES ('1', '35933000', 'Ezequiel', 'Reyes', '388-3432000', 'Parana 487', 'eezequielq@micorreo.com' ,'1', '9');
@@ -181,21 +194,21 @@ INSERT INTO `tfg`.`fichas_clinica_piel` (`id`, `psoriasis`, `eccema`, `queloide`
 INSERT INTO `tfg`.`fichas_clinica_ets` (`id`, `vih`, `sifilis`, `hepatitis_b`, `hpv`, `comentario`) VALUES ('6', '0', '0', '0', '0', 'No aplica');
 INSERT INTO `tfg`.`fichas_clinicas` (`id`, `grupo_sanguineo`, `factor_rh`, `alergias`, `problemas_cardiacos`, `comentarios`, `fichas_clinica_ets_id`, `fichas_clinica_piel_id`) VALUES ('6', 'AB', '+', 'Ninguno', 'Si', 'No aplica', '6', '6');
 
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('1', '1', '1');
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('2', '2', '2');
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('3', '3', '3');
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('4', '4', '4');
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('5', '5', '5');
-INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`) VALUES ('6', '6', '6');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('1', '1', '1', 'ereyes');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('2', '2', '2', 'cramonda');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('3', '3', '3', 'ldiprinzio');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('4', '4', '4', 'ffrias');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('5', '5', '5', 'cmaldonado');
+INSERT INTO `tfg`.`clientes` (`id`, `fichas_clinicas_id`, `personas_id`, `usuarios_nombre`) VALUES ('6', '6', '6', 'pgodino');
 
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('1', 'Japonés en pierna.', DATE_ADD(current_timestamp(), INTERVAL -2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -2 DAY), INTERVAL 5 HOUR), '2000', 'https://i.pinimg.com/originals/ac/e7/b3/ace7b3e93a93dbc19be7c3c5d3aa129d.jpg', '6', '4', '18', '1', '1', 'gdroguett');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('2', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 5 HOUR), '6000', 'https://i.pinimg.com/originals/db/4e/42/db4e424ecead3c32cb29afb1048255b6.jpg', '7', '4', '22', '1', '1', 'gdroguett');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('3', 'Maori en espalda.', current_timestamp(), DATE_ADD(current_timestamp(), INTERVAL 4 HOUR), '500', 'https://i.pinimg.com/originals/16/ae/66/16ae6631d50ea1d3bb1c39a3ea797593.jpg', '6', '4', '20', '1', '2', 'gdroguett');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('4', 'Realismo en pierna.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 5 HOUR), '800', 'https://i.pinimg.com/736x/71/ab/d0/71abd0141dcfe0f11868d3971d31c1b6.jpg', '6', '4', '25', '2', '3', 'lserra');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('5', 'Trash Polka en muslo.', DATE_ADD(current_timestamp(), INTERVAL 1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 4 HOUR), '1500', 'https://i.pinimg.com/736x/bf/94/d3/bf94d3c88b71156a39751509cc298cb4.jpg', '6', '4', '28', '2', '4', 'lserra');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('6', 'Lettering en antebrazo.', DATE_ADD(current_timestamp(), INTERVAL -1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 5 HOUR), '1200', 'https://i.pinimg.com/564x/64/2c/57/642c579b1f334d48acaa85017fea66f0.jpg', '6', '4', '19', '3', '5', 'mrenzo');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('7', 'New School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 2 DAY), INTERVAL 3 HOUR), '2500', 'https://i.pinimg.com/originals/e4/a0/34/e4a0346b8c61f2a4ea896477aa23caf6.jpg', '6', '4', '22', '3', '6', 'asmith');
-INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('8', 'Old School en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 3 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 3 DAY), INTERVAL 5 HOUR), '6000', 'https://i.pinimg.com/originals/80/d4/7b/80d47b9f8fe0e07aa92713ffd4766bc4.jpg', '7', '4', '23', '3', '1', 'mrenzo');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('1', 'Ryu en pierna.', DATE_ADD(current_timestamp(), INTERVAL -2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -2 DAY), INTERVAL 5 HOUR), '2000', 'https://i.pinimg.com/originals/ac/e7/b3/ace7b3e93a93dbc19be7c3c5d3aa129d.jpg', '6', '4', '18', '1', '1', 'gdroguett');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('2', 'Popsicle en bicep.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 5 HOUR), '6000', 'https://i.pinimg.com/originals/dc/96/e3/dc96e36d207b4066b60fb3e5c75941d7.jpg', '7', '4', '22', '1', '1', 'gdroguett');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('3', 'Sol en espalda.', current_timestamp(), DATE_ADD(current_timestamp(), INTERVAL 4 HOUR), '500', 'https://i.pinimg.com/originals/be/30/a7/be30a722f85305c44ec67abc2c0b41f0.jpg', '6', '4', '20', '1', '2', 'gdroguett');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('4', 'Querubín en pierna.', DATE_ADD(current_timestamp(), INTERVAL -1 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL -1 DAY), INTERVAL 5 HOUR), '800', 'https://i.pinimg.com/736x/71/ab/d0/71abd0141dcfe0f11868d3971d31c1b6.jpg', '6', '4', '25', '2', '3', 'lserra');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('5', 'Cráneo en muslo.', DATE_ADD(current_timestamp(), INTERVAL 1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 4 HOUR), '1500', 'https://i.pinimg.com/originals/16/64/71/166471206a0cd5a24954be73d6a294a5.jpg', '6', '4', '28', '2', '4', 'lserra');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('6', 'Familia en antebrazo.', DATE_ADD(current_timestamp(), INTERVAL -1 HOUR), DATE_ADD(current_timestamp(), INTERVAL 5 HOUR), '1200', 'https://i.pinimg.com/564x/64/2c/57/642c579b1f334d48acaa85017fea66f0.jpg', '6', '4', '19', '3', '5', 'mrenzo');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('7', 'Dinosaurio en rodilla.', DATE_ADD(current_timestamp(), INTERVAL 2 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 2 DAY), INTERVAL 3 HOUR), '2500', 'https://i.pinimg.com/originals/e4/a0/34/e4a0346b8c61f2a4ea896477aa23caf6.jpg', '6', '4', '22', '3', '6', 'asmith');
+INSERT INTO `tfg`.`turnos` (`id`, `descripcion`, `fecha_inicio`, `fecha_fin`, `seña`, `imagen_referencia`, `categorias_id_estado`, `categorias_id_prioridad`, `categorias_id_tipo_tatuaje`, `tatuadores_id`, `clientes_id`, `usuarios_nombre_iniciado_por`) VALUES ('8', 'Rosa en cuello.', DATE_ADD(current_timestamp(), INTERVAL 3 DAY), DATE_ADD(DATE_ADD(current_timestamp(), INTERVAL 3 DAY), INTERVAL 5 HOUR), '6000', 'https://i.pinimg.com/originals/89/79/bc/8979bcf9efb1a052ed734170e41fb9ad.jpg', '7', '4', '23', '3', '1', 'mrenzo');
 
 INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('1', '1', '5', 'Crema no apta para líneas', '38', '114');
 INSERT INTO `tfg`.`productos` (`id`, `cantidad_actual`, `cantidad_minima`, `caracteristica`, `categorias_id_marca`, `categorias_id_tipo_producto`) VALUES ('2', '70', '50', 'Color: Solid Black', '30', '117');

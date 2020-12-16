@@ -32,7 +32,7 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavBar">
 					<ul class="nav navbar-nav">
-						<li class="dropdown active">
+						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Turnos<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 									<li><a href="${pageContext.request.contextPath}/turno/mostrar">Crear/Visualizar Turnos</a></li>
@@ -52,6 +52,7 @@
 									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 								</ul>
 						</li>
+						<li class="active"><a href="#">Back-up</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -72,7 +73,64 @@
 				</div>
 			</div>
 		</nav>
-
+		<div class="container">
+			<div class="main row">
+				<div class="alert alert-info alert-dismissible fade in">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<span class="glyphicon glyphicon-info-sign"></span>
+					A continuación, se visualizan las imágenes post-sesión almacenadas en la nube.
+				</div>
+				
+				<form:form class="form-horizontal" method="POST" id="form-filter">
+					<div class="form-group">
+						<label for="input-search" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Búsqueda:</label>
+					    <div class="col-lg-7 col-md-6 col-sm-6 col-xs-5">
+					     <input type="text" class="form-control" id="input-search" 
+					     placeholder="Buscar por descripción. Para refinar la búsqueda usar los filtros."
+					     name="query">
+					    </div>
+					    
+					    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+					    	<button type="button" class="btn btn-info" id="btnFilter" data-toggle="modal" data-target="#myModal">
+								<span class="glyphicon glyphicon-cog"></span>
+								Filtros
+							</button>
+					    </div>
+					    
+					    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-1">
+					    	<button type="submit" class="btn btn-primary" id="btnSubmit" name="action" value="search">
+								<span class="glyphicon glyphicon-search"></span>
+								Buscar
+							</button>
+					    </div>
+					</div>
+				</form:form>
+			
+				<c:forEach items="${listAppointment}" var="appointment">
+					<div class="col-xs-6 col-md-4 col-lg-4">
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="text-align: center;">
+								<strong>${appointment.tatuador.pseudonimo}</strong>&nbsp;-&nbsp;Fecha:&nbsp;<fmt:formatDate value="${appointment.fechaInicio}" pattern="dd/MMM/yyyy"/>
+							</div>
+			            	<div class="panel-body">
+			            		<a href='<c:out value="${appointment.publicId}"/>' target="_blank">
+				                	<img style="width:365px;height:335px" src='<c:out value="${appointment.publicId}"/>' 
+				                	class="img-responsive img-rounded">
+				                </a>
+				            </div>
+				            <div class="panel-footer" style="text-align: center;">
+				            	<strong>${appointment.tipoTatuaje.nombre}</strong>:&nbsp;${appointment.descripcion}
+				            	<br><br>
+				            	<a href='<c:url value="/backup/eliminar?id-turno=${appointment.id}"/>' class="btn btn-lg btn-block btn-danger"> 
+				            		<span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar Foto
+				            	</a>
+				            </div>
+			        	</div>
+					</div>
+				</c:forEach>				
+			</div>
+		</div>
+		
 		<!-- Modal Change Password-->
 		<div id="modalChangePassword" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
@@ -125,6 +183,54 @@
 		
 		  </div>
 		</div><!-- End modal root -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+		    
+		      	<div class="modal-content">
+		        	<div class="modal-header">
+		          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          		<h4 class="modal-title">Filtros de Búsqueda</h4>
+		        </div>
+		        
+		        <div class="modal-body">
+		        	<form:form method="POST" id="form-modal-filter">
+			      		<legend>Filtros</legend>
+			      		
+			      		<div class="form-group">
+				      		<label for="input-search">Búsqueda:</label>
+						     <input type="text" class="form-control" id="input-search" 
+						     placeholder="Buscar por descripción" name="description">
+			      		</div>
+			      		
+			      		<div class="form-group">
+				    		<label for="input-tatuador">Tatuador:</label>
+				    		<select class="form-control" id="input-tatuador" name="tattooist_nickname">
+				    			<option value="all">Todos</option>
+				    			<c:forEach items="${listTattooist}" var="tattooist">
+									<option value="${tattooist.pseudonimo}">${tattooist.pseudonimo}</option>
+								</c:forEach>
+				    		</select>
+	  					</div>
+					
+		      		</form:form>
+		        </div>
+		        
+		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">
+		          		<span class="glyphicon glyphicon-remove"></span>
+		          		Cerrar
+		          	</button>
+		          	<button type="button" class="btn btn-success" id="btnSubmitFilter">
+		        		<span class="glyphicon glyphicon-search"></span>
+		        		Buscar
+		        	</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		</div>
 		<script src="<c:url value="/resources/jquery-3.5.1/jquery.min.js"/>"></script>
 		<script src="<c:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js"/>"></script>
 		<script type="text/javascript">
@@ -186,6 +292,10 @@
 					$("#input-modal-new-password-repeat").val("");
 					$('#modalChangePassword').data('bs.modal',null);// this clears the BS modal data
 					$("#title-modal-change-password").text("Cambiar contraseña");
+				});
+				
+				$("#btnSubmitFilter").click(function(){
+					$("#form-modal-filter").submit();
 				});
 				
 	   		});

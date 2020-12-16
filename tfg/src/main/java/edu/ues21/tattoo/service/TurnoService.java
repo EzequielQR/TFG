@@ -19,4 +19,6 @@ public interface TurnoService {
 	List<String> getImagesList(String query);
 	void insertTurnosHASproductos(int idTurno, int idProducto);
 	String translateStyleTattoo(String style);
+	List<Turno> getAppointmentsWithCloudinaryPhotos();
+	void deleteCloudinaryField(int idTurno);
 }

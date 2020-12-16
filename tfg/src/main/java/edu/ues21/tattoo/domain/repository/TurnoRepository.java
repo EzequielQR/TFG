@@ -16,4 +16,6 @@ public interface TurnoRepository {
 	void insertTurnosHASproductos(int turnoId, int productoId);
 	void deleteAllByCustomerId(int id);
 	void deleteAllByTattoistId(int id);
+	List<Turno> getAppointmentsWithCloudinaryPhotos();
+	void deleteCloudinaryField(int idTurno);
 }

@@ -329,4 +329,16 @@ public class TurnoServiceImpl implements TurnoService{
 		}
 	}
 
+	@Override
+	public List<Turno> getAppointmentsWithCloudinaryPhotos() {
+		// TODO Auto-generated method stub
+		return turnoRepository.getAppointmentsWithCloudinaryPhotos();
+	}
+
+	@Override
+	public void deleteCloudinaryField(int idTurno) {
+		// TODO Auto-generated method stub
+		turnoRepository.deleteCloudinaryField(idTurno);
+	}
+
 }

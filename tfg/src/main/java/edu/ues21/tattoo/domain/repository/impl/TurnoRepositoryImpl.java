@@ -128,4 +128,26 @@ public class TurnoRepositoryImpl implements TurnoRepository{
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public List<Turno> getAppointmentsWithCloudinaryPhotos() {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("SELECT t FROM Turno t WHERE (t.publicId != '') "
+										+ "AND (t.publicId IS NOT NULL) "
+										+ "ORDER BY t.fechaInicio DESC");
+		List<Turno> list = query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+
+	@Override
+	public void deleteCloudinaryField(int idTurno) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.beginTransaction();
+		Query query = session.createQuery("UPDATE Turno t SET t.publicId = NULL WHERE t.id = :id");
+		query.setInteger("id", idTurno);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+
 }
