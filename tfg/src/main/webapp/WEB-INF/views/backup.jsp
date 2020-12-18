@@ -195,7 +195,7 @@
 		        </div>
 		        
 		        <div class="modal-body">
-		        	<form:form method="POST" id="form-modal-filter">
+		        	<form:form method="POST" id="form-modal-filter" action="${pageContext.request.contextPath}/backup/filter">
 			      		<legend>Filtros</legend>
 			      		
 			      		<div class="form-group">
@@ -206,10 +206,20 @@
 			      		
 			      		<div class="form-group">
 				    		<label for="input-tatuador">Tatuador:</label>
-				    		<select class="form-control" id="input-tatuador" name="tattooist_nickname">
+				    		<select class="form-control" id="input-tatuador" name="tattooist-nickname">
 				    			<option value="all">Todos</option>
 				    			<c:forEach items="${listTattooist}" var="tattooist">
 									<option value="${tattooist.pseudonimo}">${tattooist.pseudonimo}</option>
+								</c:forEach>
+				    		</select>
+	  					</div>
+	  					
+	  					<div class="form-group">
+				    		<label for="input-tattoo-style">Estilo Tatuaje:</label>
+				    		<select class="form-control" id="input-tattoo-style" name="id-style-tattoo">
+				    			<option value="all">Todos</option>
+				    			<c:forEach items="${listTattooStyle}" var="style">
+									<option value="${style.nombre}">${style.nombre}</option>
 								</c:forEach>
 				    		</select>
 	  					</div>

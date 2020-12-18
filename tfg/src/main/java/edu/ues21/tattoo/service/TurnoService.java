@@ -21,4 +21,5 @@ public interface TurnoService {
 	String translateStyleTattoo(String style);
 	List<Turno> getAppointmentsWithCloudinaryPhotos();
 	void deleteCloudinaryField(int idTurno);
+	List<Turno> filterAppointmentWithCloudinaryPhotos(String description, String nickTattoist, String styleTattoo);
 }

@@ -8,10 +8,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -26,6 +29,7 @@ import com.google.api.services.customsearch.CustomsearchRequestInitializer;
 import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 
+import edu.ues21.tattoo.domain.CredCloudinary;
 import edu.ues21.tattoo.domain.CredGoogleCustomSearch;
 import edu.ues21.tattoo.domain.EventDTO;
 import edu.ues21.tattoo.domain.Turno;
@@ -332,13 +336,69 @@ public class TurnoServiceImpl implements TurnoService{
 	@Override
 	public List<Turno> getAppointmentsWithCloudinaryPhotos() {
 		// TODO Auto-generated method stub
-		return turnoRepository.getAppointmentsWithCloudinaryPhotos();
+		return setUrlCloudinary(turnoRepository.getAppointmentsWithCloudinaryPhotos());
 	}
 
 	@Override
 	public void deleteCloudinaryField(int idTurno) {
 		// TODO Auto-generated method stub
 		turnoRepository.deleteCloudinaryField(idTurno);
+	}
+
+	@Override
+	public List<Turno> filterAppointmentWithCloudinaryPhotos(String description, String nickTattoist, 
+															 String styleTattoo) {
+		// TODO Auto-generated method stub
+		List<Turno> appointmentsWithCloudinaryPhotos = turnoRepository.getAppointmentsWithCloudinaryPhotos();
+		Iterator<Turno> itr = appointmentsWithCloudinaryPhotos.iterator();
+		
+		while(itr.hasNext() && !nickTattoist.equalsIgnoreCase("all")) {
+
+			if(itr.next().getTatuador().getPseudonimo().equalsIgnoreCase(nickTattoist) == false) 
+				itr.remove();
+			
+		}
+		
+		itr = appointmentsWithCloudinaryPhotos.iterator();
+		
+		while(itr.hasNext() && description != null  && !description.equalsIgnoreCase("") ) {
+			
+			if(itr.next().getDescripcion().contains(description) == false)
+				itr.remove();
+			
+			
+		}
+		
+		itr = appointmentsWithCloudinaryPhotos.iterator();
+		
+		while(itr.hasNext() && !styleTattoo.equalsIgnoreCase("all")) {
+			
+			if(itr.next().getTipoTatuaje().getNombre().equalsIgnoreCase(styleTattoo) == false)
+				itr.remove();
+				
+		}
+		
+		return setUrlCloudinary(appointmentsWithCloudinaryPhotos);
+	}
+	
+	private List<Turno> setUrlCloudinary(List<Turno> listAppointment){
+		
+		Cloudinary c = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", CredCloudinary.ACCOUNT.getCloudName(),
+				"api_key", CredCloudinary.ACCOUNT.getApiKey(),
+				"api_secret", CredCloudinary.ACCOUNT.getApiSecret()));
+		
+		for(int i = 0; i < listAppointment.size(); i++) {
+			try {
+				Map result = c.api().resource(listAppointment.get(i).getPublicId(), ObjectUtils.emptyMap());
+				listAppointment.get(i).setPublicId(result.get("url").toString());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return listAppointment;
 	}
 
 }

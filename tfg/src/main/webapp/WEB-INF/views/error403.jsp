@@ -55,6 +55,7 @@
 									<li><a href="${pageContext.request.contextPath}/stock/mostrar">Visualizar Stock</a></li>
 								</ul>
 						</li>
+						<li><a href="${pageContext.request.contextPath}/backup">Back-up</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('CUSTOMER')">
 						<li><a href="${pageContext.request.contextPath}/usuario/editar">Datos Personales</a></li>

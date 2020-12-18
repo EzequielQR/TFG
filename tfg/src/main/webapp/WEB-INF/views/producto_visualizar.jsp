@@ -53,6 +53,7 @@
 									<li><a href="#">Visualizar Stock</a></li>
 								</ul>
 						</li>
+						<li><a href="${pageContext.request.contextPath}/backup">Back-up</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
